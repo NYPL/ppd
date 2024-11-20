@@ -1,0 +1,12 @@
+Dockerfile
+.dockerignore
+node_modules
+README.md
+LICENSE.md
+TODO.md
+.next
+!.next/standalone
+!.next/static
+.git
+package-lock.json
+pnpm-lock.yaml

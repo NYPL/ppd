@@ -1,0 +1,26 @@
+{
+  "name": "Prints and Photography Discovery",
+  "short_name": "Prints and Photography Discovery",
+  "description": "Tool to aid in the discovery of items from the Prints and Photographs collection",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#004940",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

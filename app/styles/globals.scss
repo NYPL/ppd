@@ -1,0 +1,36 @@
+
+@use 'reset';
+
+.rs-navbar-brand {
+  padding: 1vh;
+}
+
+.rs-navbar-brand + .rs-navbar-brand {
+  padding-right: 2vw;
+}
+
+h1 {
+  color: red;
+  .rs-theme-dark & {
+    color: green;
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // &.rs-theme-dark {
+  //   background-color: black;
+  // }
+}
+
+main {
+  padding: 2vw;
+}
