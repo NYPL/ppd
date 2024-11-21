@@ -44,7 +44,7 @@ RUN pnpm i
 
 ENV NODE_ENV=production
 
-RUN --mount=type=secret,id=aws,target=/root/.aws/credentials make
+RUN --mount=type=secret,id=aws,target=/root/.aws/credentials make -d
 
 USER $USERNAME
 EXPOSE 3000
