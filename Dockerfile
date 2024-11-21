@@ -44,10 +44,7 @@ RUN pnpm i
 
 ENV NODE_ENV=production
 
-RUN --mount=type=secret,id=accesskey --mount=type=secret,id=secretkey \
-  export AWS_ACCESS_KEY_ID=$(cat /run/secrets/accesskey) && \
-  export AWS_SECRET_ACCESS_KEY=$(cat /run/secrets/secretkey) && make
-
+RUN --mount=type=secret,id=aws,target=/root/.aws/credentials make -d
 
 USER $USERNAME
 EXPOSE 3000
