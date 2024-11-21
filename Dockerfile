@@ -33,7 +33,7 @@ WORKDIR /app
 RUN <<EOF
     curl -fsSL https://deb.nodesource.com/setup_23.x | bash -  &&
     apt update &&
-    apt install -y nodejs npm &&
+    apt install -qq -y nodejs npm &&
     npm install -g pnpm
 EOF
 
