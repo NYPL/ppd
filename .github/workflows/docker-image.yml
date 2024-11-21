@@ -17,7 +17,7 @@ jobs:
 
     - name: Set up the credentials file
       run: |
-        echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > $HOME/.aws/credentials
+        mkdir $HOME/.aws && echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > $HOME/.aws/credentials
 
     - name: cat credentials
       run: cat $HOME/.aws/credentials
