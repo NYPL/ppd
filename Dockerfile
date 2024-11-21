@@ -37,7 +37,9 @@ RUN <<EOF
     npm install -g pnpm
 EOF
 
+
 COPY . .
+#  TODO  technically, I should bring over pnpm-lock.yaml, too ...
 RUN pnpm i
 
 ENV NODE_ENV=production
