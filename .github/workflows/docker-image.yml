@@ -20,8 +20,11 @@ jobs:
         echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > credentials
 
     - name: credentials worked
-      run: |
-        wc -l credentials
-        echo $PWD
-        ls -al
+      run: wc -l credentials
+
+    - name: where
+      run: echo $PWD
+
+    - name: neighbors?
+      run: ls -al
 
