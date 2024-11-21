@@ -15,12 +15,5 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up the credentials file
-      run: |
-        mkdir $HOME/.aws && echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > $HOME/.aws/credentials
-
-    - name: cat credentials
-      run: cat $HOME/.aws/credentials
-
     - name: Build the Docker image
-      run: docker image build -t ppd:$(date +%s) --secret id=aws,src=$HOME/.aws/credentials .
+      run: docker image build -t ppd:$(date +%s) --secret id=accesskey,env=${{secrets.AWS_ACCESS_KEY_ID}} --secret id=secretkey,env=${{secrets.AWS_SECRET_ACCESS_KEY}} .
