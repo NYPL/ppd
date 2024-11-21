@@ -1,7 +1,8 @@
 
+all: build
 
-.PHONY: build
-build: clean
+.PHONY: data
+build: clean data
 	npm run build
 	cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/
 
@@ -14,5 +15,11 @@ dev:
 	npm run dev
 
 .PHONY: start
-start: build
+start:
 	npm run startstandalone
+
+.PHONY: data
+data: db/tms-mii.db
+
+db/tms-mii.db:
+	aws s3 cp s3://miscellaneous-ri0ohsh7/tms-mii.db $@

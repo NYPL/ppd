@@ -18,7 +18,7 @@ ARG USER_GID=$USER_UID
 RUN <<EOF
     apt-get update -qq &&
     apt-get upgrade -qq &&
-    apt-get install -qq -y --no-install-recommends sqlite3 make
+    apt-get install -qq -y --no-install-recommends sqlite3 make awscli
 EOF
 
 # create non-root user
@@ -42,10 +42,11 @@ RUN pnpm i
 
 ENV NODE_ENV=production
 
-RUN make
+RUN --mount=type=secret,id=aws,target=/root/.aws/credentials make
 
 USER $USERNAME
 EXPOSE 3000
 
+# CMD bash
 CMD HOSTNAME="0.0.0.0" npm run startstandalone
 
