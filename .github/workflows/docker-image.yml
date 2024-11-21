@@ -19,6 +19,9 @@ jobs:
       run: |
         echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > credentials
 
-    - name: cat credentials
-      run: cat credentials
+    - name: credentials worked
+      run: |
+        wc -l credentials
+        echo $PWD
+        ls -al
 
