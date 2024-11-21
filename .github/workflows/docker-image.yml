@@ -17,10 +17,10 @@ jobs:
 
     - name: Set up the credentials file
       run: |
-        echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > credentials
+        echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > $HOME/.aws/credentials
 
     - name: cat credentials
-      run: cat credentials
+      run: cat $HOME/.aws/credentials
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ppd:$(date +%s) --secret id=aws,src=credentials
+      run: docker image build -t ppd:$(date +%s) --secret id=aws,src=$HOME/.aws/credentials .
