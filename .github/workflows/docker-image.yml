@@ -19,12 +19,8 @@ jobs:
       run: |
         echo "${{ secrets.S3LIMITEDMISCELLANEOUS }}" > credentials
 
-    - name: credentials worked
-      run: wc -l credentials
+    - name: cat credentials
+      run: cat credentials
 
-    - name: where
-      run: echo $PWD
-
-    - name: neighbors?
-      run: ls -al
-
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ppd:$(date +%s) --secret id=aws,src=credentials
