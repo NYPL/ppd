@@ -44,11 +44,11 @@ RUN pnpm i
 
 ENV NODE_ENV=production
 
-RUN --mount=type=secret,id=aws,target=/root/.aws/credentials du -b /root/.aws/credentials > THIS
+RUN --mount=type=secret,id=aws,target=/root/.aws/credentials make
 
 USER $USERNAME
 EXPOSE 3000
 
-CMD bash
-# CMD HOSTNAME="0.0.0.0" npm run startstandalone
+# CMD bash
+CMD HOSTNAME="0.0.0.0" npm run startstandalone
 
