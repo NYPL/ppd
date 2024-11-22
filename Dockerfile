@@ -35,7 +35,7 @@ FROM base AS build
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-RUN mv tms-mii.db db/
+COPY tms-mii.db db/
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
