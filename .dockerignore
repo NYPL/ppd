@@ -9,6 +9,3 @@ TODO.md
 !.next/static
 .git
 package-lock.json
-pnpm-lock.yaml
-db
-*.db

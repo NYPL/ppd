@@ -1,33 +1,13 @@
 # syntax=docker/dockerfile:1.3-labs
 
-#  TODO  use a multi-stage build
 
-FROM debian:bookworm
-
-LABEL maintainer="anthonypaulfischetti@nypl.org"
-
-ENV TERM=screen-256color
-ENV LANG=C.UTF-8
-# ENV SHELL=/usr/bin/zsh
-
-ARG USERNAME=marvin
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-
+FROM debian:bookworm AS base
 
 RUN <<EOF
     apt-get update -qq &&
     apt-get upgrade -qq &&
-    apt-get install -qq -y --no-install-recommends sqlite3 make awscli
+    apt-get install -qq -y --no-install-recommends sqlite3 make
 EOF
-
-# create non-root user
-RUN <<EOF
-    groupadd --gid $USER_GID $USERNAME &&
-    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
-EOF
-
-WORKDIR /app
 
 # setup nodejs
 RUN <<EOF
@@ -38,17 +18,58 @@ RUN <<EOF
 EOF
 
 
+# --- image for installing node dependencies ----- #
+FROM base AS dependencies
+
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm i --frozen-lockfile
+
+
+# --- image for building app --------------------- #
+
+FROM base AS build
+WORKDIR /app
+COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-#  TODO  technically, I should bring over pnpm-lock.yaml, too ...
-RUN pnpm i
 
 ENV NODE_ENV=production
+RUN make
 
-RUN --mount=type=secret,id=aws,target=/root/.aws/credentials make
+
+# --- final image -------------------------------- #
+
+FROM base AS final
+WORKDIR /app
+
+LABEL maintainer="anthonypaulfischetti@nypl.org"
+
+ENV TERM=screen-256color
+ENV LANG=C.UTF-8
+ENV NODE_ENV=production
+# ENV SHELL=/usr/bin/zsh
+
+ARG USERNAME=marvin
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+# create non-root user
+RUN <<EOF
+    groupadd --gid $USER_GID $USERNAME &&
+    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+EOF
+
+RUN mkdir .next
+
+COPY --from=build /app/public ./public
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
+
+RUN chown -R $USERNAME:$USERNAME .next
 
 USER $USERNAME
 EXPOSE 3000
 
+CMD HOSTNAME="0.0.0.0" node server.js
 # CMD bash
-CMD HOSTNAME="0.0.0.0" npm run startstandalone
 
