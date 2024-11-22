@@ -33,7 +33,7 @@ jobs:
           ECR_REPOSITORY: ppd
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --secret id=aws,src=$HOME/.aws/credentials .
           MANIFEST=$(aws ecr batch-get-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-latest" --output json | jq --raw-output --join-output '.images[0].imageManifest')
           aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-previous" || true
           aws ecr put-image --repository-name $ECR_REPOSITORY --image-tag "dev-previous" --image-manifest "$MANIFEST"
