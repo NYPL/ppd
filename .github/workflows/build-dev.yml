@@ -33,13 +33,15 @@ jobs:
           ECR_REPOSITORY: ppd
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG --secret id=aws,src=$HOME/.aws/credentials .
-          MANIFEST=$(aws ecr batch-get-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-latest" --output json | jq --raw-output --join-output '.images[0].imageManifest')
-          aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-previous" || true
-          aws ecr put-image --repository-name $ECR_REPOSITORY --image-tag "dev-previous" --image-manifest "$MANIFEST"
+          aws s3 cp s3://nypl-d8-backups/tms-mii.db . --no-progress
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          #MANIFEST=$(aws ecr batch-get-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-latest" --output json | jq --raw-output --join-output '.images[0].imageManifest')
+          #aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-previous" || true
+          #aws ecr put-image --repository-name $ECR_REPOSITORY --image-tag "dev-previous" --image-manifest "$MANIFEST"
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:dev-latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:dev-latest
 
-      - name: Force ECS Update
-        run: |
-          aws ecs update-service --cluster ppd-dev --service ppd-dev --force-new-deployment
+      # Commenting out until we have an ECS cluster up
+      #- name: Force ECS Update
+      #  run: |
+      #    aws ecs update-service --cluster ppd-dev --service ppd-dev --force-new-deployment
