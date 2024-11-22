@@ -9,3 +9,4 @@ TODO.md
 !.next/static
 .git
 package-lock.json
+*.secret

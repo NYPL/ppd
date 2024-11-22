@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1.3-labs
 
+#  TODO  consider using debian-slim or alpine
 
-FROM debian:bookworm AS base
+FROM node:23-bookworm-slim AS base
 
 RUN <<EOF
     apt-get update -qq &&
@@ -10,12 +11,14 @@ RUN <<EOF
 EOF
 
 # setup nodejs
-RUN <<EOF
-    curl -fsSL https://deb.nodesource.com/setup_23.x | bash -  &&
-    apt update &&
-    apt install -qq -y nodejs npm &&
-    npm install -g pnpm
-EOF
+# RUN <<EOF
+#     curl -fsSL https://deb.nodesource.com/setup_23.x | bash -  &&
+#     apt update &&
+#     apt install -qq -y nodejs npm &&
+#     npm install -g pnpm
+# EOF
+
+RUN npm i -g pnpm
 
 
 # --- image for installing node dependencies ----- #
@@ -34,6 +37,7 @@ COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 
 ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN make
 
 
@@ -50,7 +54,7 @@ ENV NODE_ENV=production
 # ENV SHELL=/usr/bin/zsh
 
 ARG USERNAME=marvin
-ARG USER_UID=1000
+ARG USER_UID=1001
 ARG USER_GID=$USER_UID
 
 # create non-root user
@@ -69,6 +73,8 @@ RUN chown -R $USERNAME:$USERNAME .next
 
 USER $USERNAME
 EXPOSE 3000
+
+ENV NEXT_TELEMETRY_DISABLED=1
 
 CMD HOSTNAME="0.0.0.0" node server.js
 # CMD bash
