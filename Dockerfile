@@ -10,14 +10,6 @@ RUN <<EOF
     apt-get install -qq -y --no-install-recommends sqlite3 make
 EOF
 
-# setup nodejs
-# RUN <<EOF
-#     curl -fsSL https://deb.nodesource.com/setup_23.x | bash -  &&
-#     apt update &&
-#     apt install -qq -y nodejs npm &&
-#     npm install -g pnpm
-# EOF
-
 RUN npm i -g pnpm
 
 
