@@ -1,6 +1,6 @@
 'use client';
 
-import { API_URL_PREFIX } from "@/lib/config";
+import { API_PATH } from "@/lib/config";
 import { columnDefs } from "@/lib/column-definitions";
 
 import 'jquery';
@@ -31,7 +31,7 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
       className="display nowrap"
       columns={ columnDefs[tableName] }
       options={{
-        ajax: `${API_URL_PREFIX}/${tableName}/dtajax`,
+        ajax: `${API_PATH}/${tableName}/dtajax`,
         deferRender: true,
         paging: true,
         pageLength: 10,
