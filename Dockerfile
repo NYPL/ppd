@@ -1,7 +1,5 @@
 # syntax=docker/dockerfile:1.3-labs
 
-#  TODO  consider using debian-slim or alpine
-
 FROM node:23-bookworm-slim AS base
 
 RUN <<EOF
