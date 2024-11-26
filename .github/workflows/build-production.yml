@@ -38,7 +38,7 @@ jobs:
           #MANIFEST=$(aws ecr batch-get-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-latest" --output json | jq --raw-output --join-output '.images[0].imageManifest')
           #aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-previous" || true
           #aws ecr put-image --repository-name $ECR_REPOSITORY --image-tag "dev-previous" --image-manifest "$MANIFEST"
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:dev-latest
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:production-latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:production-latest
 
       #- name: Force ECS Update
