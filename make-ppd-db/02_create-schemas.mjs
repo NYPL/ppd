@@ -9,13 +9,18 @@ const INPUT_FILE = `target/datatypes/${TABLE}.tsv`;
 const OUTPUT_JSON_FILE = `target/json/${TABLE}.json`;
 const OUTPUT_SCHEMA_FILE = `./target/schemas/${TABLE}.sql`;
 const RDBMS_TARGET = 'sqlite';
-const DATATYPE_XWALK = {
+
+const SQL_DATATYPE_XWALK = {
   'sqlite': {
     'character': 'TEXT',
     'integer': 'INTEGER'
   }
 };
 
+const JS_DATATYPE_XWALK = {
+  'character': 'string',
+  'integer': 'number'
+};
 
 
 const backtickify = (_) => {
@@ -25,8 +30,8 @@ const backtickify = (_) => {
 
 
 const stampSchemaFileContents = (json) => {
-  const tmp = json.map(({ data, datatype, otherArgs }) => {
-    return `  ${backtickify(data)} ${datatype} ${otherArgs}` 
+  const tmp = json.map(({ data, sqlDatatype, otherArgs }) => {
+    return `  ${backtickify(data)} ${sqlDatatype} ${otherArgs}` 
   }).join(',\n');
   return [
     '',
@@ -37,7 +42,6 @@ const stampSchemaFileContents = (json) => {
     ''].join('\n');
 };
 
-
 fs.readFile(INPUT_FILE, 'utf-8').
   then(contents => contents.split(os.EOL).slice(1)).
   then(_ => _.filter(i => i!=='')).
@@ -46,7 +50,8 @@ fs.readFile(INPUT_FILE, 'utf-8').
     return {
       data,
       title: data.replaceAll("_", " "),
-      datatype: DATATYPE_XWALK[RDBMS_TARGET][datatype],
+      sqlDatatype: SQL_DATATYPE_XWALK[RDBMS_TARGET][datatype],
+      jsDatatype: JS_DATATYPE_XWALK[datatype],
       otherArgs
     };
   })).

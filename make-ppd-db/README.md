@@ -32,3 +32,8 @@ The "sub-schemas" described in the last step are concatenated into one
 It also adds any additional indexes, etc in `03_indexes.sql` and wraps
 everything up in a TRANSACTION
 
+### step 4:
+
+Initializes SQLite DB with the final schema and runs an R script that reads
+all datafiles from step01 and inserts the data into the empty (but
+structured) ppd.db

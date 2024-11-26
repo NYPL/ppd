@@ -17,7 +17,7 @@ vpath %.sql 	target/schema
 
 
 .PHONY: all
-all: begin step01 step02 step03 step04 done
+all: begin step01 step02 step03 step04 step05 done
 
 
 # ----------------------------------------------------------------- #
@@ -70,7 +70,20 @@ target/ppddb/ppd.db: target/ppddb/schema.sql $(OH1_OUT1) 04_add-tables.R
 	@ rm -f $@
 	@ sqlite3 $@ < $<
 	@ echo [*] adding all datafiles as tables in ppd.db
-	@ ./04_add-tables.R
+	@ ./04_add-tables.R > /dev/null
+# ----------------------------------------------------------------- #
+
+
+# ----------------------------------------------------------------- #
+# --- step 05 ----------------------------------------------------- #
+LAST_ARTIFACTS := target/ppddb/proto-column-definitions.ts target/ppddb/record-types.d.ts
+
+.PHONY: step05
+step05: $(LAST_ARTIFACTS)
+
+$(LAST_ARTIFACTS): $(OH2_OUT1)
+	@ echo [*] building final artifacts
+	@ ./05_create-interfaces-and-column-defs.mjs
 # ----------------------------------------------------------------- #
 
 
