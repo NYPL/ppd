@@ -1,6 +1,6 @@
 import path from 'path';
 
-export const DB_FILE = path.join(process.cwd(), "db/tms-mii.db");
+export const DB_FILE = path.join(process.cwd(), "db/ppd.db");
 export const INTERNAL_URL = "//localhost"
 export const PORT = 3000;
 export const URL_PREFIX = `${INTERNAL_URL}:${PORT}`;

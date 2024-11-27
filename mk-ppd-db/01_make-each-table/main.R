@@ -49,7 +49,7 @@ options(width=180)
 
 
 mstobjs <- read.table.dump("Objects")
-mii <- mstobjs[, .(ObjectID)]
+main <- mstobjs[, .(ObjectID)]
 
 
 # --------------------------------------------------------------- #
@@ -61,8 +61,8 @@ departments <- read.table.dump("Departments")
 departments <- departments[, .(DepartmentID, Department=Mnemonic)]
 departments <- objs %>% merge(departments)
 
-mii %<>% merge(departments, all.x=TRUE)
-mii[, DepartmentID:=NULL]
+main %<>% merge(departments, all.x=TRUE)
+main[, DepartmentID:=NULL]
 rm(departments)
 
 # --------------------------------------------------------------- #
@@ -110,8 +110,8 @@ titles <- titles[, .(ObjectID, Title=MainTitle, Collection=Title.Collection,
            Caption=Title.Caption, Title_Continued=Title.TitleContinued,
            Subtitle=Title.SubtitleorTitleTranslation)]
 
-mii %<>% merge(titles)
-mii %<>% unique
+main %<>% merge(titles)
+main %<>% unique
 
 # --------------------------------------------------------------- #
 
@@ -139,7 +139,7 @@ objhomes <- objhomes[, .(ObjectID, HomeLocation=LocationString)]
 setorder(objhomes, ObjectID)
 objhomes <- objhomes[!duplicated(ObjectID)]
 
-mii %<>% merge(objhomes, all.x=TRUE)
+main %<>% merge(objhomes, all.x=TRUE)
 
 # --------------------------------------------------------------- #
 
@@ -173,7 +173,7 @@ thumbs[ObjectID==153812]
 
 thumbs <- thumbs[, .(ObjectID, Link)]
 
-mii %<>% merge(thumbs, all.x=TRUE)
+main %<>% merge(thumbs, all.x=TRUE)
 
 # # --------------------------------------------------------------- #
 
@@ -238,7 +238,7 @@ constituents <- mainconstituents %>% merge(otherconstituents, all.x=TRUE)
 constituents[, Title:=NULL]
 
 constituents # !!!
-mii %<>% merge(constituents, all.x=TRUE)
+main %<>% merge(constituents, all.x=TRUE)
 
 # --------------------------------------------------------------- #
 
@@ -252,7 +252,7 @@ objgeo <- objgeo[PrimaryDisplay==1, .(ObjectID, Country, State,
                                       County, City, Locus,
                                       GeoSearchValue=KeyFieldsSearchValue)]
 objgeo # !!!
-mii <- mii %>% merge(objgeo, all.x=TRUE)
+main <- main %>% merge(objgeo, all.x=TRUE)
 
 # --------------------------------------------------------------- #
 
@@ -263,12 +263,12 @@ mii <- mii %>% merge(objgeo, all.x=TRUE)
 mstobjs <- read.table.dump("Objects")
 obj <- mstobjs[, .(ObjectID, ObjectNumber, ObjectCount, Medium, Dimensions, Dated)]
 
-mii %>% nrow
+main %>% nrow
 obj %>% nrow
-mii <- mii %>% merge(obj)
+main <- main %>% merge(obj)
 
 
-final <- mii[, .(Object_ID=ObjectID,
+final <- main[, .(Object_ID=ObjectID,
                  Department,
                  Object_Number=ObjectNumber,
                  Title,

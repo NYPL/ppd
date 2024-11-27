@@ -89,16 +89,42 @@ $(LAST_ARTIFACTS): $(OH2_OUT1)
 
 # ----------------------------------------------------------------- #
 # --- install, misc ----------------------------------------------- #
+RECORD_TYPES_SOURCE_LOC  := target/ppddb/record-types.d.ts
+RECORD_TYPES_INSTALL_LOC := ../types/record-types.d.ts
+COLDEFS_SOURCE_LOC       := target/ppddb/proto-column-definitions.ts
+COLDEFS_INSTALL_LOC 	 := ../lib/proto-column-definitions.ts
+DB_SOURCE_LOC  			 := target/ppddb/ppd.db
+DB_INSTALL_LOC 			 := ../db/ppd.db
+
 .PHONY: install
 install:
-	@ echo TODO
-	@ echo INCLUDE
-	@ echo - target/ppddb/ppd.db
-	@ echo - - push or mv?
-	@ echo - target/ppddb/proto-column-definitions.ts
-	@ echo - - and code change in app
-	@ echo - ./target/ppddb/record-types.d.ts
+	@ echo [*] Installing record-types.d.ts
+	@ echo "// THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT." > $(RECORD_TYPES_INSTALL_LOC)
+	@ cat $(RECORD_TYPES_SOURCE_LOC) >> $(RECORD_TYPES_INSTALL_LOC)
+	@ echo [*] Installing proto-column-definitions.ts
+	@ echo "// THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT." > $(COLDEFS_INSTALL_LOC)
+	@ echo "" >> $(COLDEFS_INSTALL_LOC)
+	@ cat $(COLDEFS_SOURCE_LOC) >> $(COLDEFS_INSTALL_LOC)
+	@ echo [*] Installing new db
+	@ cp $(DB_SOURCE_LOC) $(DB_INSTALL_LOC)
+# ----------------------------------------------------------------- #
 
+
+# ----------------------------------------------------------------- #
+# --- pushdb ------------------------------------------------------ #
+S3_DEV_LOC 				 := s3://ppd-dev-db/
+S3_PROD_LOC 			 := s3://ppd-production-db/
+
+.PHONY: pushdb
+pushdb:
+	@ echo [*] Pushing DB to dev
+	@ aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC)
+	@ echo [*]  TODO  STILL NEED ACCESS TO DEV
+# ----------------------------------------------------------------- #
+
+
+# ----------------------------------------------------------------- #
+# --- misc ------------------------------------------------------ #
 .PHONY: debug
 debug:
 	@ echo tables  $(TABLES)

@@ -19,7 +19,6 @@ import jszip from 'jszip';
 DataTable.use(DT);
 DT.Buttons.jszip(jszip);
 
-          // url: `http://localhost:3333/api/mii/dtajax`,
 
 //  TODO  there are more options to port over
 export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
