@@ -1,12 +1,11 @@
 // @ts-nocheck
 
-
 import { DB } from '@/lib/api/attach-db';
 import { getParamsAsObject } from '@/lib/utils';
 import { dtajax2sql, DTAJAXParams } from 'dtajax2sql';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const tableName = 'mii';
+const tableName = 'main';
 
 export const performAJAX = (params: DTAJAXParams) => {
   const { query, countQuery } = dtajax2sql(params, tableName);

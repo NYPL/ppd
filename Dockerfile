@@ -1,7 +1,5 @@
 # syntax=docker/dockerfile:1.3-labs
 
-#  TODO  consider using debian-slim or alpine
-
 FROM node:23-bookworm-slim AS base
 
 RUN <<EOF
@@ -27,7 +25,6 @@ FROM base AS build
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
-COPY tms-mii.db db/
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
