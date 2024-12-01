@@ -2,24 +2,31 @@
 
 import { DB } from '@/lib/api/attach-db';
 import { getParamsAsObject } from '@/lib/utils';
-import { dtajax2sql, DTAJAXParams } from 'dtajax2sql';
+import { Dtajax2sql, DTAJAXParams } from 'dtajax2sql';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const tableName = 'main';
 
+const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
+  //  TODO  add more columns to exclude
+  excludeFromGlobalSearch: ["Object_ID"]
+});
+
+const totals = DB.prepare(`SELECT COUNT(*) as totalRecords FROM ${tableName}`).get() as {totalRecords: number};
+
+
 export const performAJAX = (params: DTAJAXParams) => {
-  const { query, countQuery } = dtajax2sql(params, tableName);
+  const { query, countQuery } = dtajax2sql.toSQL(params);
   console.log({ query, countQuery });
   //  TODO  this strikes me as inefficient
   //  HACK  this strikes me as inefficient
-  const a = DB.prepare(`SELECT COUNT(*) as totalRecords FROM ${tableName}`).get() as {totalRecords: number};
   const r = DB.prepare(query).all() as MainRecord[];
   const c = DB.prepare(countQuery).get() as {filteredCount: number};
   if (r === undefined)
     throw new Error (`API error. please contact ${process.env["EMAIL"] ?? "the police"}`);
   const ret = {
     "draw": params.draw,
-    "recordsTotal": a.totalRecords,
+    "recordsTotal": totals.totalRecords,
     "recordsFiltered": c.filteredCount,
     "data": r
   };

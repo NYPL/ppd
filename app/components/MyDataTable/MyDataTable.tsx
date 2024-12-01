@@ -41,7 +41,10 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
         responsive: true,
         select: true,
         fixedHeader: true,
-        search: true,
+        search: {
+          // @ts-ignore
+          return: true
+        },
         searchBuilder: { enterSearch: true },
         layout: {
           top2Start: 'searchBuilder',
