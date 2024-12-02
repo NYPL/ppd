@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 
 export const getMainRecordByID = (objectId: number): MainRecord => {
-  const stm = getByIdStatement('main', 'objectId', objectId);
+  const stm = getByIdStatement('main', 'Object_Id', objectId);
   const r = stm.get() as MainRecord;
   if (r === undefined)
     throw new Error ("no results");
