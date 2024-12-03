@@ -14,6 +14,12 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Title', 'render',
   return data;
 });
 
+/* Object Number should be a hyperlink */
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'render',
+                             (data: string, _: any, row: any) => {
+  return `<a href="/api/v1/main/${row['Object_ID']}" target="_blank">${data}</a>`;
+});
+
 
 export default columnDefs;
 
