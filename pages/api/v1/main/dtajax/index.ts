@@ -16,8 +16,11 @@ const totals = DB.prepare(`SELECT COUNT(*) as totalRecords FROM ${tableName}`).g
 
 
 export const performAJAX = (params: DTAJAXParams) => {
+  console.log("-------------------");
+  console.log(params);
   const { query, countQuery } = dtajax2sql.toSQL(params);
   console.log({ query, countQuery });
+  console.log("-------------------");
   //  TODO  this strikes me as inefficient
   //  HACK  this strikes me as inefficient
   const r = DB.prepare(query).all() as MainRecord[];

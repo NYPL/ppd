@@ -1,7 +1,7 @@
 'use client';
 
 import { API_PATH } from "@/lib/config";
-import { columnDefs } from "@/lib/column-definitions";
+import columnDefs   from "@/lib/column-definitions";
 
 import 'jquery';
 import DataTable from 'datatables.net-react';

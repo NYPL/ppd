@@ -6,6 +6,15 @@ export const attemptToParseInt = (s: string): number => {
   return ret;
 };
 
+export const addNewKeyValToColumnDefs = (colDefs: any, table: string, dataValue: string, key: string, val: any) => {
+  const ind = colDefs[table].findIndex(i => i.data===dataValue);
+  if (ind < 0) throw new Error(`no such field "${dataValue}"`);
+  const old = colDefs[table][ind];
+  old[key] = val;
+  colDefs[table][ind] = old;
+  return colDefs;
+};
+
 /*
  * Big ups to Mauricio van der Maesen for this one:
  * https://stackoverflow.com/a/43513777
