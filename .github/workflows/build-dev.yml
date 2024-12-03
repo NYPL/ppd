@@ -33,7 +33,7 @@ jobs:
           ECR_REPOSITORY: ppd
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          aws s3 cp s3://ppd-dev-db/ppd.db ./db --no-progress
+          aws s3 cp s3://ppd-dev-db/ppd.db . --no-progress
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           #MANIFEST=$(aws ecr batch-get-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-latest" --output json | jq --raw-output --join-output '.images[0].imageManifest')
           #aws ecr batch-delete-image --repository-name $ECR_REPOSITORY --image-ids imageTag="dev-previous" || true
