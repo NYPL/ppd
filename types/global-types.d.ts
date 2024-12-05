@@ -7,6 +7,10 @@ declare interface HasChildren {
   children: React.ReactNode;
 }
 
+declare interface ContainsObjectId {
+  objectid: string;
+}
+
 declare interface MainRecord {
   objectID:              number;
   objectNumber:          string;

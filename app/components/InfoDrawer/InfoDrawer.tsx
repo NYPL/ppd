@@ -25,7 +25,7 @@ export const SettingsDrawer = ({ infoOpenP, setInfoOpen }: Props) => {
         <p><b>Version</b>: { packageInfo['version'] }</p>
         <br/>
         <p><b>Link to feedback form:</b></p>
-        <p><a href="https://docs.google.com/spreadsheets/d/1nOciQakZAkqvUcTBPxS7VGYipqKZEGlqi3kQJwcL_U4/">Feedback form</a></p>
+        <p><a href="https://docs.google.com/spreadsheets/d/1nOciQakZAkqvUcTBPxS7VGYipqKZEGlqi3kQJwcL_U4/" target="_blank">Feedback form</a></p>
       </DrawerBody>
     </Drawer>
   );
