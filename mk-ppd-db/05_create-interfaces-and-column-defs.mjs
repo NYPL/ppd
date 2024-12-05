@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import fs   from 'node:fs/promises';
-import os   from 'node:os';
 import path from 'node:path';
 
 const JSON_FOLDER           = "target/json/";
@@ -9,9 +8,9 @@ const OUTPUT_INTERFACE_FILE = "target/ppddb/record-types.d.ts";
 const OUTPUT_COLDEFS_FILE   = "target/ppddb/proto-column-definitions.ts";
 
 
-const addContentsToObj = (obj) => {
+const addContentsToObj = async (obj) => {
   return Promise.resolve(obj).
-    then(obj => obj.map(i => {
+    then(obj => obj.map(async (i) => {
       return fs.readFile(i.filename, 'utf-8').
         then(_ => JSON.parse(_)).
         then(_ => { return { contents: _, ...i }; });

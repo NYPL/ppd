@@ -12,22 +12,6 @@ export const metadata: Metadata = {
 };
 
 
-/*
-export default function RootLayout({ children }: Readonly<HasChildren>) {
-  return (
-    <html lang="en">
-      <body>
-        <SettingsProvider>
-          <Suspense fallback={<div>Loading...</div>}>
-            {children}
-          </Suspense>
-        </SettingsProvider>
-      </body>
-    </html>
-  );
-};
-*/
-
 export default function RootLayout({ children }: Readonly<HasChildren>) {
   return (
     <html lang="en">
@@ -39,5 +23,4 @@ export default function RootLayout({ children }: Readonly<HasChildren>) {
     </html>
   );
 };
-
 

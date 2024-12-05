@@ -20,6 +20,16 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'rend
   return `<a href="/api/v1/main/${row['Object_ID']}" target="_blank">${data}</a>`;
 });
 
+// shorten some column names
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_ID', 'title', 'OID');
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Department', 'title', 'Dept.');
+
+//  TODO 
+// set the width of some columns
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_ID', 'width', '0vw');
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Department', 'width', '0vw');
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'width', '0vw');
+
 
 export default columnDefs;
 

@@ -38,7 +38,8 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
         ordering: true,
         serverSide: true,
         processing: true,
-        responsive: true,
+        // responsive: true,
+        scrollX: true,
         select: true,
         fixedHeader: true,
         search: {

@@ -4,10 +4,10 @@ import MyNavBar from '../NavBar/NavBar';
 import styles from './Header.module.scss';
 
 
-export const Header = ({ setSettingsOpen }) => {
+export const Header = ({ setSettingsOpen, setInfoOpen }) => {
   return (
     <header className={styles.header}>
-      <MyNavBar setSettingsOpen={ setSettingsOpen } />
+      <MyNavBar setSettingsOpen={ setSettingsOpen } setInfoOpen={ setInfoOpen } />
     </header>
   );
 };
