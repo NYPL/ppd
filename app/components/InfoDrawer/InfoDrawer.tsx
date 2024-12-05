@@ -5,6 +5,8 @@ import DrawerBody from 'rsuite/DrawerBody';
 import DrawerTitle from 'rsuite/DrawerTitle';
 import { Dispatch, SetStateAction } from 'react';
 
+import packageInfo from '@/package.json';
+
 //  TODO  this
 interface Props {
   infoOpenP: boolean;
@@ -19,7 +21,11 @@ export const SettingsDrawer = ({ infoOpenP, setInfoOpen }: Props) => {
         <DrawerTitle>Info</DrawerTitle>
       </DrawerHeader>
       <DrawerBody>
-        pp
+        { /* eww */ }
+        <p><b>Version</b>: { packageInfo['version'] }</p>
+        <br/>
+        <p><b>Link to feedback form:</b></p>
+        <p><a href="https://docs.google.com/spreadsheets/d/1nOciQakZAkqvUcTBPxS7VGYipqKZEGlqi3kQJwcL_U4/">Feedback form</a></p>
       </DrawerBody>
     </Drawer>
   );

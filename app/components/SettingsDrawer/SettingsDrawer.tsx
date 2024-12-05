@@ -21,7 +21,9 @@ export const SettingsDrawer = ({ settingsOpenP, setSettingsOpen, setDarkMode }: 
         <DrawerTitle>Settings</DrawerTitle>
       </DrawerHeader>
       <DrawerBody>
-        <Button onClick={ () => setDarkMode((old: boolean) => !old) }>toggle mode</Button>
+        { /* ewww */ }
+        <p><b>Coming soon</b></p>
+        <Button className="hidden" onClick={ () => setDarkMode((old: boolean) => !old) }>toggle mode</Button>
       </DrawerBody>
     </Drawer>
   );
