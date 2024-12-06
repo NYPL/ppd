@@ -1,4 +1,3 @@
-// @ts-nocheck
 
 import { DB } from '@/lib/api/attach-db';
 import { dbConstants } from '@/lib/db-constants';
@@ -8,6 +7,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 const tableName = 'main';
 
+// @ts-ignore   TODO  
 const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
   //  TODO  add more columns to exclude
   excludeFromGlobalSearch: ["Object_ID", "Object_Number"]
@@ -16,10 +16,11 @@ const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
 
 export const performAJAX = (params: DTAJAXParams) => {
   const { query, countQuery } = dtajax2sql.toSQL(params);
-  // console.log("-------------------");
-  // console.log(params);
-  // console.log({ query, countQuery });
-  // console.log("-------------------");
+  //  TODO  added logging based on ENVVARS
+  console.log("-------------------");
+  console.log(params);
+  console.log({ query, countQuery });
+  console.log("-------------------");
   //  TODO  this strikes me as inefficient
   //  HACK  this strikes me as inefficient
   const r = DB.prepare(query).all() as MainRecord[];
@@ -36,8 +37,10 @@ export const performAJAX = (params: DTAJAXParams) => {
 };
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  return Promise.resolve(req.url).
-    //  TODO  fix this type error
+  const impossibleErrorMessage = "couldn't read NextRequest.URL string";
+
+  return Promise.resolve(req.url ?? impossibleErrorMessage).
+    then(_ => { if (req.url !== undefined) return req.url; throw new Error(impossibleErrorMessage) }).
     then(getParamsAsObject).
     then(performAJAX).
     then(result => res.status(200).json(result)).
