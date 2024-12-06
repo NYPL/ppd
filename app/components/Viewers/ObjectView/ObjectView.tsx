@@ -1,5 +1,6 @@
 
 import { ThumbnailHolder } from "./components/ThumbnailHolder";
+import { Tombstone } from '../../Tombstone/Tombstone';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import styles from './ObjectView.module.scss';
 
@@ -65,15 +66,11 @@ export const ObjectView = ({ mainAPIPayload }: Props) => {
       </Header>
       <Content className={ styles['content'] ?? "" }>
         <div className={ styles['tombstone-and-thumbnail'] }>
-          <div className={ styles['tomb-stone'] }>
-            { /*  TODO  make a Tombstone Component */ }
-            <div>
-              <p className={ styles['tomb-stone-name'] }>{ Display_Name }</p>
-              <p className={ styles['tomb-stone-date'] }>{ Display_Date }</p>
-            </div>
-            <p className={ styles['tomb-stone-title'] }>{ Title }</p>
-            <p className={ styles['tomb-stone-medium'] }>{ Medium }</p>
-          </div>
+          <Tombstone
+            Title={ Title }
+            Display_Name={ Display_Name }
+            Display_Date={ Display_Date }
+            Medium={ Medium } />
           <ThumbnailHolder imageLink={ Link } />
         </div>
       </Content>

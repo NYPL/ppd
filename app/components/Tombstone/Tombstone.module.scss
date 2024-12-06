@@ -1,0 +1,27 @@
+.tomb-stone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 30px;
+  gap: 20px;
+}
+
+.tomb-stone-name {
+  font-size: 2.3rem;
+  font-weight: bold;
+  margin-right: 10ch;
+}
+
+.tomb-stone-date {
+  font-size: 1.5rem;
+}
+
+.tomb-stone-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.tomb-stone-medium {
+  font-size: 1.5rem;
+}
