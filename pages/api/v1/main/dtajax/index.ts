@@ -7,7 +7,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 const tableName = 'main';
 
-// @ts-ignore   TODO  
 const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
   //  TODO  add more columns to exclude
   excludeFromGlobalSearch: ["Object_ID", "Object_Number"]

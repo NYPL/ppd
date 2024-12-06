@@ -43,8 +43,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       dtajax2sql:
-        specifier: ^0.2.2
-        version: 0.2.2
+        specifier: ^0.2.3
+        version: 0.2.3
       jquery:
         specifier: ^3.7.1
         version: 3.7.1
@@ -505,8 +505,8 @@ packages:
   dom-lib@3.3.2:
     resolution: {integrity: sha512-ux0wcf6lggOCcJ6O3Q3mewbCOM/CL9f6+NXmxaWsF0/AKCvFNbfdmmqNnMG7cMVupCr9VeFEYWspSAD9WT/6gA==}
 
-  dtajax2sql@0.2.2:
-    resolution: {integrity: sha512-OB3riYYKD43L13zjcvjgY22rtl6wBerzoNZjxKuq/3dSUU486ZtgywvpwM61ufz5ZE6wIdS4BbC/7f0n3utjrA==}
+  dtajax2sql@0.2.3:
+    resolution: {integrity: sha512-nM9zU4bSowwE1tQvRU+iClqvuj8k8Vp9pJNHuIbIqlgAJ53oxVMy5UoEMjN8oLGumA3lrH+gIyLRnbgJcntFvA==}
 
   end-of-stream@1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
@@ -1221,7 +1221,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
 
-  dtajax2sql@0.2.2: {}
+  dtajax2sql@0.2.3: {}
 
   end-of-stream@1.4.4:
     dependencies:
