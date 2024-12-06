@@ -8,13 +8,6 @@ export const API_PATH = "api/v1";
 export const FIELD_CHARACTER_LIMIT = 50;
 export const TITLE_CHARACTER_LIMIT = FIELD_CHARACTER_LIMIT;
 
-export const breakpoints = {
-  smallerWidth0: 1600,
-  smallerWidth1: 1200,
-  smallerWidth2: 1000,
-  mobile: 780
-};
-
 export const colors = {
   burntSienna:            "#703e35",
   burntUmber:             "#463836",

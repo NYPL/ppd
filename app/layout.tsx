@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { SettingsProvider } from './SettingsProvider';
 import 'rsuite/dist/rsuite-no-reset.min.css';
-import './styles/globals.scss';
+import './styles/base.scss';
 import './styles/datatables.min.css';
 
 

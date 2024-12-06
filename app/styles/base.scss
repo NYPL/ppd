@@ -1,18 +1,7 @@
-
 @use 'reset';
-
-// breakpoints
-$smallerWidth0: 1600px;
-$smallerWidth1: 1200px;
-$smallerWidth2: 1000px;
-$mobile: 780px;
-
+@use 'globals';
 
 :root {
-
-  //  TODO  this is non-sense. solve this problem (re. mobile var)
-  --accent-1: pink;
-
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -20,11 +9,10 @@ $mobile: 780px;
   //   background-color: black;
   // }
   font-size: 14px;
-  @media (max-width: $mobile) {
+  @media (max-width: globals.$mobile) {
     font-size: 10px;
   }
 }
-
 
 html,
 body {

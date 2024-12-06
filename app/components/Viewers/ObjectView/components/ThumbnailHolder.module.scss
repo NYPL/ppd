@@ -1,3 +1,4 @@
+@use '../../../../styles/globals';
 
 .img {
   width: 40vw;
@@ -6,8 +7,7 @@
   padding: 20px;
   object-fit: cover;
 
-  //  TODO  HARDCODED!
-  @media (max-width: 780px) {
+  @media (max-width: globals.$mobile) {
     width: 100%;
   }
 }
