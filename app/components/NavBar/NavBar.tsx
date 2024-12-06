@@ -5,17 +5,14 @@ import Nav from 'rsuite/Nav';
 import NavItem from 'rsuite/NavItem';
 import NavbarBrand from 'rsuite/NavbarBrand';
 import { FaGear, FaCircleInfo } from "react-icons/fa6";
-// import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import style from './NavBar.module.scss';
 
 
 interface Props {
-  // setSettingsOpen: Dispatch<SetStateAction<boolean>>;
-  // setInfoOpen: Dispatch<SetStateAction<boolean>>;
-  setSettingsOpen: (b: boolean) => void,
-  setInfoOpen: (b: boolean) => void,
-
+  setSettingsOpen: Dispatch<SetStateAction<boolean>>;
+  setInfoOpen:     Dispatch<SetStateAction<boolean>>;
 }
 
 export const MyNavBar = ({ setSettingsOpen, setInfoOpen }: Props) => {

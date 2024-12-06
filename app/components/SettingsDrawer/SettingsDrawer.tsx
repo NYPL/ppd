@@ -1,16 +1,15 @@
-'use client';
 
 import Drawer from 'rsuite/Drawer';
 import DrawerHeader from 'rsuite/DrawerHeader';
 import DrawerBody from 'rsuite/DrawerBody';
 import DrawerTitle from 'rsuite/DrawerTitle';
 import Button from 'rsuite/Button';
+import { Dispatch, SetStateAction } from 'react';
 
-//  TODO  this
 interface Props {
-  settingsOpenP: boolean;
-  setSettingsOpen: any;
-  setDarkMode: any;
+  settingsOpenP:   boolean;
+  setSettingsOpen: Dispatch<SetStateAction<boolean>>;
+  setDarkMode:     Dispatch<SetStateAction<boolean>>;
 }
 
 export const SettingsDrawer = ({ settingsOpenP, setSettingsOpen, setDarkMode }: Props) => {

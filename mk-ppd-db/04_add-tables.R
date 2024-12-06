@@ -36,29 +36,41 @@ LIMITS_OUTPUT_LOCATION <- "target/limits"
 DB_LOCATION            <- "target/ppddb/ppd.db"
 CON                    <- dbConnect(RSQLite::SQLite(), DB_LOCATION)
 
-ROWID_LIMITS          <- data.table(tableName=c(), primaryKey=c(), min=c(), max=c())
+ROWID_LIMITS          <- data.table(tableName=c(),
+                                    primaryKey=c(),
+                                    min=c(),
+                                    max=c(),
+                                    numRows=c())
 
 getTableName <- function(fn) {
   str_replace(basename(fn), INPUT_TABLES_EXT, "")
 }
 
-addLimitsToList <- function(pkeyName, pkeyVec, tableName) {
-  themin <- pkeyVec %>% min
-  themax <- pkeyVec %>% max
-  ROWID_LIMITS <<- ROWID_LIMITS %>% rbind(data.table(tableName=tableName, primaryKey=pkeyName, min=themin, max=themax))
+addLimitsToList <- function(dat, tableName) {
+  #  HACK  always assuming that the primary key is the first column
+  pkeyName <- names(dat)[1]
+  pkeyVec  <- dat[!is.na(1), 1]
+  themin   <- pkeyVec %>% min
+  themax   <- pkeyVec %>% max
+  numRows  <- dat[, .N]
+  ROWID_LIMITS <<- ROWID_LIMITS %>% rbind(data.table(tableName=tableName,
+                                                     primaryKey=pkeyName,
+                                                     min=themin,
+                                                     max=themax,
+                                                     numRows=numRows))
   print(ROWID_LIMITS)
 }
 
 addFileToDB <- function(fn) {
   tableName <- getTableName(fn)
   dat <- fread(fn)
-  #  HACK  always assuming that the primary key is the first column
-  addLimitsToList(names(dat)[1], dat[!is.na(1), 1], tableName)
   #  TODO  fix
   # the culprit is Object_ID=414609
   dat <- dat[!duplicated(dat[,1])]
+  addLimitsToList(dat, tableName)
   dbAppendTable(CON, tableName, dat)
 }
+
 
 sprintf("%s/*.tsv.gz", INPUT_TABLES_LOCATION) %>%
   Sys.glob %>%

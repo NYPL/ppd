@@ -1,10 +1,4 @@
 
-
-// import ArtistComp from "@/app/components/ArtistComp/ArtistComp";
-// import { INTERNAL_URL, PORT } from "@/utils/config";
-//
-//                               { /* <ArtistComp payload={ resp } /> */ }
-
 import { PORT, API_PATH } from "@/lib/config";
 import { ObjectView } from "@/app/components/Viewers/ObjectView/ObjectView";
 
@@ -31,8 +25,4 @@ export default async function Page({ params }: Props) {
       );
     });
 };
-
-// export default function Page() {
-//   return <p>pp</p>
-// };
 

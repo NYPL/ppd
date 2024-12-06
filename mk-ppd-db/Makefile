@@ -74,7 +74,8 @@ target/ppddb/ppd.db: target/ppddb/schema.sql $(OH1_OUT1) 04_add-tables.R
 	@ rm -f $@
 	@ sqlite3 $@ < $<
 	@ echo [*] adding all datafiles as tables in ppd.db
-	@ ./04_add-tables.R > /dev/null
+	# @ ./04_add-tables.R > /dev/null
+	@ ./04_add-tables.R
 # ----------------------------------------------------------------- #
 
 

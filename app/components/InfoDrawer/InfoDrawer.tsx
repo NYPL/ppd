@@ -7,7 +7,6 @@ import { Dispatch, SetStateAction } from 'react';
 
 import packageInfo from '@/package.json';
 
-//  TODO  this
 interface Props {
   infoOpenP: boolean;
   setInfoOpen: Dispatch<SetStateAction<boolean>>;

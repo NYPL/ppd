@@ -12,21 +12,12 @@ import styles from './ObjectView.module.scss';
  *
  */
 
-interface HeaderProps {
-  className: string;
-  //  TODO  NO!
-  children: any;
-}
+type HeaderProps  = Readonly<ContainsChildren & ContainsClassName>;
+type ContentProps = Readonly<ContainsChildren & ContainsClassName>;
 
 export const Header = ({ className, children }: HeaderProps) => {
   return <div className={ className }>{ children }</div>;
 };
-
-interface ContentProps {
-  className: string;
-  //  TODO  NO!
-  children: any;
-}
 
 export const Content = ({ className, children }: ContentProps) => {
   return <div className={ className }>{ children }</div>;
@@ -38,7 +29,6 @@ interface Props {
 }
 
 export const ObjectView = ({ mainAPIPayload }: Props) => {
-
   const {
     Object_ID,
     Object_Number,

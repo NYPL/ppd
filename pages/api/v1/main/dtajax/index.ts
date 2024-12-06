@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import { DB } from '@/lib/api/attach-db';
+import { dbConstants } from '@/lib/db-constants';
 import { getParamsAsObject } from '@/lib/utils';
 import { Dtajax2sql, DTAJAXParams } from 'dtajax2sql';
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -29,7 +30,7 @@ export const performAJAX = (params: DTAJAXParams) => {
     throw new Error (`API error. please contact ${process.env["EMAIL"] ?? "the police"}`);
   const ret = {
     "draw": params.draw,
-    "recordsTotal": totals.totalRecords,
+    "recordsTotal": dbConstants[tableName]['numRows'],
     "recordsFiltered": c.filteredCount,
     "data": r
   };

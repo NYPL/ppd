@@ -1,4 +1,3 @@
-
 import { DB_FILE } from '@/lib/config';
 import BetterSqlite3 from 'better-sqlite3';
 
