@@ -1,7 +1,6 @@
 import path from 'path';
 
-//  TODO  location of db should be the root, honestly
-export const DB_FILE = path.join(process.cwd(), "db/ppd.db");
+export const DB_FILE = path.join(process.cwd(), "ppd.db");
 export const PORT = 3000;
 export const API_PATH = "api/v1";
 

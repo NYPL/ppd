@@ -74,8 +74,7 @@ target/ppddb/ppd.db: target/ppddb/schema.sql $(OH1_OUT1) 04_add-tables.R
 	@ rm -f $@
 	@ sqlite3 $@ < $<
 	@ echo [*] adding all datafiles as tables in ppd.db
-	# @ ./04_add-tables.R > /dev/null
-	@ ./04_add-tables.R
+	@ ./04_add-tables.R > /dev/null
 # ----------------------------------------------------------------- #
 
 
@@ -97,7 +96,7 @@ RECORD_TYPES_INSTALL_LOC := ../types/record-types.d.ts
 COLDEFS_SOURCE_LOC       := target/ppddb/proto-column-definitions.ts
 COLDEFS_INSTALL_LOC 	 := ../lib/proto-column-definitions.ts
 DB_SOURCE_LOC  			 := target/ppddb/ppd.db
-DB_INSTALL_LOC 			 := ../db/ppd.db
+DB_INSTALL_LOC 			 := ../ppd.db
 DB_CONSTANTS_SOURCE_LOC  := target/ppddb/db-constants.ts
 DB_CONSTANTS_INSTALL_LOC := ../lib/db-constants.ts
 

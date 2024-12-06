@@ -24,12 +24,5 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'rend
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_ID', 'title', 'OID');
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Department', 'title', 'Dept.');
 
-//  TODO 
-// set the width of some columns
-columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_ID', 'width', '0vw');
-columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Department', 'width', '0vw');
-columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'width', '0vw');
-
-
 export default columnDefs;
 

@@ -94,7 +94,6 @@ const outputDBConstantsFile = async () => {
   return Promise.resolve(INPUT_DB_CONSTANTS_FILE).
     then(_ => fs.readFile(_, 'utf-8')).
     then(_ => _.split(os.EOL).slice(1).filter(i => i!=="")).
-    then(_ => { console.log(_); return _; }).
     then(_ => _.map(i => i.split('\t'))).
     then(_ => _.map(addToRetObj)).
     then(_ => fs.writeFile(OUTPUT_DB_CONSTANTS_FILE,
