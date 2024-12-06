@@ -13,8 +13,6 @@ const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
   excludeFromGlobalSearch: ["Object_ID", "Object_Number"]
 });
 
-const totals = DB.prepare(`SELECT COUNT(*) as totalRecords FROM ${tableName}`).get() as {totalRecords: number};
-
 
 export const performAJAX = (params: DTAJAXParams) => {
   const { query, countQuery } = dtajax2sql.toSQL(params);

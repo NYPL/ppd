@@ -8,7 +8,7 @@ import InfoDrawer from './components/InfoDrawer/InfoDrawer';
 import { Container, Header, Content, Footer } from 'rsuite';
 
 
-export const SettingsProvider = ({ children }: HasChildren) => {
+export const SettingsProvider = ({ children }: ContainsChildren) => {
 
   const [settingsOpenP, setSettingsOpen]  = useState(false);
   const [infoOpenP,     setInfoOpen]      = useState(false);

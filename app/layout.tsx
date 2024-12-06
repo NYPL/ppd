@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 
-export default function RootLayout({ children }: Readonly<HasChildren>) {
+export default function RootLayout({ children }: Readonly<ContainsChildren>) {
   return (
     <html lang="en">
       <body>
