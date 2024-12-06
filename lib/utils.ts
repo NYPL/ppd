@@ -2,7 +2,7 @@
 
 export const attemptToParseInt = (s: string): number => {
   const ret = parseInt(s)
-  if (isNaN(ret)) throw new Error ("not an integer");
+  if (isNaN(ret)) throw new Error (`"${s}" is not an integer`);
   return ret;
 };
 

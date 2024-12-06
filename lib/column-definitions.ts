@@ -16,7 +16,7 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Title', 'render',
 
 /* Object Number should be a hyperlink */
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'render',
-                             (data: string, _: any, row: any) => {
+                             (data: string, _: never, row: MainRecord) => {
   return `<a href="/object/${row['Object_ID']}" target="_blank">${data}</a>`;
 });
 

@@ -12,11 +12,13 @@ export const getMainRecordByID = (objectId: number): MainRecord => {
   return r;
 };
 
-//  TODO  how do you make these "type errors" go away?
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // @ts-ignore
-  const { objectid }: { objectid: string } = req.query;
-  return Promise.resolve(objectid).
+  const impossibleErrorMessage = "couldn't read objectid from URL query string";
+
+  Promise.resolve(req.query).
+    then(({ objectid }) => objectid===undefined ?
+         impossibleErrorMessage :
+         Array.isArray(objectid) ? objectid[0] ?? impossibleErrorMessage : objectid).
     then(attemptToParseInt).
     then(getMainRecordByID).
     then(data => res.status(200).json(data)).
