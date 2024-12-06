@@ -35,6 +35,16 @@
   text-decoration: none;
 }
 
+.disabled-angle-links {
+  display: flex;
+  &:visited, &:link {
+    color: black;
+  }
+  text-decoration: none;
+  opacity: 50%;
+  cursor: not-allowed;
+}
+
 .header {
   display: flex;
   flex-direction: row;

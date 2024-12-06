@@ -2,10 +2,13 @@
 
 import fs   from 'node:fs/promises';
 import path from 'node:path';
+import os   from 'node:os';
 
-const JSON_FOLDER           = "target/json/";
-const OUTPUT_INTERFACE_FILE = "target/ppddb/record-types.d.ts";
-const OUTPUT_COLDEFS_FILE   = "target/ppddb/proto-column-definitions.ts";
+const JSON_FOLDER               = "target/json/";
+const INPUT_DB_CONSTANTS_FILE   = "target/limits/primary-key-limits.tsv";
+const OUTPUT_INTERFACE_FILE     = "target/ppddb/record-types.d.ts";
+const OUTPUT_COLDEFS_FILE       = "target/ppddb/proto-column-definitions.ts";
+const OUTPUT_DB_CONSTANTS_FILE  = "target/ppddb/db-constants.ts";
 
 
 const addContentsToObj = async (obj) => {
@@ -18,7 +21,7 @@ const addContentsToObj = async (obj) => {
 };
 
 
-const outputInterfaceFile = (listOFiles) => {
+const outputInterfaceFile = async (listOFiles) => {
 
   const convertToInterface = (obj) => {
     const { tableName, contents } = obj;
@@ -44,7 +47,7 @@ const outputInterfaceFile = (listOFiles) => {
 };
 
 
-const outputColDefFile = (listOFiles) => {
+const outputColDefFile = async (listOFiles) => {
 
   const combineIntoOne = (listOfPartials) => {
     const ret = {};
@@ -76,6 +79,25 @@ const outputColDefFile = (listOFiles) => {
     then(_ => listOFiles);
 };
 
+const outputDBConstantsFile = async () => {
+  let retObj = {};
+
+  const addToRetObj = ([tableName, pkey, min, max]) => {
+    retObj[tableName] = {
+      primaryKey: pkey,
+      min: parseInt(min),
+      max: parseInt(max)
+    };
+  };
+
+  return Promise.resolve(INPUT_DB_CONSTANTS_FILE).
+    then(_ => fs.readFile(_, 'utf-8')).
+    then(_ => _.split(os.EOL).slice(1).filter(i => i!=="")).
+    then(_ => _.map(i => i.split('\t'))).
+    then(_ => _.map(addToRetObj)).
+    then(_ => fs.writeFile(OUTPUT_DB_CONSTANTS_FILE,
+                           `export const dbConstants = ${JSON.stringify(retObj, null, 2)};`));
+};
 
 fs.readdir(JSON_FOLDER, { recursive: true, withFileTypes: true }).
   then(res => res.filter(i => i.isFile())).
@@ -88,5 +110,5 @@ fs.readdir(JSON_FOLDER, { recursive: true, withFileTypes: true }).
   then(addContentsToObj).
   then(_ => Promise.all(_)).
   then(outputInterfaceFile).
-  then(outputColDefFile);
-
+  then(outputColDefFile).
+  then(outputDBConstantsFile);

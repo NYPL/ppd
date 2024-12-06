@@ -2,6 +2,7 @@
 import { ThumbnailHolder } from "./components/ThumbnailHolder";
 import { Tombstone } from '../../Tombstone/Tombstone';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { dbConstants } from "@/lib/db-constants";
 import styles from './ObjectView.module.scss';
 
 /*
@@ -48,6 +49,9 @@ export const ObjectView = ({ mainAPIPayload }: Props) => {
     Medium
   } = mainAPIPayload;
 
+  const prevOutOfBoundsP = (Object_ID-1) < dbConstants.main.min;
+  const nextOutOfBoundsP = (Object_ID+1) > dbConstants.main.max;
+
   return (
     <div id="object-view" className={ styles['object-view'] }>
       <Header className={ styles['header'] ?? "" }>
@@ -56,10 +60,16 @@ export const ObjectView = ({ mainAPIPayload }: Props) => {
           <span className=''>{ `id: ${Object_ID}` }</span>
           <div className={ styles['header-arrows'] }>
             <div>
-              <a className={ styles['header-angle-links'] } href={ `${ Object_ID-1 }` }> <FaAngleLeft /> </a>
+              <a className={ !prevOutOfBoundsP ? styles['header-angle-links'] : styles['disabled-angle-links'] }
+                 href={ !prevOutOfBoundsP ? `${ Object_ID-1 }` : '#' }>
+                <FaAngleLeft />
+              </a>
             </div>
             <div>
-              <a className={ styles['header-angle-links'] } href={ `${ Object_ID+1 }` }> <FaAngleRight /> </a>
+              <a className={ !nextOutOfBoundsP ? styles['header-angle-links'] : styles['disabled-angle-links'] }
+                 href={ !nextOutOfBoundsP ? `${ Object_ID+1 }` : '#' }>
+                <FaAngleRight />
+              </a>
             </div>
           </div>
         </div>

@@ -8,6 +8,10 @@ OH1_OUT2 := $(addsuffix .tsv,    $(addprefix target/datatypes/,   $(TABLES)))
 OH2_OUT1 := $(addsuffix .json,   $(addprefix target/json/, 	      $(TABLES)))
 OH2_OUT2 := $(addsuffix .sql,    $(addprefix target/schemas/,     $(TABLES)))
 
+FINAL_ARTIFACTS := target/ppddb/proto-column-definitions.ts target/ppddb/record-types.d.ts target/ppddb/db-constants.ts
+
+AUTOGEN_WARNING := "// THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT."
+
 
 vpath %.R   	$(OH1_SCRIPT_DIR)
 vpath %.tsv.gz  target/datafiles
@@ -63,7 +67,7 @@ target/ppddb/schema.sql: $(OH2_OUT2) ./03_indexes.sql
 # ----------------------------------------------------------------- #
 # --- step 04 ----------------------------------------------------- #
 .PHONY: step04
-step04: target/ppddb/ppd.db
+step04: target/ppddb/ppd.db target/limits/primary-key-limits.tsv
 
 target/ppddb/ppd.db: target/ppddb/schema.sql $(OH1_OUT1) 04_add-tables.R
 	@ echo [*] creating ppd.db with concated schema
@@ -76,14 +80,12 @@ target/ppddb/ppd.db: target/ppddb/schema.sql $(OH1_OUT1) 04_add-tables.R
 
 # ----------------------------------------------------------------- #
 # --- step 05 ----------------------------------------------------- #
-LAST_ARTIFACTS := target/ppddb/proto-column-definitions.ts target/ppddb/record-types.d.ts
-
 .PHONY: step05
-step05: $(LAST_ARTIFACTS)
+step05: $(FINAL_ARTIFACTS)
 
-$(LAST_ARTIFACTS): $(OH2_OUT1)
+$(FINAL_ARTIFACTS): $(OH2_OUT1) 05_create-final-artifacts.mjs
 	@ echo [*] building final artifacts
-	@ ./05_create-interfaces-and-column-defs.mjs
+	@ ./05_create-final-artifacts.mjs
 # ----------------------------------------------------------------- #
 
 
@@ -95,16 +97,22 @@ COLDEFS_SOURCE_LOC       := target/ppddb/proto-column-definitions.ts
 COLDEFS_INSTALL_LOC 	 := ../lib/proto-column-definitions.ts
 DB_SOURCE_LOC  			 := target/ppddb/ppd.db
 DB_INSTALL_LOC 			 := ../db/ppd.db
+DB_CONSTANTS_SOURCE_LOC  := target/ppddb/db-constants.ts
+DB_CONSTANTS_INSTALL_LOC := ../lib/db-constants.ts
 
 .PHONY: install
 install:
 	@ echo [*] Installing record-types.d.ts
-	@ echo "// THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT." > $(RECORD_TYPES_INSTALL_LOC)
+	@ echo $(AUTOGEN_WARNING) > $(RECORD_TYPES_INSTALL_LOC)
 	@ cat $(RECORD_TYPES_SOURCE_LOC) >> $(RECORD_TYPES_INSTALL_LOC)
 	@ echo [*] Installing proto-column-definitions.ts
-	@ echo "// THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT." > $(COLDEFS_INSTALL_LOC)
+	@ echo $(AUTOGEN_WARNING) > $(COLDEFS_INSTALL_LOC)
 	@ echo "" >> $(COLDEFS_INSTALL_LOC)
 	@ cat $(COLDEFS_SOURCE_LOC) >> $(COLDEFS_INSTALL_LOC)
+	@ echo [*] Installing db-constants.ts
+	@ echo $(AUTOGEN_WARNING) > $(DB_CONSTANTS_INSTALL_LOC)
+	@ echo "" >> $(DB_CONSTANTS_INSTALL_LOC)
+	@ cat $(DB_CONSTANTS_SOURCE_LOC) >> $(DB_CONSTANTS_INSTALL_LOC)
 	@ echo [*] Installing new db
 	@ cp $(DB_SOURCE_LOC) $(DB_INSTALL_LOC)
 # ----------------------------------------------------------------- #
@@ -141,7 +149,7 @@ clean:
 begin:
 	@ echo "$$(tput bold)$$(tput setaf 3)Building PPD data substrate$$(tput sgr0)"
 	@ printf '\n'
-	@ mkdir -p target/datafiles target/datatypes target/json target/schemas target/ppddb
+	@ mkdir -p target/datafiles target/datatypes target/json target/schemas target/ppddb target/limits
 
 .PHONY: done
 done:
