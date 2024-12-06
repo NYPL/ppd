@@ -6,13 +6,14 @@
 //                               { /* <ArtistComp payload={ resp } /> */ }
 
 import { PORT, API_PATH } from "@/lib/config";
+import { ObjectView } from "@/app/components/Viewers/ObjectView/ObjectView";
 
 
 interface Props {
   params: Promise<ContainsObjectId>;
 }
 
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
   return params.
     then(({ objectid }) => {
       /*  HACK  I read that calling fetch on an internal API from a
@@ -26,9 +27,7 @@ export default function Page({ params }: Props) {
     then(resp => resp.json()).
     then(resp => {
       return (
-        <>
-          { JSON.stringify(resp, null, 2) }
-        </>
+        <ObjectView mainAPIPayload={ resp } />
       );
     });
 };

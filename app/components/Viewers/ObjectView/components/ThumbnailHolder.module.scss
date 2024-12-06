@@ -1,0 +1,13 @@
+
+.img {
+  width: 40vw;
+  max-height: 50vh;
+  height: 100%;
+  padding: 20px;
+  object-fit: cover;
+
+  //  TODO  HARDCODED!
+  @media (max-width: 780px) {
+    width: 100%;
+  }
+}

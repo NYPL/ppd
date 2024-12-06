@@ -9,6 +9,10 @@ $mobile: 780px;
 
 
 :root {
+
+  //  TODO  this is non-sense. solve this problem (re. mobile var)
+  --accent-1: pink;
+
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,7 +33,7 @@ body {
 }
 
 main {
-  padding: 2vw;
+  padding: 0vw;
 }
 
 .rs-navbar-brand {
