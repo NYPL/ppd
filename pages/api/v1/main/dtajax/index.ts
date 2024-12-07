@@ -2,14 +2,20 @@
 import { DB } from '@/lib/api/attach-db';
 import { dbConstants } from '@/lib/db-constants';
 import { getParamsAsObject } from '@/lib/utils';
+import columnDefs from '@/lib/column-definitions';
 import { Dtajax2sql, DTAJAXParams } from 'dtajax2sql';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const tableName = 'main';
 
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
   //  TODO  add more columns to exclude
-  excludeFromGlobalSearch: ["Object_ID", "Object_Number"]
+  //  TODO  HANDLE IN DTAJAX2SQL, INSTEAD!!! OBVIOUSLY!!!
+  excludeFromGlobalSearch: columnDefs[tableName].
+    filter((i: any) => i.searchable).
+    map((i: any) => i.data)
 });
 
 

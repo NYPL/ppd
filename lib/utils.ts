@@ -6,6 +6,16 @@ export const attemptToParseInt = (s: string): number => {
   return ret;
 };
 
+export const clipStringAtLengthN = (s: string, n: number): string => {
+  try {
+    if (s.length > n)
+      return `${s.slice(0, n-3)}...`;
+    return s;
+  } catch(_) {
+    return "";
+  }
+};
+
 export const addNewKeyValToColumnDefs = (colDefs: any, table: string, dataValue: string, key: string, val: any) => {
   const ind = colDefs[table].findIndex(i => i.data===dataValue);
   if (ind < 0) throw new Error(`no such field "${dataValue}"`);
