@@ -1,5 +1,33 @@
 // THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT.
 
+declare interface ConstituentsRecord {
+  rid: number;
+  Object_ID: number;
+  Role_Type: string;
+  Role: string;
+  First_Name: string;
+  Last_Name: string;
+  Institution: string;
+  Display_Name: string;
+  Begin_Date: number;
+  End_Date: number;
+  Display_Date: string;
+  Nationality: string;
+}
+
+declare interface ExhibitionsRecord {
+  rid: number;
+  Object_ID: number;
+  Department: string;
+  Display_Date: string;
+  Title: string;
+  Remarks: string;
+  Sponsor_Credit_Line: string;
+  Organization_Credit_Line: string;
+  Boiler_Text: string;
+  Project_Number: string;
+}
+
 declare interface MainRecord {
   Object_ID: number;
   Department: string;
@@ -44,9 +72,4 @@ declare interface MainRecord {
   County: string;
   City: string;
   Locus: string;
-}
-
-declare interface SecondaryRecord {
-  Object_ID: number;
-  Department: string;
 }

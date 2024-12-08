@@ -1,3 +1,6 @@
+
+#  TODO  YOU _HAVE_ TO MAKE VERBOSE MODE!!!
+
 TMS_TABLES_LOCATION := ~/data/tms-mssql-tables
 OH1_SCRIPT_DIR 		:= 01_make-each-table/
 
