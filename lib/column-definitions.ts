@@ -49,7 +49,9 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'rend
 });
 
 /* I have just discovered: some fields are more searchable than others */
-const mainNonSearchableFields = ["Object_ID", "Object_Number"];
+const mainNonSearchableFields = [
+  "Object_ID", "Home_Location", "Dimensions"
+];
 mainNonSearchableFields.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'searchable', 'false');
 });
