@@ -12,18 +12,19 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return Array.isArray(genericID) ? genericID[0] ?? impossibleErrorMessage : genericID
     }).
     then(attemptToParseInt).
-    // first, get all exhibitions related to object
-    then(_ => getRecordByID<Array<ExhibitionsxobjectsRecord>>('exhibitionsxobjects', 'Object_ID', _, true)).
+    // first, get all constituents related to object
+    then(_ => getRecordByID<Array<ConstituentsxobjectsRecord>>('constituentsxobjects', 'Object_ID', _, true)).
     then(_ => {
       if (_==null)
         res.status(500).json({ error: "no records found" });
-      return _.map(i => i.Exhibition_ID);
+      return _.map(i => { return { role:i.Role, Constituent_ID:i.Constituent_ID }; });
     }).
-    // next, get more info on each exhibition
+    // next, get more info on each constituent
+    // looks like: [{"role":"Photographer","Constituent_ID":13943},{"role":"Printer","Constituent_ID":16877},{"role":"Dealer","Constituent_ID":13943}]
     then(_ => {
-      return _.map(i => {
-        const exhRecord = getRecordByID<ExhibitionsRecord>('exhibitions', 'Exhibition_ID', i);
-        return exhRecord;
+      return _.map(({ role, Constituent_ID }) => {
+        const constRecord = getRecordByID<ConstituentsRecord>('constituents', 'Constituent_ID', Constituent_ID);
+        return { ...constRecord, role };
       });
     }).
     then(data => res.status(200).json(data)).
@@ -31,4 +32,5 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default handler;
+
 
