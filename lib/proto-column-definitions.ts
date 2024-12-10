@@ -3,20 +3,8 @@
 export const protoColumnDefs = {
   "constituents": [
     {
-      "data": "rid",
-      "title": "rid"
-    },
-    {
-      "data": "Object_ID",
-      "title": "Object ID"
-    },
-    {
-      "data": "Role_Type",
-      "title": "Role Type"
-    },
-    {
-      "data": "Role",
-      "title": "Role"
+      "data": "Constituent_ID",
+      "title": "Constituent ID"
     },
     {
       "data": "First_Name",
@@ -51,46 +39,102 @@ export const protoColumnDefs = {
       "title": "Nationality"
     }
   ],
-  "exhibitions": [
+  "constituentsxobjects": [
     {
       "data": "rid",
       "title": "rid"
+    },
+    {
+      "data": "Constituent_ID",
+      "title": "Constituent ID"
     },
     {
       "data": "Object_ID",
       "title": "Object ID"
     },
     {
-      "data": "Department",
-      "title": "Department"
+      "data": "Role",
+      "title": "Role"
+    }
+  ],
+  "exhibitions": [
+    {
+      "data": "Exhibition_ID",
+      "title": "Exhibition ID"
     },
     {
-      "data": "Display_Date",
-      "title": "Display Date"
+      "data": "Department",
+      "title": "Department"
     },
     {
       "data": "Title",
       "title": "Title"
     },
     {
-      "data": "Remarks",
-      "title": "Remarks"
-    },
-    {
-      "data": "Sponsor_Credit_Line",
-      "title": "Sponsor Credit Line"
-    },
-    {
-      "data": "Organization_Credit_Line",
-      "title": "Organization Credit Line"
+      "data": "Abbreviation",
+      "title": "Abbreviation"
     },
     {
       "data": "Boiler_Text",
       "title": "Boiler Text"
     },
     {
+      "data": "Begin_Year",
+      "title": "Begin Year"
+    },
+    {
+      "data": "End_Year",
+      "title": "End Year"
+    },
+    {
+      "data": "Display_Date",
+      "title": "Display Date"
+    },
+    {
+      "data": "Remarks",
+      "title": "Remarks"
+    },
+    {
       "data": "Project_Number",
       "title": "Project Number"
+    },
+    {
+      "data": "Citation",
+      "title": "Citation"
+    },
+    {
+      "data": "Organization_Credit_Line",
+      "title": "Organization Credit Line"
+    },
+    {
+      "data": "Sponsor_Credit_Line",
+      "title": "Sponsor Credit Line"
+    },
+    {
+      "data": "Sub_Title",
+      "title": "Sub Title"
+    },
+    {
+      "data": "Is_In_House",
+      "title": "Is In House"
+    },
+    {
+      "data": "Is_Virtual",
+      "title": "Is Virtual"
+    }
+  ],
+  "exhibitionsxobjects": [
+    {
+      "data": "rid",
+      "title": "rid"
+    },
+    {
+      "data": "Exhibition_ID",
+      "title": "Exhibition ID"
+    },
+    {
+      "data": "Object_ID",
+      "title": "Object ID"
     }
   ],
   "main": [

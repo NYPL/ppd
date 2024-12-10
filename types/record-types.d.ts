@@ -1,12 +1,9 @@
 // THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT.
 
-type TableName = 'constituents' | 'exhibitions' | 'main';
+type TableName = 'constituents' | 'constituentsxobjects' | 'exhibitions' | 'exhibitionsxobjects' | 'main';
 
 declare interface ConstituentsRecord {
-  rid: number;
-  Object_ID: number;
-  Role_Type: string;
-  Role: string;
+  Constituent_ID: number;
   First_Name: string;
   Last_Name: string;
   Institution: string;
@@ -17,17 +14,36 @@ declare interface ConstituentsRecord {
   Nationality: string;
 }
 
-declare interface ExhibitionsRecord {
+declare interface ConstituentsxobjectsRecord {
   rid: number;
+  Constituent_ID: number;
   Object_ID: number;
+  Role: string;
+}
+
+declare interface ExhibitionsRecord {
+  Exhibition_ID: number;
   Department: string;
-  Display_Date: string;
   Title: string;
-  Remarks: string;
-  Sponsor_Credit_Line: string;
-  Organization_Credit_Line: string;
+  Abbreviation: string;
   Boiler_Text: string;
+  Begin_Year: number;
+  End_Year: number;
+  Display_Date: string;
+  Remarks: string;
   Project_Number: string;
+  Citation: string;
+  Organization_Credit_Line: string;
+  Sponsor_Credit_Line: string;
+  Sub_Title: string;
+  Is_In_House: number;
+  Is_Virtual: number;
+}
+
+declare interface ExhibitionsxobjectsRecord {
+  rid: number;
+  Exhibition_ID: number;
+  Object_ID: number;
 }
 
 declare interface MainRecord {
