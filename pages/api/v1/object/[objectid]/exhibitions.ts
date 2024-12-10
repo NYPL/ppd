@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const impossibleErrorMessage = "couldn't read objectid from URL query string";
+  const impossibleErrorMessage = "couldn't read id from URL query string";
   Promise.resolve(req.query).
     then((query) => {
       const genericID = query['objectid'] ?? impossibleErrorMessage;
