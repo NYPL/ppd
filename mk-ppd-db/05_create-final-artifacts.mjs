@@ -39,9 +39,12 @@ const outputInterfaceFile = async (listOFiles) => {
     return stampOutInterface(contents);
   };
 
+  const tableNames = listOFiles.map(i => `'${i.tableName}'`);
+
   return Promise.resolve(listOFiles).
     then(_ => _.map(convertToInterface)).
     then(_ => _.join('')).
+    then(_ => `\ntype TableName = ${tableNames.join(' | ')};\n${_}`).
     then(_ => fs.writeFile(OUTPUT_INTERFACE_FILE, _)).
     then(_ => listOFiles);
 };

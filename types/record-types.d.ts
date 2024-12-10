@@ -1,5 +1,7 @@
 // THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT.
 
+type TableName = 'constituents' | 'exhibitions' | 'main';
+
 declare interface ConstituentsRecord {
   rid: number;
   Object_ID: number;

@@ -1,7 +1,5 @@
 type Url = string;
 
-type TableName = 'main';
-
 declare interface ContainsChildren {
   children: React.ReactNode;
 }

@@ -1,15 +1,11 @@
 
 import { attemptToParseInt } from '@/lib/utils';
-import { getByIdStatement } from '@/lib/api/generic-sql-statements';
+import { getRecordByID } from '@/lib/api/generic-sql-statements';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 
 export const getMainRecordByID = (objectId: number): MainRecord => {
-  const stm = getByIdStatement('main', 'Object_Id', objectId);
-  const r = stm.get() as MainRecord;
-  if (r === undefined)
-    throw new Error ("no results");
-  return r;
+  return getRecordByID('main', 'Object_ID', objectId);
 };
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
