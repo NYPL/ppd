@@ -1,5 +1,7 @@
 
 import { ThumbnailHolder } from "./components/ThumbnailHolder";
+import { ConstituentsHolder } from "./components/ConstituentsHolder";
+import { ExhibitionsHolder } from "./components/ExhibitionsHolder";
 import { Tombstone } from '../../Tombstone/Tombstone';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { dbConstants } from "@/lib/db-constants";
@@ -25,10 +27,12 @@ export const Content = ({ className, children }: ContentProps) => {
 
 
 interface Props {
-  mainAPIPayload: MainRecord;
+  mainAPIPayload:       MainRecord;
+  exhibitionsPayload:   Array<ExhibitionsRecord>;
+  constituentsPayload:  Array<ConstituentsRecord & { role: string }>;
 }
 
-export const ObjectView = ({ mainAPIPayload }: Props) => {
+export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPayload }: Props) => {
   const {
     Object_ID,
     Object_Number,
@@ -41,6 +45,14 @@ export const ObjectView = ({ mainAPIPayload }: Props) => {
 
   const prevOutOfBoundsP = (Object_ID-1) < dbConstants.main.min;
   const nextOutOfBoundsP = (Object_ID+1) > dbConstants.main.max;
+
+  const cons = constituentsPayload.length > 0 ?
+    <ConstituentsHolder payload={ constituentsPayload } /> :
+    <></>;
+
+  const exhs = exhibitionsPayload.length > 0 ?
+    <ExhibitionsHolder payload={ exhibitionsPayload } /> :
+    <></>;
 
   return (
     <div id="object-view" className={ styles['object-view'] }>
@@ -74,6 +86,9 @@ export const ObjectView = ({ mainAPIPayload }: Props) => {
           <ThumbnailHolder imageLink={ Link } />
         </div>
       </Content>
+      { cons }
+      <br/>
+      { exhs }
     </div>
   );
 };
