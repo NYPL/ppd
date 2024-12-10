@@ -12,8 +12,7 @@ export const ExhibitionCard = ({ exhibition }: CardProps) => {
   } = exhibition;
 
   return (
-    <div className="exhibition-card">
-      <div>{ Exhibition_ID }</div>
+    <div className="card">
       <div className="title">
         { /*  NOTE  are we ready for links */ }
         <a href={ `/exhibition/${Exhibition_ID}` }>{ Title }</a>
@@ -35,12 +34,12 @@ export const ExhibitionsHolder = ({ payload }: Props) => {
   const exhCards = payload.map(i => <ExhibitionCard exhibition={ i } />);
 
   return (
-    <>
+    <div className="exhibitions-holder">
       <h3>Exhibitions</h3>
-      <div className="pp">
+      <div className="exhibition-cards">
         { exhCards }
       </div>
-    </>
+    </div>
   );
 };
 

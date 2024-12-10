@@ -7,12 +7,6 @@ import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { dbConstants } from "@/lib/db-constants";
 import styles from './ObjectView.module.scss';
 
-/*
- *  TODO  
- *
- *  this might get long... probably should extract some sub-components
- *
- */
 
 type HeaderProps  = Readonly<ContainsChildren & ContainsClassName>;
 type ContentProps = Readonly<ContainsChildren & ContainsClassName>;
@@ -77,18 +71,19 @@ export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPay
         </div>
       </Header>
       <Content className={ styles['content'] ?? "" }>
-        <div className={ styles['tombstone-and-thumbnail'] }>
+        <div className={ styles['left'] }>
           <Tombstone
             Title={ Title }
             Display_Name={ Display_Name }
             Display_Date={ Display_Date }
             Medium={ Medium } />
+          { exhs }
+        </div>
+        <div className={ styles['right'] }>
           <ThumbnailHolder imageLink={ Link } />
+          { cons }
         </div>
       </Content>
-      { cons }
-      <br/>
-      { exhs }
     </div>
   );
 };

@@ -31,10 +31,12 @@ export const ConstituentsHolder = ({ payload }: Props) => {
   const conCards = payload.map(i => <ConstituentCard constituent={ i } />);
 
   return (
-    <>
+    <div className="constituents-holder">
       <h3>Constituents</h3>
-      { conCards }
-    </>
+      <div className="constituent-card">
+        { conCards }
+      </div>
+    </div>
   );
 };
 

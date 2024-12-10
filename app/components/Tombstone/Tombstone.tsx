@@ -10,13 +10,13 @@ interface Props {
 
 export const Tombstone = ({ Display_Name, Display_Date, Title, Medium}: Props) => {
   return (
-    <div className={ styles['tomb-stone'] }>
+    <div className={ styles['tombstone'] }>
       <div>
-        <p className={ styles['tomb-stone-name'] }>{ Display_Name }</p>
-        <p className={ styles['tomb-stone-date'] }>{ Display_Date }</p>
+        <p className={ styles['tombstone-name'] }>{ Display_Name }</p>
+        <p className={ styles['tombstone-date'] }>{ Display_Date }</p>
       </div>
-      <p className={ styles['tomb-stone-title'] }>{ Title }</p>
-      <p className={ styles['tomb-stone-medium'] }>{ Medium }</p>
+      <p className={ styles['tombstone-title'] }>{ Title }</p>
+      <p className={ styles['tombstone-medium'] }>{ Medium }</p>
     </div>
   );
 };

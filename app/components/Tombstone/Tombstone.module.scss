@@ -1,27 +1,35 @@
-.tomb-stone {
+@use '../../styles/globals';
+
+.tombstone {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 30px;
   gap: 20px;
+  padding: 2vw 10vw 2vw 2vw;
+  max-width: 85vw;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  @media (max-width: globals.$mobile) {
+    flex-direction: column;
+  }
 }
 
-.tomb-stone-name {
+.tombstone-name {
   font-size: 2.3rem;
   font-weight: bold;
   margin-right: 10ch;
 }
 
-.tomb-stone-date {
+.tombstone-date {
   font-size: 1.5rem;
 }
 
-.tomb-stone-title {
+.tombstone-title {
   font-size: 2.5rem;
   font-weight: bold;
   font-style: italic;
 }
 
-.tomb-stone-medium {
+.tombstone-medium {
   font-size: 1.5rem;
 }
