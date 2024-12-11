@@ -27,8 +27,11 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       const tmp = oids.
         map(_ => getRecordByID<MainRecord>('main', 'Object_ID', _['Object_ID'])).
-        map(_ => { return { Object_ID: _['Object_ID'], Title: _['Title'],
-                            Role: _['Role'], Dated: _['Dated'] } });
+        map(_ => {
+          return {
+            Object_ID: _['Object_ID'], Title: _['Title'], Role: _['Role'], Medium: _['Medium'], Dated: _['Dated']
+          }
+        });
       return { general: _, objects: tmp };
     }).
     then(data => res.status(200).json(data)).
