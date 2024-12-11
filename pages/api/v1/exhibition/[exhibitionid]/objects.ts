@@ -30,10 +30,12 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         map(_ => {
           return {
             Object_ID: _['Object_ID'], Title: _['Title'],
-            Medium: _['Medium'], Dated: _['Dated'], Link: _['Link']
+            Medium: _['Medium'], Dated: _['Dated'], Link: _['Link'],
+            Display_Name: _['Display_Name'],
+            Display_Date: _['Display_Date']
           }
         });
-      return { info: _['info'], objects: tmp };
+      return Array.from(tmp);
     }).
     then(data => res.status(200).json(data)).
     catch(e => res.status(500).json({ error: e.message }));

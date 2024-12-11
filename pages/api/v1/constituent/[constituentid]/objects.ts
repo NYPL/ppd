@@ -32,7 +32,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             Object_ID: _['Object_ID'], Title: _['Title'], Role: _['Role'], Medium: _['Medium'], Dated: _['Dated']
           }
         });
-      return { general: _, objects: tmp };
+      return tmp;
     }).
     then(data => res.status(200).json(data)).
     catch(e => res.status(500).json({ error: e.message }));
