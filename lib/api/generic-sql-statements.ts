@@ -26,7 +26,7 @@ export const makeRecordRetrieverHandler = (table: TableName,
                                            field: string,
                                            all: boolean=false) => {
   return  async (req: NextApiRequest, res: NextApiResponse) => {
-    const impossibleErrorMessage = "couldn't read objectid from URL query string";
+    const impossibleErrorMessage = "couldn't read id from URL query string";
     Promise.resolve(req.query).
       then((query) => {
         const genericID = query[queryKey] ?? impossibleErrorMessage;

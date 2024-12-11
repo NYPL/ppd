@@ -30,4 +30,3 @@ export const KeyValueTable = ({ payload }: Props) => {
     </div>
   );
 };
-      // <pre>{ JSON.stringify(payload, null, 2) }</pre>
