@@ -12,11 +12,11 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return Array.isArray(genericID) ? genericID[0] ?? impossibleErrorMessage : genericID
     }).
     then(attemptToParseInt).
-    then(_ => getRecordByID<ConstituentsRecord>('constituents', 'Constituent_ID', _, true)).
+    then(_ => getRecordByID<ConstituentsRecord>('constituents', 'Constituent_ID', _)).
     then(_ => {
       if (_==null)
         res.status(500).json({ error: "no records found" });
-      return _[0]
+      return _;
     }).
     then(_ => {
       const objects = getRecordByID<Array<ConstituentsxobjectsRecord>>('constituentsxobjects',
