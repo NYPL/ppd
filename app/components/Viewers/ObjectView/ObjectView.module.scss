@@ -87,7 +87,7 @@
   & a {
     display: none;
   }
-  & a[href] {
+  & a[href], {
     display: block;
   }
 }

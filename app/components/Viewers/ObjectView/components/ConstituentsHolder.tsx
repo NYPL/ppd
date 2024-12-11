@@ -1,4 +1,9 @@
 
+import styles from './ConstituentsHolder.module.scss';
+
+//  TODO  reduce duplication with ExhibitionHolder
+//  TODO  there's a color in the CSS than needs to be parameterized
+
 interface CardProps {
   constituent: ConstituentsRecord & { role: string }
 }
@@ -11,13 +16,17 @@ export const ConstituentCard = ({ constituent }: CardProps) => {
     role
   } = constituent;
   return (
-    <div className="card">
-      <div className="title">
-        { /*  NOTE  are we ready for links */ }
-        <a href={ `/constituent/${Constituent_ID}` }>{ Display_Name }</a>
+    <div className={ styles['card'] }>
+      <div className={ styles['left'] }>
+        <div className={ styles['role'] }>{ role }</div>
       </div>
-      <div className="display-date">{ Display_Date }</div>
-      <div className="role">{ role }</div>
+      <div className={ styles['right'] }>
+        <div className="title">
+          { /*  NOTE  are we ready for links */ }
+          <a className={ styles['con-name-link'] } href={ `/constituent/${Constituent_ID}` }>{ Display_Name }</a>
+        </div>
+        <div className="display-date">{ Display_Date }</div>
+      </div>
     </div>
   );
 };
@@ -31,9 +40,9 @@ export const ConstituentsHolder = ({ payload }: Props) => {
   const conCards = payload.map(i => <ConstituentCard constituent={ i } />);
 
   return (
-    <div className="constituents-holder">
-      <h3>Constituents</h3>
-      <div className="constituent-card">
+    <div className={ styles['header-and-holder'] }>
+      <div className={ styles['header'] }>Constituents</div>
+      <div className={ styles['holder'] }>
         { conCards }
       </div>
     </div>
