@@ -2,6 +2,7 @@
 import { ThumbnailHolder } from "./components/ThumbnailHolder";
 import { ConstituentsHolder } from "./components/ConstituentsHolder";
 import { ExhibitionsHolder } from "./components/ExhibitionsHolder";
+import { KeyValueTable } from "./components/KeyValueTable";
 import { Tombstone } from '../../Tombstone/Tombstone';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { dbConstants } from "@/lib/db-constants";
@@ -77,11 +78,12 @@ export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPay
             Display_Name={ Display_Name }
             Display_Date={ Display_Date }
             Medium={ Medium } />
+          { cons }
           { exhs }
         </div>
         <div className={ styles['right'] }>
           <ThumbnailHolder imageLink={ Link } />
-          { cons }
+          <KeyValueTable payload={ mainAPIPayload } />
         </div>
       </Content>
     </div>

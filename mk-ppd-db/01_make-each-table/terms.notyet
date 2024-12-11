@@ -1,0 +1,34 @@
+#!/usr/local/bin/Rscript --vanilla
+
+source("./01_prelude.R")
+
+# --------------------------------------------------------------- #
+# Terms -------------------------------------------------------- #
+
+OUTPUT_NAME <- "terms"
+
+terms <- read.table.dump("Terms")
+terms <- terms[, .(TermID, TermTypeID, TermMasterID, Term)]
+
+termtype <- read.table.dump("TermTypes")
+termtype <- termtype[, .(TermTypeID, TermType)]
+terms %<>% merge(termtype, all.x=TRUE)
+terms[, TermTypeID:=NULL]
+
+tmt <- read.table.dump("TermMasterThes")
+tmt <- tmt[, .(TermMasterID, TermSource, SourceTermID)]
+terms %<>% merge(tmt, all.x=TRUE)
+terms
+
+txrt <- read.table.dump("ThesXrefTypes")
+txrt <- txrt[, .(ThesXrefTypeID, ThesXrefType, TermMasterID, TableID)]
+txrt
+terms %<>% merge(txrt, all.x=TRUE)
+
+
+tmg <- read.table.dump("TermMasterGeo")
+tmg <- tmg[, .(TermMasterID, LatitudeNumber, LatitudeDirection,
+                             LongitudeNumber, LongitudeDirection)]
+terms %<>% merge(tmg, all.x=TRUE)
+
+

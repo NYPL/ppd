@@ -1,0 +1,26 @@
+.key-value-holder {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 1px solid var(--rs-gray-100);
+  max-width: 40vw;
+}
+
+.th, .td {
+  padding: 5px 20px 5px 10px;
+}
+
+.tr:nth-child(odd) {
+  background-color: var(--rs-gray-100);
+}
+
+.td:nth-child(odd) {
+  font-weight: bold;
+}
+
