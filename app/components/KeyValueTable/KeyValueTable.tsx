@@ -5,8 +5,6 @@ interface Props {
   payload: any;
 }
 
-type MRKey = keyof MainRecord;
-
 export const KeyValueTable = ({ payload }: Props) => {
   
   //  TODO  no `any`
