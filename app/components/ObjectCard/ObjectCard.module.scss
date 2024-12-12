@@ -93,9 +93,10 @@
 }
 
 .title {
+  font-size: 1.2em;
 }
 
-.display-date {
+.dated {
   padding: 5px 0px 0px 0px;
   font-style: italic;
 }
@@ -103,4 +104,20 @@
 .display-medium {
   padding: 10px 0px 0px 0px;
   font-weight: 300;
+}
+
+.artist-and-display-date {
+  display: flex;
+  flex-direction: row;
+  gap: 1ch;
+  padding: 3px 0px;
+  align-items: baseline;
+}
+
+.artist {
+  font-weight: bold;
+}
+
+.display-date {
+  font-size: .9em;
 }

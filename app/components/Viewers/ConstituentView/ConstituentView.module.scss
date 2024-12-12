@@ -17,9 +17,43 @@
   }
 }
 
+.constituent-card {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  font-size: 1.5rem;
+  border: solid;
+  border-width: 1px 0px;
+  margin-top: 7vh;
+
+  @media (max-width: globals.$mobile) {
+    font-size: 3rem;
+  }
+}
+
+.display-name {
+  font-weight: 100;
+  font-size: 2em;
+}
+
+.display-date {
+  font-style: italic;
+}
+
+.display-conid {
+  font-size: .8em;
+  padding-bottom: 10px;
+}
+
 .left {
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
   width: 50vw;
+
+  @media (max-width: globals.$mobile) {
+    width: 90vw;
+  }
 }
 
 .right {
