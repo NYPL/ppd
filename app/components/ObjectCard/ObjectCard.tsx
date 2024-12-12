@@ -3,9 +3,13 @@ import styles from './ObjectCard.module.scss';
 
 interface Props {
   payload: MainRecord;
+  includeArtistP?: boolean;
+  includeRoleP?: boolean;
 }
 
-export const ObjectCard = ({ payload }: Props) => {
+//  TODO  make more flexible (e.g. `incudeArtistP`.... but a config object?
+
+export const ObjectCard = ({ payload, includeArtistP=true, includeRoleP=false }: Props) => {
   const thumbnailp = payload.Link!=null ?
     <div className={ styles['thumbnail-holder'] }>
       { /*  TODO  should I use another image components e.g. Image, etc...? */ }
@@ -18,9 +22,10 @@ export const ObjectCard = ({ payload }: Props) => {
   return (
     <div className={ styles['object-card'] }>
       <div className={ styles['left'] }>
-        <div className={ styles['role'] }>
-          <span>{ payload.Role }</span>
-        </div>
+        { includeRoleP ?
+            <div className={ styles['role'] }>
+              <span>{ payload.Role }</span>
+            </div> : <></> }
         <div className={ styles['left-right'] }>
           <div className={ styles['pseudo-tombstone'] }>
             <div className={ styles['title'] }>
@@ -28,7 +33,17 @@ export const ObjectCard = ({ payload }: Props) => {
                 { payload.Title }
               </a>
             </div>
-            <div className={ styles['display-date'] }>{ payload.Dated }</div>
+            { includeArtistP ?
+                <div className={ styles['artist-and-display-date'] }>
+                  <div className={ styles['artist'] }>
+                    { payload.Display_Name }
+                  </div>
+                  <div className={ styles['display-date'] }>
+                    ({ payload.Display_Date })
+                  </div>
+                </div> :
+                <></> }
+            <div className={ styles['dated'] }>{ payload.Dated }</div>
             { payload.Medium!=null ?
                 <div className={ styles['display-medium'] }>{ payload.Medium }</div> :
                 <div></div> }

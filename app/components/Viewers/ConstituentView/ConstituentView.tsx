@@ -1,6 +1,5 @@
 
 import { ObjectCard } from "@/app/components/ObjectCard/ObjectCard";
-import { KeyValueTable } from "@/app/components/KeyValueTable/KeyValueTable";
 import styles from './ConstituentView.module.scss';
 
 interface Props {
@@ -22,7 +21,9 @@ export const ConstituentCard = ({ conPayload }: { conPayload: ConstituentsRecord
 export const ConstituentView = ({ conPayload, conxobjPayload }: Props) => {
 
   const objCards = conxobjPayload.length ?
-    conxobjPayload.map((i: MainRecord) => { return <ObjectCard payload={ i } /> }) :
+    conxobjPayload.map((i: MainRecord) => {
+      return <ObjectCard payload={ i } includeArtistP={ false } includeRoleP={ true } />
+    }) :
     <></>;
 
   return (
