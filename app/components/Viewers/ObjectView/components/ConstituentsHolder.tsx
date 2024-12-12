@@ -22,7 +22,6 @@ export const ConstituentCard = ({ constituent }: CardProps) => {
       </div>
       <div className={ styles['right'] }>
         <div className="title">
-          { /*  NOTE  are we ready for links */ }
           <a className={ styles['con-name-link'] } href={ `/constituent/${Constituent_ID}` }>{ Display_Name }</a>
         </div>
         <div className="display-date">{ Display_Date }</div>

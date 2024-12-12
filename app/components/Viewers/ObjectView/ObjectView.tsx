@@ -1,8 +1,8 @@
 
-import { ThumbnailHolder } from "./components/ThumbnailHolder";
+import { ThumbnailHolder } from "../../ThumbnailHolder/ThumbnailHolder";
 import { ConstituentsHolder } from "./components/ConstituentsHolder";
 import { ExhibitionsHolder } from "./components/ExhibitionsHolder";
-import { KeyValueTable } from "./components/KeyValueTable";
+import { KeyValueTable } from "@/app/components/KeyValueTable/KeyValueTable";
 import { Tombstone } from '../../Tombstone/Tombstone';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { dbConstants } from "@/lib/db-constants";

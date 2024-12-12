@@ -1,0 +1,38 @@
+@use '../../../styles/globals';
+
+//  TODO  MOBILE
+//  TODO  MOBILE
+//  TODO  MOBILE
+//  TODO  MOBILE
+//  TODO  MOBILE
+
+.constituent-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @media (max-width: globals.$mobile) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.left {
+  display: flex;
+  width: 50vw;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+.obj-cards {
+  display: flex;
+  flex-direction: column;
+  
+  @media (max-width: globals.$mobile) {
+    gap: 10px;
+  }
+}
+

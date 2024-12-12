@@ -1,3 +1,5 @@
+@use '../../styles/globals';
+
 .key-value-holder {
   display: flex;
   flex-direction: column;
@@ -8,12 +10,15 @@
 .table {
   table-layout: fixed;
   border-collapse: collapse;
-  border: 1px solid var(--rs-gray-100);
   max-width: 40vw;
+  @media (max-width: globals.$mobile) {
+    width: 90%;
+  }
+
 }
 
 .th, .td {
-  padding: 5px 20px 5px 10px;
+  padding: 15px 20px 15px 20px;
 }
 
 .tr:nth-child(odd) {
@@ -21,6 +26,7 @@
 }
 
 .td:nth-child(odd) {
-  font-weight: bold;
+  font-weight: 100;
+  text-transform: lowercase;
 }
 

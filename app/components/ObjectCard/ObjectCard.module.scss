@@ -1,0 +1,106 @@
+@use '../../styles/globals';
+
+.object-card {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  padding: 20px;
+  border: solid;
+  border-width: 1px 0px 1px 0px;
+  border-color: var(--rs-gray-100);
+
+  @media (max-width: globals.$mobile) {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+.img {
+  width: 20vw;
+  max-height: 50vh;
+  height: 100%;
+  padding: 20px;
+  object-fit: cover;
+
+  @media (max-width: globals.$mobile) {
+    width: 100%;
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  justify-content: flex-end;
+
+  @media (max-width: globals.$mobile) {
+    justify-content: space-evenly;
+    padding-top: 20px;
+    font-size: 1.4rem;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  @media (max-width: globals.$mobile) {
+    justify-content: center;
+  }
+}
+
+//  TODO  this is ".role". make it
+.role {
+  display: flex;
+  align-items: center;
+  text-transform: lowercase;
+  font-weight: 100;
+  letter-spacing: 1px;
+  // color: var(--rs-gray-600);
+  // color: #014a40;
+}
+
+.left-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30vw;
+
+  @media (max-width: globals.$mobile) {
+    width: 60vw;
+  }
+}
+
+.pseudo-tombstone {
+  border: solid;
+  border-width: 0px 0px 0px 1px;
+  border-color: var(--rs-gray-400);
+  padding-left: 20px;
+}
+
+.thumbnail-holder {
+  :not a[href] {
+    display: hidden;
+  }
+  a[href=""] {
+    display: hidden;
+  }
+}
+
+.obj-name-link {
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.title {
+}
+
+.display-date {
+  padding: 5px 0px 0px 0px;
+  font-style: italic;
+}
+
+.display-medium {
+  padding: 10px 0px 0px 0px;
+  font-weight: 300;
+}

@@ -1,4 +1,10 @@
-@use '../../../../styles/globals';
+@use '../../styles/globals';
+
+.thumbnail-holder {
+  a[href=""] {
+    display: none;
+  }
+}
 
 .img {
   width: 40vw;

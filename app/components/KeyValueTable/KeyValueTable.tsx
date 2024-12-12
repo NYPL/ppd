@@ -2,13 +2,14 @@
 import styles from './KeyValueTable.module.scss';
 
 interface Props {
-  payload: MainRecord;
+  payload: any;
 }
 
 type MRKey = keyof MainRecord;
 
 export const KeyValueTable = ({ payload }: Props) => {
   
+  //  TODO  no `any`
   const makeRow = (k: any, v: any) => {
     return (
       <tr className={ styles['tr'] }>
@@ -17,10 +18,10 @@ export const KeyValueTable = ({ payload }: Props) => {
       </tr>
     );
   };
-  const allKeys = Object.keys(payload) as MRKey[];
+  const allKeys = Object.keys(payload) as string[];
   const rows = allKeys.
     filter(key => payload[key]).
-    map(key => makeRow(key, payload[key]));
+    map(key => makeRow(key.replaceAll("_", " "), payload[key]));
 
   return (
     <div className={ styles['key-value-holder'] }>

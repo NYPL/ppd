@@ -7,7 +7,7 @@
   gap: 20px;
   padding: 2vw 10vw 2vw 2vw;
   max-width: 85vw;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
 
   @media (max-width: globals.$mobile) {
     flex-direction: column;
