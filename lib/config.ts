@@ -7,7 +7,7 @@ export const API_PATH = "api/v1";
 export const FIELD_CHARACTER_LIMIT = 50;
 export const TITLE_CHARACTER_LIMIT = FIELD_CHARACTER_LIMIT;
 
-export const API_ASSOC_ARRAY_LIMIT: number | undefined = undefined;
+export const API_ASSOC_ARRAY_LIMIT: number | undefined = 300;
 
 export const colors = {
   burntSienna:            "#703e35",
