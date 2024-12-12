@@ -1,8 +1,10 @@
 
 import styles from './ObjectCard.module.scss';
 
+//  TODO  document that "role" and "Role" are two different things
+//  TODO  maybe use a symbol index on MainRecord next time?
 interface Props {
-  payload: MainRecord;
+  payload: MainRecord & { role?: string };
   includeArtistP?: boolean;
   includeRoleP?: boolean;
 }
