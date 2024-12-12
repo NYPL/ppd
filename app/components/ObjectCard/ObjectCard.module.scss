@@ -48,13 +48,14 @@
   }
 }
 
-//  TODO  this is ".role". make it
 .role {
   display: flex;
   align-items: center;
   text-transform: lowercase;
   font-weight: 100;
   letter-spacing: 1px;
+  width: 10ch;
+  justify-content: flex-end;
   // color: var(--rs-gray-600);
   // color: #014a40;
 }
