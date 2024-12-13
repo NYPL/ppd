@@ -24,8 +24,17 @@ main {
   padding: 0vw;
 }
 
+
+// Overriding css defaults
+
 .rs-navbar-brand {
-  padding: 1vh;
+  padding: 1vh 3vh 1vh 2vh;
+}
+
+.rs-drawer {
+  @media (max-width: globals.$mobile) {
+    font-size: 1.5rem;
+  }
 }
 
 .rs-navbar-brand + .rs-navbar-brand {
@@ -33,17 +42,54 @@ main {
 }
 
 .rs-drawer-left.rs-drawer-xs, .rs-drawer-right.rs-drawer-xs {
-  width: 25vw;
+  width: 55vw;
   min-width: 250px;
-}
-
-h1 {
-  color: red;
-  .rs-theme-dark & {
-    color: green;
-  }
 }
 
 .hidden {
   visibility: hidden;
 }
+
+//  TODO  FIX  THIS!!
+//  TODO  FIX  THIS!!
+//  TODO  FIX  THIS!!
+.rs-content {
+  // background-color: bisque !important;
+
+  button.dtsb-button {
+    background-color: #ffffff !important;
+  }
+
+  button {
+    background-color: #ffffff !important;
+  }
+
+  div.dt-container {
+
+    thead {
+      font-weight: 100 !important;
+    }
+
+    font-weight: 100;
+
+    // table.dataTable thead th, table.dataTable tfoot th
+    th {
+      font-weight: 600 !important;
+      color: black !important;
+    }
+
+    button {
+      // background-color: rgba(255, 255, 255, 1) !important;
+      background: none !important;
+    }
+
+    button:hover {
+      background-color: var(--rs-gray-100) !important;
+      // background: none !important;
+      border-color: black !important;
+      // border-width: 10px !important;
+      font-weight: 400 !important;
+    }
+  }
+}
+
