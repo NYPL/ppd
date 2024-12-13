@@ -1,4 +1,3 @@
-'use client';
 
 import Navbar from 'rsuite/Navbar';
 import Nav from 'rsuite/Nav';
