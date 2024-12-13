@@ -11,14 +11,16 @@
 
   @media (max-width: globals.$mobile) {
     flex-direction: column;
-    padding: 20px;
+    padding: 30px;
+    width: 100%;
   }
 }
 
 .tombstone-name {
-  font-size: 2.3rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  // font-weight: bold;
   margin-right: 10ch;
+  font-weight: 100;
 }
 
 .tombstone-date {
@@ -27,10 +29,11 @@
 
 .tombstone-title {
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: 400;
   font-style: italic;
 }
 
 .tombstone-medium {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 100;
 }
