@@ -12,7 +12,8 @@
   border-collapse: collapse;
   max-width: 40vw;
   @media (max-width: globals.$mobile) {
-    width: 90%;
+    // width: 90%;
+    max-width: 90vw;
   }
 
 }

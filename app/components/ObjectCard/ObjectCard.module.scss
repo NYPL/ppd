@@ -58,6 +58,9 @@
   justify-content: flex-end;
   // color: var(--rs-gray-600);
   // color: #014a40;
+  @media (max-width: globals.$mobile) {
+    width: 15ch;
+  }
 }
 
 .left-right {
@@ -88,9 +91,17 @@
 }
 
 .obj-name-link {
-  font-size: 1.1em;
-  font-weight: bold;
+  font-size: 1.3em;
+  font-weight: 400;
   text-decoration: none;
+  //  TODO  come on, now
+  color: #074bcd;
+
+  //  TODO  come on, now
+  &:visited {
+    color: rebeccapurple;
+  }
+
 }
 
 .title {
