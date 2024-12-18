@@ -50,6 +50,7 @@ declare interface MainRecord {
   Object_ID: number;
   Department: string;
   Object_Number: string;
+  Classification: string;
   Title: string;
   Role: string;
   First_Name: string;
@@ -58,7 +59,10 @@ declare interface MainRecord {
   Dated: string;
   Display_Date: string;
   Nationality: string;
+  Catalogue_Raisonne: string;
+  Call_Number: string;
   Home_Location: string;
+  StatusFlag: string;
   Object_Count: number;
   Dimensions: string;
   BeginDate: number;
@@ -71,7 +75,6 @@ declare interface MainRecord {
   Folder: string;
   Depicted_Location: string;
   Non_Display_Title: string;
-  Title_From_Objects: string;
   Link: string;
   Display_Name: string;
   Institution: string;
@@ -90,4 +93,25 @@ declare interface MainRecord {
   County: string;
   City: string;
   Locus: string;
+  Signed: string;
+  Inscribed: string;
+  Markings: string;
+  CreditLine: string;
+  Chat: string;
+  Description: string;
+  Notes: string;
+  Provenance: string;
+  PubReferences: string;
+  CuratorialRemarks: string;
+  RelatedWorks: string;
+  PublicAccess: number;
+  PaperFileRef: string;
+  UserNumber1: string;
+  ObjectState: string;
+  HistAttributions: string;
+  Bibliography: string;
+  Edition: string;
+  PaperSupport: string;
+  IsTemplate: number;
+  DateRemarks: string;
 }

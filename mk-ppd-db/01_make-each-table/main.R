@@ -25,6 +25,41 @@ rm(departments)
 # --------------------------------------------------------------- #
 
 
+
+# --------------------------------------------------------------- #
+# CLASSIFICATION ------------------------------------------------- #
+
+objs <- mstobjs[, .(ObjectID, ClassificationID)]
+classifications <- read.table.dump("Classifications")
+classifications <- classifications[, .(ClassificationID, Classification)]
+classifications
+objs %>% merge(classifications, all.x=TRUE) -> withclassifications
+withclassifications <- withclassifications[, .(ObjectID, Classification)]
+
+main %<>% merge(withclassifications, all.x=TRUE)
+
+# --------------------------------------------------------------- #
+
+
+
+# --------------------------------------------------------------- #
+# STATUS FLAGS -------------------------------------------------- #
+
+objs <- mstobjs[, .(ObjectID)]
+statusflags <- read.table.dump("StatusFlags")
+statusflags <- statusflags[, .(ObjectID, FlagID)]
+flaglabels <- read.table.dump("FlagLabels")
+flaglabels <- flaglabels[, .(FlagID, StatusFlag=FlagLabel)]
+statusflags %<>% merge(flaglabels)
+statusflags[, FlagID:=NULL]
+statusflags
+
+main %<>% merge(statusflags, all.x=TRUE)
+
+# --------------------------------------------------------------- #
+
+
+
 # --------------------------------------------------------------- #
 # OBJECT TITLES ------------------------------------------------- #
 
@@ -67,7 +102,7 @@ titles <- titles[, .(ObjectID, Title=MainTitle, Collection=Title.Collection,
            Subtitle=Title.SubtitleorTitleTranslation)]
 
 main %<>% merge(titles)
-main %<>% unique
+main %<>% unique  #  TODO  revisit this decision
 
 # --------------------------------------------------------------- #
 
@@ -120,18 +155,19 @@ media.files <- read.table.dump("MediaFiles")
 media.files <- media.files[, .(FileID, RenditionID, PathID, FileName)]
 
 thumbs <- media.files %>% merge(media.paths, all=FALSE)
-thumbs[FileID==43426]
+# thumbs[FileID==43426]
 thumbs <- thumbs[, .(FileID, RenditionID, Link=sprintf("%s/%s", Path, FileName))]
 
 thumbs <- objs %>% merge(thumbs, all=FALSE, by="RenditionID")
 
-thumbs[ObjectID==153812]
+# thumbs[ObjectID==153812]
 
 thumbs <- thumbs[, .(ObjectID, Link)]
 
 main %<>% merge(thumbs, all.x=TRUE)
 
-# # --------------------------------------------------------------- #
+# --------------------------------------------------------------- #
+
 
 
 
@@ -203,11 +239,11 @@ main %<>% merge(constituents, all.x=TRUE)
 # GEOGRAPHY ----------------------------------------------------- #
 
 objgeo <- read.table.dump("ObjGeography")
-objgeo
+# objgeo
 objgeo <- objgeo[PrimaryDisplay==1, .(ObjectID, Country, State,
                                       County, City, Locus,
                                       GeoSearchValue=KeyFieldsSearchValue)]
-objgeo # !!!
+# objgeo # !!!
 main <- main %>% merge(objgeo, all.x=TRUE)
 
 # --------------------------------------------------------------- #
@@ -217,7 +253,16 @@ main <- main %>% merge(objgeo, all.x=TRUE)
 # OBJECT VARS PREVIOUSLY LEFT OUT ------------------------------- #
 
 mstobjs <- read.table.dump("Objects")
-obj <- mstobjs[, .(ObjectID, ObjectNumber, ObjectCount, Medium, Dimensions, Dated)]
+obj <- mstobjs[, .(ObjectID, ObjectNumber, ObjectCount, Medium, Dimensions,
+                   Dated, Signed, Inscribed, Markings, CreditLine, Chat,
+                   Description, Provenance, PubReferences, Notes,
+                   CuratorialRemarks, RelatedWorks, PublicAccess,
+                   PaperFileRef, UserNumber1, ObjectState=State, CatRais,
+                   HistAttributions, Bibliography, Edition, PaperSupport,
+                   IsTemplate, DateRemarks, SortNumber2)]
+
+
+
 
 main %>% nrow
 obj %>% nrow
@@ -227,6 +272,7 @@ main <- main %>% merge(obj)
 final <- main[, .(Object_ID=ObjectID,
                  Department,
                  Object_Number=ObjectNumber,
+                 Classification,    # NEW
                  Title,
                  Role,
                  First_Name=FirstName,
@@ -235,7 +281,10 @@ final <- main[, .(Object_ID=ObjectID,
                  Dated,
                  Display_Date=DisplayDate,
                  Nationality,
+                 Catalogue_Raisonne=CatRais, # NEW
+                 Call_Number=SortNumber2, # NEW
                  Home_Location=HomeLocation,
+                 StatusFlag,   # NEW
                  Object_Count=ObjectCount,
                  Dimensions,
                  BeginDate,
@@ -248,7 +297,7 @@ final <- main[, .(Object_ID=ObjectID,
                  Folder,
                  Depicted_Location=Location_Depicted,
                  Non_Display_Title,
-                 Title_From_Objects,
+                 # Title_From_Objects,   NEW
                  Link,
                  Display_Name=DisplayName,
                  Institution,
@@ -266,7 +315,29 @@ final <- main[, .(Object_ID=ObjectID,
                  State,
                  County,
                  City,
-                 Locus)]
+                 Locus,
+                 # NEW
+                 Signed,
+                 Inscribed,
+                 Markings,
+                 CreditLine,
+                 Chat,
+                 Description,
+                 Notes,
+                 Provenance,
+                 PubReferences,
+                 CuratorialRemarks,
+                 RelatedWorks,
+                 PublicAccess,
+                 PaperFileRef,
+                 UserNumber1,
+                 ObjectState,
+                 HistAttributions,
+                 Bibliography,
+                 Edition,
+                 PaperSupport,
+                 IsTemplate,
+                 DateRemarks )]
 
 setnames(cons, separate_words_with_hyphens(names(cons)))
 

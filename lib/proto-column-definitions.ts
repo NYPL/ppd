@@ -151,6 +151,10 @@ export const protoColumnDefs = {
       "title": "Object Number"
     },
     {
+      "data": "Classification",
+      "title": "Classification"
+    },
+    {
       "data": "Title",
       "title": "Title"
     },
@@ -183,8 +187,20 @@ export const protoColumnDefs = {
       "title": "Nationality"
     },
     {
+      "data": "Catalogue_Raisonne",
+      "title": "Catalogue Raisonne"
+    },
+    {
+      "data": "Call_Number",
+      "title": "Call Number"
+    },
+    {
       "data": "Home_Location",
       "title": "Home Location"
+    },
+    {
+      "data": "StatusFlag",
+      "title": "StatusFlag"
     },
     {
       "data": "Object_Count",
@@ -233,10 +249,6 @@ export const protoColumnDefs = {
     {
       "data": "Non_Display_Title",
       "title": "Non Display Title"
-    },
-    {
-      "data": "Title_From_Objects",
-      "title": "Title From Objects"
     },
     {
       "data": "Link",
@@ -309,6 +321,90 @@ export const protoColumnDefs = {
     {
       "data": "Locus",
       "title": "Locus"
+    },
+    {
+      "data": "Signed",
+      "title": "Signed"
+    },
+    {
+      "data": "Inscribed",
+      "title": "Inscribed"
+    },
+    {
+      "data": "Markings",
+      "title": "Markings"
+    },
+    {
+      "data": "CreditLine",
+      "title": "CreditLine"
+    },
+    {
+      "data": "Chat",
+      "title": "Chat"
+    },
+    {
+      "data": "Description",
+      "title": "Description"
+    },
+    {
+      "data": "Notes",
+      "title": "Notes"
+    },
+    {
+      "data": "Provenance",
+      "title": "Provenance"
+    },
+    {
+      "data": "PubReferences",
+      "title": "PubReferences"
+    },
+    {
+      "data": "CuratorialRemarks",
+      "title": "CuratorialRemarks"
+    },
+    {
+      "data": "RelatedWorks",
+      "title": "RelatedWorks"
+    },
+    {
+      "data": "PublicAccess",
+      "title": "PublicAccess"
+    },
+    {
+      "data": "PaperFileRef",
+      "title": "PaperFileRef"
+    },
+    {
+      "data": "UserNumber1",
+      "title": "UserNumber1"
+    },
+    {
+      "data": "ObjectState",
+      "title": "ObjectState"
+    },
+    {
+      "data": "HistAttributions",
+      "title": "HistAttributions"
+    },
+    {
+      "data": "Bibliography",
+      "title": "Bibliography"
+    },
+    {
+      "data": "Edition",
+      "title": "Edition"
+    },
+    {
+      "data": "PaperSupport",
+      "title": "PaperSupport"
+    },
+    {
+      "data": "IsTemplate",
+      "title": "IsTemplate"
+    },
+    {
+      "data": "DateRemarks",
+      "title": "DateRemarks"
     }
   ]
 };

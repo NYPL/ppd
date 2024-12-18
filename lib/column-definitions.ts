@@ -37,7 +37,7 @@ const fieldClip = (s: string) => clipStringAtLengthN(s, FIELD_CHARACTER_LIMIT);
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Title', 'render', titleClip);
 
 /* other fields that have to be tamed */
-const mainFieldsToClip = ["Home_Location", "Dimensions", "Title_From_Objects"]
+const mainFieldsToClip = ["Home_Location", "Dimensions"]
 mainFieldsToClip.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', fieldClip);
 });
