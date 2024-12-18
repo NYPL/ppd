@@ -16,12 +16,14 @@ const nextConfig: NextConfig = {
       {
         source: '/api/v1',
         headers: [
-          { key: 'Content-Type', value: 'application/json' }, // Or any other MIME type
+          {
+            key: 'Content-Type',
+            value: 'application/json'
+          },
         ],
       },
     ]
-  },
-
+  }
 };
 
 export default nextConfig;
