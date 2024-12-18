@@ -35,11 +35,13 @@ export const performAJAX = (params: DTAJAXParams) => {
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const impossibleErrorMessage = "couldn't read NextRequest.URL string";
+  res.setHeader('Content-Type', 'application/json');
 
   return Promise.resolve(req.url ?? impossibleErrorMessage).
     then(_ => { if (req.url !== undefined) return req.url; throw new Error(impossibleErrorMessage) }).
     then(getParamsAsObject).
     then(performAJAX).
+    then(_ => { console.log("AJAX"); console.log(_); console.log("END"); return _ }).
     then(result => res.status(200).json(result)).
     catch(e => res.status(500).json({ error: e.message }));
 }
