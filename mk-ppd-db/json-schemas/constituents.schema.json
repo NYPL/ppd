@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "org.nypl.ppd.Constituents",
+  "title": "Constituents",
+  "description": "FILL ME OUT!!!",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/ConstituentRecord"
+  },
+  "minItems": 1,
+
+  "$defs": {
+
+    "ConstituentRecord": {
+      "$id": "org.nypl.ppd.ConstituentRecord",
+      "title": "ConstituentRecord",
+      "description": "FILL ME OUT!!!",
+      "type": "object",
+      "required": [
+        "Constituent_ID", "First_Name", "Last_Name",
+        "Institution", "Display_Name", "Begin_Date", "End_Date",
+        "Display_Date", "Nationality"
+      ],
+      "additionalProperties": false,
+      "examples": [
+        "PUT EXAMPLE HERE"
+      ],
+      "properties": {
+        "Constituent_ID": {
+          "description": "this is a description",
+          "type": "integer",
+          "minimum": 1,
+          "dbMetadata": "PRIMARY KEY"
+        },
+        "First_Name": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        },
+        "Last_Name": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        },
+        "Institution": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        },
+        "Display_Name": {
+          "description": "this is a description",
+          "type": "string"
+        },
+        "Begin_Date": {
+          "description": "this is a description",
+          "type": "integer",
+          "minimum": -2000
+        },
+        "End_Date": {
+          "description": "this is a description",
+          "type": "integer",
+          "minimum": -2000
+        },
+        "Display_Date": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        },
+        "Nationality": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        }
+      }
+    }
+
+  }
+
+}

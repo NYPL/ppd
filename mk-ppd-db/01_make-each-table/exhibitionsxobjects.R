@@ -34,11 +34,5 @@ final <- copy(tmp)
 
 setnames(final, separate_words_with_hyphens(names(final)))
 
-final %>% fwrite(sprintf("./target/datafiles/%s.tsv.gz", OUTPUT_NAME), sep="\t")
-
-almost <- makeDataTypesDT(final)
-almost[colName=="rid", otherArgs:="PRIMARY KEY"]
-almost[colName=="Exhibition_ID", otherArgs:="REFERENCES exhibitions"]
-almost[colName=="Object_ID", otherArgs:="REFERENCES main"]
-almost %>% fwrite(sprintf("./target/datatypes/%s.tsv", OUTPUT_NAME), sep="\t")
+final %>% write.derived.files(OUTPUT_NAME)
 

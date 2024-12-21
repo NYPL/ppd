@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "org.nypl.ppd.ExhibitionsXObjects",
+  "title": "ExhibitionsXObjects",
+  "description": "FILL ME OUT!!!",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/ExhibitionsXObjectsRecord"
+  },
+  "minItems": 1,
+  "$defs": {
+    "ExhibitionsXObjectsRecord": {
+      "$id": "org.nypl.ppd.ExhibitionsXObjectsRecord",
+      "title": "ExhibitionsXObjectsRecord",
+      "description": "FILL ME OUT!!!",
+      "type": "object",
+      "required": ["rid", "Exhibition_ID", "Object_ID"],
+      "additionalProperties": true,
+      "examples": [
+        "PUT EXAMPLE HERE"
+      ],
+      "properties": {
+        "rid": {
+          "description": "this is a description",
+          "type": "integer",
+          "minimum": 1,
+          "dbMetadata": "PRIMARY KEY"
+        },
+        "Exhibition_ID": {
+          "type": "integer",
+          "minimum": 1,
+          "dbMetadata": "REFERENCES exhibitions"
+        },
+        "Object_ID": {
+          "type": "integer",
+          "minimum": 0,
+          "dbMetadata": "REFERENCES main"
+        }
+      }
+    }
+  }
+}

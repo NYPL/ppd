@@ -1,6 +1,5 @@
 #!/usr/local/bin/Rscript --vanilla
 
-
 # ------------------------------ #
 rm(list=ls())
 
@@ -27,6 +26,11 @@ library(libbib)
 
 # ------------------------------ #
 
+LOC_OUT_TSV  = "./target/datafiles/tsv"
+LOC_OUT_JSON = "./target/datafiles/json"
+
+# ------------------------------ #
+
 TMS_TABLES_LOCATION <- Sys.getenv("TMS_TABLES_LOCATION")
 
 if (TMS_TABLES_LOCATION == "")
@@ -36,18 +40,28 @@ if (TMS_TABLES_LOCATION == "")
 
 read.table.dump <- function(table.name) {
   path <- sprintf("%s/%s.txt", TMS_TABLES_LOCATION, table.name)
-  return(fread(path, quote="", na.strings=c("NULL", ""))[])
-}
-
-makeDataTypesDT <- function(dat) {
-  dat %>% lapply(class) -> tmp
-  data.table(colName=names(tmp), datatype=unlist(tmp), otherArgs=NA_character_)[]
+  return(fread(path, quote="", na.strings=c("NULL", "", "NA", NA))[])
 }
 
 separate_words_with_hyphens <- function(string) {
   string %>% str_detect("([a-z])([A-Z])")
   string %>% str_replace_all("([a-z])([A-Z])", "\\1_\\2")
 }
+
+write.derived.tsv <- function(DT, file.name) {
+  fwrite(DT, file.name, sep="\t")
+}
+
+write.derived.json <- function(DT, file.name) {
+  jdat <- jsonlite::toJSON(DT, na="null", pretty=TRUE)
+  writeLines(jdat, file.name)
+}
+
+write.derived.files <- function(DT, table.name) {
+  DT %>% write.derived.tsv(sprintf("%s/%s.tsv.gz", LOC_OUT_TSV,  table.name))
+  DT %>% write.derived.json(sprintf("%s/%s.json",  LOC_OUT_JSON, table.name))
+}
+
 
 # --------------------------------------------------------------- #
 

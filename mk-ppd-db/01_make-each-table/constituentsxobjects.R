@@ -46,14 +46,7 @@ cons <-  cons[, .(rid=1:.N, ConstituentID, ObjectID, Role)]
 
 setnames(cons, separate_words_with_hyphens(names(cons)))
 
-
-
 cons %>%
-  fwrite(sprintf("./target/datafiles/%s.tsv.gz", OUTPUT_NAME), sep="\t")
+  write.derived.tsv(sprintf("./target/datafiles/tsv/%s.tsv.gz", OUTPUT_NAME))
 
-almost <- makeDataTypesDT(cons)
-almost[colName=="rid", otherArgs:="PRIMARY KEY"]
-almost[colName=="Object_ID", otherArgs:="REFERENCES main"]
-almost[colName=="Constituent_ID", otherArgs:="REFERENCES constituents"]
-
-almost %>% fwrite(sprintf("./target/datatypes/%s.tsv", OUTPUT_NAME), sep="\t")
+cons %>% write.derived.files(OUTPUT_NAME)

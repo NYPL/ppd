@@ -341,11 +341,5 @@ final <- main[, .(Object_ID=ObjectID,
 
 setnames(cons, separate_words_with_hyphens(names(cons)))
 
-final %>% fwrite(sprintf("./target/datafiles/%s.tsv.gz", OUTPUT_NAME), sep="\t")
-
-
-almost <- makeDataTypesDT(final)
-almost[colName=="Object_ID", otherArgs:="PRIMARY KEY"]
-
-almost %>% fwrite(sprintf("./target/datatypes/%s.tsv", OUTPUT_NAME), sep="\t")
+final %>% write.derived.files(OUTPUT_NAME)
 

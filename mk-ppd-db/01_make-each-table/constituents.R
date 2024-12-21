@@ -14,11 +14,4 @@ constituents <- constituents[, .(ConstituentID, FirstName, LastName,
 
 setnames(constituents, separate_words_with_hyphens(names(constituents)))
 
-constituents %>%
-  fwrite(sprintf("./target/datafiles/%s.tsv.gz", OUTPUT_NAME), sep="\t")
-
-almost <- makeDataTypesDT(constituents)
-almost[colName=="Constituent_ID", otherArgs:="PRIMARY KEY"]
-
-almost %>% fwrite(sprintf("./target/datatypes/%s.tsv", OUTPUT_NAME), sep="\t")
-
+constituents %>% write.derived.files(OUTPUT_NAME)

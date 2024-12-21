@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "org.nypl.ppd.Mains",
+  "title": "Mains",
+  "description": "FILL ME OUT!!!",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/MainRecord"
+  },
+  "minItems": 1,
+
+  "$defs": {
+
+    "MainRecord": {
+      "$id": "org.nypl.ppd.MainRecord",
+      "title": "MainRecord",
+      "description": "FILL ME OUT!!!",
+      "type": "object",
+      "required": [
+
+      ],
+      "additionalProperties": false,
+      "examples": [
+        "PUT EXAMPLE HERE"
+      ],
+      "properties": {
+        "Object_ID": {
+          "description": "this is a description",
+          "type": "integer",
+          "dbMetadata": "PRIMARY KEY"
+        },
+        "Department": {
+          "type": "string"
+        },
+        "Object_Number": {
+          "type": "string"
+        },
+        "Classification": {
+          "type": "string"
+        },
+        "Title": {
+          "type": ["string", "null"]
+        },
+        "Role": {
+          "type": ["string", "null"]
+        },
+        "First_Name": {
+          "type": ["string", "null"]
+        },
+        "Last_Name": {
+          "type": ["string", "null"]
+        },
+        "Medium": {
+          "type": ["string", "null"]
+        },
+        "Dated": {
+          "type": ["string", "null"]
+        },
+        "Display_Date": {
+          "type": ["string", "null"]
+        },
+        "Nationality": {
+          "type": ["string", "null"]
+        },
+        "Catalogue_Raisonne": {
+          "type": ["string", "null"]
+        },
+        "Call_Number": {
+          "type": ["string", "null"]
+        },
+        "Home_Location": {
+          "type": ["string", "null"]
+        },
+        "StatusFlag": {
+          "type": ["string", "null"]
+        },
+        "Object_Count": {
+          "type": "number"
+        },
+        "Dimensions": {
+          "type": ["string", "null"]
+        },
+        "BeginDate": {
+          "type": ["number", "null"]
+        },
+        "EndDate": {
+          "type": ["number", "null"]
+        },
+        "GeoSearchValue": {
+          "type": ["string", "null"]
+        },
+        "Collection": {
+          "type": ["string", "null"]
+        },
+        "Series": {
+          "type": ["string", "null"]
+        },
+        "Portfolio": {
+          "type": ["string", "null"]
+        },
+        "Descriptive_Title": {
+          "type": ["string", "null"]
+        },
+        "Folder": {
+          "type": ["string", "null"]
+        },
+        "Depicted_Location": {
+          "type": ["string", "null"]
+        },
+        "Non_Display_Title": {
+          "type": ["string", "null"]
+        },
+        "Link": {
+          "type": ["string", "null"]
+        },
+        "Display_Name": {
+          "type": ["string", "null"]
+        },
+        "Institution": {
+          "type": ["string", "null"]
+        },
+        "After": {
+          "type": ["string", "null"]
+        },
+        "Explicit_Artist": {
+          "type": ["string", "null"]
+        },
+        "Compiler": {
+          "type": ["string", "null"]
+        },
+        "Editor": {
+          "type": ["string", "null"]
+        },
+        "Photographer": {
+          "type": ["string", "null"]
+        },
+        "Printer": {
+          "type": ["string", "null"]
+        },
+        "Printmaker": {
+          "type": ["string", "null"]
+        },
+        "Publisher": {
+          "type": ["string", "null"]
+        },
+        "Sponsor": {
+          "type": ["string", "null"]
+        },
+        "Subject": {
+          "type": ["string", "null"]
+        },
+        "Country": {
+          "type": ["string", "null"]
+        },
+        "State": {
+          "type": ["string", "null"]
+        },
+        "County": {
+          "type": ["string", "null"]
+        },
+        "City": {
+          "type": ["string", "null"]
+        },
+        "Locus": {
+          "type": ["string", "null"]
+        },
+        "Signed": {
+          "type": ["string", "null"]
+        },
+        "Inscribed": {
+          "type": ["string", "null"]
+        },
+        "Markings": {
+          "type": ["string", "null"]
+        },
+        "CreditLine": {
+          "type": ["string", "null"]
+        },
+        "Chat": {
+          "type": ["string", "null"]
+        },
+        "Description": {
+          "type": ["string", "null"]
+        },
+        "Notes": {
+          "type": ["string", "null"]
+        },
+        "Provenance": {
+          "type": ["string", "null"]
+        },
+        "PubReferences": {
+          "type": ["string", "null"]
+        },
+        "CuratorialRemarks": {
+          "type": ["string", "null"]
+        },
+        "RelatedWorks": {
+          "type": ["string", "null"]
+        },
+        "PublicAccess": {
+          "type": ["number", "null"]
+        },
+        "PaperFileRef": {
+          "type": ["string", "null"]
+        },
+        "UserNumber1": {
+          "type": ["string", "null"]
+        },
+        "ObjectState": {
+          "type": ["string", "null"]
+        },
+        "HistAttributions": {
+          "type": ["string", "null"]
+        },
+        "Bibliography": {
+          "type": ["string", "null"]
+        },
+        "Edition": {
+          "type": ["string", "null"]
+        },
+        "PaperSupport": {
+          "type": ["string", "null"]
+        },
+        "IsTemplate": {
+          "type": "number"
+        },
+        "DateRemarks": {
+          "type": ["string", "null"]
+        }
+      }
+    }
+  }
+}
+

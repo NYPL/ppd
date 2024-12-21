@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id":   "org.nypl.ppd.ConstituentsXObjects",
+  "title": "ConstituentsXObjects",
+  "description": "xwalk FILL ME OUT!!!",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/ConstituentsXObjectsRecord"
+  },
+  "minItems": 1,
+
+  "$defs": {
+
+    "ConstituentsXObjectsRecord": {
+      "$id":   "org.nypl.ppd.ConstituentsXObjectsRecord",
+      "title": "ConstituentsXObjectsRecord",
+      "description": "FILL ME OUT!!!",
+      "type": "object",
+      "required": ["rid", "Constituent_ID", "Object_ID", "Role"],
+      "additionalProperties": false,
+      "examples": [
+        "PUT EXAMPLE HERE"
+      ],
+      "properties": {
+        "rid": {
+          "type": "integer",
+          "dbMetadata": "PRIMARY KEY"
+        },
+        "ObjectID": {
+          "type": "integer",
+          "dbMetadata": "REFERENCES main"
+        },
+        "Constituent_ID": {
+          "type": "integer",
+          "dbMetadata": "REFERENCES constituents"
+        },
+        "Role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+
+  }
+
+}

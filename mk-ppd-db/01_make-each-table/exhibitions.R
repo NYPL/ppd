@@ -23,11 +23,5 @@ exhibitions <- exhibitions[, .(ExhibitionID, Department, Title=ExhTitle,
 
 setnames(exhibitions, separate_words_with_hyphens(names(exhibitions)))
 
-exhibitions %>%
-  fwrite(sprintf("./target/datafiles/%s.tsv.gz", OUTPUT_NAME), sep="\t")
-
-almost <- makeDataTypesDT(exhibitions)
-almost[colName=="Exhibition_ID", otherArgs:="PRIMARY KEY"]
-
-almost %>% fwrite(sprintf("./target/datatypes/%s.tsv", OUTPUT_NAME), sep="\t")
+exhibitions %>% write.derived.files(OUTPUT_NAME)
 

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "org.nypl.ppd.Exhibitions",
+  "title": "Exhibitions",
+  "description": "FILL ME OUT!!!",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/ExhibitionRecord"
+  },
+  "minItems": 1,
+  "$defs": {
+    "ExhibitionRecord": {
+      "$id": "org.nypl.ppd.ExhibitionRecord",
+      "title": "ExhibitionRecord",
+      "description": "FILL ME OUT!!!",
+      "type": "object",
+      "required": [
+        "Exhibition_ID",
+        "Department",
+        "Title",
+        "Abbreviation",
+        "Boiler_Text",
+        "Begin_Year",
+        "End_Year",
+        "Display_Date",
+        "Remarks",
+        "Project_Number",
+        "Citation",
+        "Organization_Credit_Line",
+        "Sponsor_Credit_Line",
+        "Sub_Title",
+        "Is_In_House",
+        "Is_Virtual"
+      ],
+      "additionalProperties": true,
+      "examples": [
+        "PUT EXAMPLE HERE"
+      ],
+      "properties": {
+        "Exhibition_ID": {
+          "type": "integer",
+          "minimum": 0,
+          "dbMetadata": "PRIMARY KEY"
+        },
+        "Department": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Abbreviation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Boiler_Text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Begin_Year": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2024
+        },
+        "End_Year": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3000
+        },
+        "Display_Date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Remarks": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Project_Number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Citation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Organization_Credit_Line": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Sponsor_Credit_Line": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Sub_Title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Is_In_House": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "Is_Virtual": {
+          "enum": [
+            0,
+            1
+          ]
+        }
+      }
+    }
+  }
+}
