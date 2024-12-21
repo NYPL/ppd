@@ -15,7 +15,7 @@
       "description": "FILL ME OUT!!!",
       "type": "object",
       "required": ["rid", "Exhibition_ID", "Object_ID"],
-      "additionalProperties": true,
+      "additionalProperties": false,
       "examples": [
         "PUT EXAMPLE HERE"
       ],

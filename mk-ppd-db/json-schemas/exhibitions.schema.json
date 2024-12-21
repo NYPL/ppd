@@ -32,7 +32,7 @@
         "Is_In_House",
         "Is_Virtual"
       ],
-      "additionalProperties": true,
+      "additionalProperties": false,
       "examples": [
         "PUT EXAMPLE HERE"
       ],

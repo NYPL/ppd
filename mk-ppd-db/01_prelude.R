@@ -58,8 +58,8 @@ write.derived.json <- function(DT, file.name) {
 }
 
 write.derived.files <- function(DT, table.name) {
-  DT %>% write.derived.tsv(sprintf("%s/%s.tsv.gz", LOC_OUT_TSV,  table.name))
-  DT %>% write.derived.json(sprintf("%s/%s.json",  LOC_OUT_JSON, table.name))
+  DT %>% write.derived.tsv(sprintf("%s/%s.tsv.gz",      LOC_OUT_TSV,  table.name))
+  DT %>% write.derived.json(sprintf("%s/%s.data.json",  LOC_OUT_JSON, table.name))
 }
 
 

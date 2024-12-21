@@ -1,13 +1,17 @@
 
+.DELETE_ON_ERROR:
+
 #  TODO  YOU _HAVE_ TO MAKE VERBOSE MODE!!!
+
+#  TODO  compress *.data.json
 
 TMS_TABLES_LOCATION 	:= ~/data/tms-mssql-tables
 STEP01_SCRIPT_DIR 		:= 01_make-each-table/
 
-TABLES   					:= $(basename $(notdir  $(wildcard $(STEP01_SCRIPT_DIR)/*.R)))
-STEP01_OUT_DATAFILES_TSVS 	:= $(addsuffix .tsv.gz, $(addprefix target/datafiles/tsv/, $(TABLES)))
-STEP01_OUT_DATAFILES_JSON 	:= $(addsuffix .json,   $(addprefix target/datafiles/json/, $(TABLES)))
-STEP02_OUT_TYPEDEFS		 	:= $(addsuffix .d.ts,   $(addprefix target/typedefs/, $(TABLES)))
+TABLES   					:= $(basename $(notdir  	$(wildcard $(STEP01_SCRIPT_DIR)/*.R)))
+STEP01_OUT_DATAFILES_TSVS 	:= $(addsuffix .tsv.gz, 	$(addprefix target/datafiles/tsv/, $(TABLES)))
+STEP01_OUT_DATAFILES_JSON 	:= $(addsuffix .data.json, 	$(addprefix target/datafiles/json/, $(TABLES)))
+STEP02_OUT_TYPEDEFS		 	:= $(addsuffix .d.ts,   	$(addprefix target/typedefs/, $(TABLES)))
 # OH1_OUT2 := $(addsuffix .tsv,    $(addprefix target/datatypes/,   $(TABLES)))
 # OH2_OUT1 := $(addsuffix .json,   $(addprefix target/json/, 	      $(TABLES)))
 # OH2_OUT2 := $(addsuffix .sql,    $(addprefix target/schemas/,     $(TABLES)))
@@ -20,6 +24,7 @@ AUTOGEN_WARNING := "// THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT."
 vpath %.R   			$(STEP01_SCRIPT_DIR)
 vpath %.schema.json 	json-schemas
 vpath %.tsv.gz  		target/datafiles/tsv
+vpath %.data.json  		target/datafiles/json
 # vpath %.tsv 			target/datatypes
 # vpath %.json 			target/json
 # vpath %.sql 			target/schema
@@ -38,7 +43,7 @@ all: begin step01 step02
 .PHONY: step01
 step01: $(STEP01_OUT_DATAFILES_TSVS) $(STEP01_OUT_DATAFILES_JSON)
 
-target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R %.schema.json
+target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R
 	@ echo [*] building data table: `basename $@ .tsv.gz`
 	@ TMS_TABLES_LOCATION=$(TMS_TABLES_LOCATION) ./$< > /dev/null
 
@@ -54,14 +59,11 @@ target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R %.schema.json
 .PHONY: step02
 step02: $(STEP02_OUT_TYPEDEFS)
 
-target/typedefs/%.d.ts: %.schema.json %.tsv.gz
-	@ echo [*] Validating data: `basename $@ .tsv.gz`
+target/typedefs/%.d.ts: %.schema.json %.data.json
+	@ echo [*] Validating data: $*
+	@ ./scripts/validate-in.ts $^ > /dev/null
 	@ echo [*] Writing type definitions
-	@ echo $<
-	@ npx json2ts $< | perl -pe 's/^export/declare/' | tail -n +2 > $@
-
-# // @ npx json2ts $< | perl -pe 's/(^  \/\*\*$)/\n$1/g' | perl -pe 's/^export/declare/' | tail -n +2 > $@
-
+	@ npx json2ts $< | perl -pe 's@^(  /..)$$@\n$$1@g' | perl -pe 's/^export/declare/' | tail -n +2 > $@
 
 # ----------------------------------------------------------------- #
 

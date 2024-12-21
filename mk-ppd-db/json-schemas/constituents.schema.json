@@ -30,7 +30,7 @@
           "description": "this is a description",
           "type": "integer",
           "minimum": 1,
-          "dbMetadata": "PRIMARY KEY"
+          "$dbMetadata": "PRIMARY KEY"
         },
         "First_Name": {
           "description": "this is a description",

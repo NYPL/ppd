@@ -17,7 +17,21 @@
       "description": "FILL ME OUT!!!",
       "type": "object",
       "required": [
-
+          "Object_ID", "Department", "Object_Number", "Classification",
+          "Title", "Role", "First_Name", "Last_Name", "Medium", "Dated",
+          "Display_Date", "Nationality", "Catalogue_Raisonne", "Call_Number",
+          "Home_Location", "StatusFlag", "Object_Count", "Dimensions",
+          "BeginDate", "EndDate", "GeoSearchValue", "Collection", "Series",
+          "Portfolio", "Descriptive_Title", "Folder", "Depicted_Location",
+          "Non_Display_Title", "Link", "Display_Name", "Institution", "After",
+          "Explicit_Artist", "Compiler", "Editor", "Photographer", "Printer",
+          "Printmaker", "Publisher", "Sponsor", "Subject", "Country", "State",
+          "County", "City", "Locus", "Signed", "Inscribed", "Markings",
+          "CreditLine", "Chat", "Description", "Notes", "Provenance",
+          "PubReferences", "CuratorialRemarks", "RelatedWorks",
+          "PublicAccess", "PaperFileRef", "UserNumber1", "ObjectState",
+          "HistAttributions", "Bibliography", "Edition", "PaperSupport",
+          "IsTemplate", "DateRemarks"
       ],
       "additionalProperties": false,
       "examples": [
