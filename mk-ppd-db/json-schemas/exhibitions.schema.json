@@ -40,7 +40,9 @@
         "Exhibition_ID": {
           "type": "integer",
           "minimum": 0,
-          "dbMetadata": "PRIMARY KEY"
+          "$metadata": {
+            "primaryKey": true
+          }
         },
         "Department": {
           "type": "string",

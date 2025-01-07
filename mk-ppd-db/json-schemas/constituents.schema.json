@@ -14,7 +14,7 @@
     "ConstituentRecord": {
       "$id": "org.nypl.ppd.ConstituentRecord",
       "title": "ConstituentRecord",
-      "description": "FILL ME OUT!!!",
+      "description": "ConstituentRecord\n\nthis is a description",
       "type": "object",
       "required": [
         "Constituent_ID", "First_Name", "Last_Name",
@@ -30,7 +30,9 @@
           "description": "this is a description",
           "type": "integer",
           "minimum": 1,
-          "$dbMetadata": "PRIMARY KEY"
+          "$metadata": {
+            "primaryKey": true
+          }
         },
         "First_Name": {
           "description": "this is a description",

@@ -31,11 +31,11 @@ vpath %.data.json  		target/datafiles/json
 
 
 .PHONY: all
-all: begin step01 step02
+all: begin step01 step02 step03
 
 
 # ----------------------------------------------------------------- #
-# --- step 01 
+# --- step 01
 # ---   making the datafiles from the raw data
 # ---   (both tsvs and json)
 # ----------------------------------------------------------------- #
@@ -51,9 +51,8 @@ target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R
 
 
 # ----------------------------------------------------------------- #
-# --- step 02 
-# ---   a) validating that the data from 
-# ---   (both tsvs and json)
+# --- step 02
+# ---   validating that the data against the json schemas
 # ----------------------------------------------------------------- #
 
 .PHONY: step02
@@ -63,7 +62,27 @@ target/typedefs/%.d.ts: %.schema.json %.data.json
 	@ echo [*] Validating data: $*
 	@ ./scripts/validate-in.ts $^ > /dev/null
 	@ echo [*] Writing type definitions
-	@ npx json2ts $< | perl -pe 's@^(  /..)$$@\n$$1@g' | perl -pe 's/^export/declare/' | tail -n +2 > $@
+	@ npx json2ts $< | tail -n +6 | perl -pe 's@^(  /..)$$@\n$$1@g' | perl -pe 's/^export/declare/' | tail -n +2 > $@
+
+# ----------------------------------------------------------------- #
+
+
+# ----------------------------------------------------------------- #
+# --- step 03
+# ---   a) combining type defs into `record-types.d.ts`
+# ----------------------------------------------------------------- #
+
+.PHONY: step03
+step03: target/ppddb/record-types.d.ts
+
+target/ppddb/record-types.d.ts: $(STEP02_OUT_TYPEDEFS)
+	@ echo [*] Creating final/concatenated typedef file
+	@ echo '' > $@
+	@ ls 01_make-each-table/* | perl -pe 's@.+/(\w+).R@"$$1"@' | tr '\n' ' ' | perl -pe 's/ / | /g' | perl -pe 's/\s+.\s+$$/;\n/g' | perl -pe 's/^/type TableName= /' >> $@
+	@ cat $^ >> $@
+
+# @ ls 01_make-each-table/* | perl -pe 's@.+/(\w+).R@"$$1"@' | tr '\n' ' ' | perl -pe 's/ / | /g' | perl -pe 's/\s+.\s+$/\n/' | perl -pe 's/^/type TableName= /' > $@
+
 
 # ----------------------------------------------------------------- #
 
@@ -127,7 +146,7 @@ clean:
 begin:
 	@ echo "$$(tput bold)$$(tput setaf 3)Building PPD data substrate$$(tput sgr0)"
 	@ printf '\n'
-	@ mkdir -p target/datafiles/tsv target/datafiles/json target/typedefs
+	@ mkdir -p target/datafiles/tsv target/datafiles/json target/typedefs target/ppddb
 
 .PHONY: done
 done:

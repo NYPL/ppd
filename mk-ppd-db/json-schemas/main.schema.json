@@ -41,7 +41,9 @@
         "Object_ID": {
           "description": "this is a description",
           "type": "integer",
-          "dbMetadata": "PRIMARY KEY"
+          "$metadata": {
+            "primaryKey": true
+          }
         },
         "Department": {
           "type": "string"

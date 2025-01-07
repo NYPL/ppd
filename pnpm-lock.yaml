@@ -79,6 +79,9 @@ importers:
       '@types/jquery':
         specifier: ^3.5.32
         version: 3.5.32
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
       '@types/node':
         specifier: ^20
         version: 20.17.6

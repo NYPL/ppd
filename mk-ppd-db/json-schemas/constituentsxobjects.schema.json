@@ -24,15 +24,25 @@
       "properties": {
         "rid": {
           "type": "integer",
-          "dbMetadata": "PRIMARY KEY"
+          "$metadata": {
+            "primaryKey": true
+          }
         },
         "ObjectID": {
           "type": "integer",
-          "dbMetadata": "REFERENCES main"
+          "$metadata": {
+            "foreignKeyTo": {
+              "table": "main"
+            }
+          }
         },
         "Constituent_ID": {
           "type": "integer",
-          "dbMetadata": "REFERENCES constituents"
+          "$metadata": {
+            "foreignKeyTo": {
+              "table": "constituents"
+            }
+          }
         },
         "Role": {
           "type": "string",
