@@ -1,4 +1,5 @@
-#!/usr/bin/env bun
+// @ts-nocheck
+// #!/usr/bin/env bun
 
 /**
   * only "supports" SQLite for now

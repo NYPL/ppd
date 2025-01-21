@@ -74,15 +74,17 @@ export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPay
       <Content className={ styles['content'] ?? "" }>
         <div className={ styles['left'] }>
           <Tombstone
-            Title={ Title }
-            Display_Name={ Display_Name }
-            Display_Date={ Display_Date }
-            Medium={ Medium } />
+            Title={ Title ?? "(no title)" }
+            Display_Name={ Display_Name ?? "(no display name)" }
+            Display_Date={ Display_Date ?? "(no display date)" }
+            Medium={ Medium ?? "(no medium)" } />
           { cons }
           { exhs }
         </div>
         <div className={ styles['right'] }>
-          <ThumbnailHolder imageLink={ Link } />
+          { Link ?
+              <ThumbnailHolder imageLink={ Link } /> :
+              <></> }
           <KeyValueTable payload={ mainAPIPayload } />
         </div>
       </Content>

@@ -1,4 +1,5 @@
-#!/usr/bin/env bun
+// @ts-nocheck
+// #!/usr/bin/env bun
 
 import { readFileSync } from 'node:fs';
 import Ajv2020 from 'ajv/dist/2020.js';

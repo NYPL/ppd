@@ -37,7 +37,27 @@ const fieldClip = (s: string) => clipStringAtLengthN(s, FIELD_CHARACTER_LIMIT);
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Title', 'render', titleClip);
 
 /* other fields that have to be tamed */
-const mainFieldsToClip = ["Home_Location", "Dimensions"]
+const mainFieldsToClip = [
+  "Bibliography",
+  "Provenance",
+  "Notes",
+  "Description",
+  "Provenance",
+  "Description",
+  "CreditLine",
+  "Inscribed",
+  "Markings",
+  "Portfolio",
+  "Collection",
+  "Home_Location",
+  "Series",
+  "Descriptive_Title",
+  "Folder",
+  "Non_Display_Title",
+  "Depicted_Location",
+  "Institution",
+  "CuratorialRemarks"
+];
 mainFieldsToClip.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', fieldClip);
 });
@@ -50,7 +70,7 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'rend
 
 /* I have just discovered: some fields are more searchable than others */
 const mainNonSearchableFields = [
-  "Object_ID", "Home_Location", "Dimensions"
+  "Object_ID", "Home_Location"
 ];
 mainNonSearchableFields.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'searchable', 'false');
