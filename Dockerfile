@@ -67,6 +67,6 @@ EXPOSE 3000
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV EMAIL=anthonypaulfischetti@nypl.org
 
-CMD HOSTNAME="0.0.0.0" node server.js
+CMD HOSTNAME="0.0.0.0" NODE_OPTIONS='--max-http-header-size=80000' node server.js
 # CMD bash
 
