@@ -40,7 +40,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     then(_ => { if (req.url !== undefined) return req.url; throw new Error(impossibleErrorMessage) }).
     then(getParamsAsObject).
     then(performAJAX).
-    then(_ => { console.log("AJAX"); console.log(_); console.log("END"); return _ }).
+    // then(_ => { console.log("AJAX"); console.log(_); console.log("END"); return _ }).
     then(result => res.status(200).json(result)).
     catch(e => res.status(500).json({ error: e.message }));
 }
