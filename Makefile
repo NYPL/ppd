@@ -1,4 +1,8 @@
 
+DB_SOURCE_LOC 			 := ppd.db
+S3_DEV_LOC 				 := s3://ppd-dev-db/
+S3_PROD_LOC 			 := s3://ppd-production-db/
+
 all: build
 
 .PHONY: build
@@ -19,3 +23,6 @@ dev:
 start:
 	npm run startstandalone
 
+.PHONY: pushdb
+pushdb:
+	aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC)
