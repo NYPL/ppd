@@ -8,15 +8,13 @@ RUN <<EOF
     apt-get install -qq -y --no-install-recommends sqlite3 make
 EOF
 
-RUN npm i -g pnpm
-
 
 # --- image for installing node dependencies ----- #
 FROM base AS dependencies
 
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm i --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm ci
 
 
 # --- image for building app --------------------- #

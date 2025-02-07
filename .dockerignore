@@ -8,6 +8,5 @@ TODO.md
 !.next/standalone
 !.next/static
 .git
-package-lock.json
 *.secret
 mk-ppd-db
