@@ -34,6 +34,10 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
         deferRender: true,
         paging: true,
         pageLength: 10,
+        lengthMenu: [
+          [10, 25, 50, 100, 10000],
+          [10, 25, 50, 100, '10,000']
+        ],
         // ordering: false,
         ordering: true,
         serverSide: true,
