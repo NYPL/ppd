@@ -24,7 +24,7 @@ export const ConstituentView = ({ conPayload, conxobjPayload }: Props) => {
   const objCards = conxobjPayload.length ?
     conxobjPayload.map((i) => {
     return <ObjectCard
-      payload={ {...i['record'], role: i['role']} }
+      payload={ {...i['record'], Role: i['role']} }
       includeArtistP={ false }
       includeRoleP={ true } /> }) :
     <></>;
