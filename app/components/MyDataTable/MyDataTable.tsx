@@ -35,8 +35,8 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
         paging: true,
         pageLength: 10,
         lengthMenu: [
-          [10, 25, 50, 100, 10000],
-          [10, 25, 50, 100, '10,000']
+          [10, 25, 50, 100, 1000, 10000],
+          [10, 25, 50, 100, '1,000', '10,000']
         ],
         // ordering: false,
         ordering: true,
