@@ -45,12 +45,12 @@ export const protoColumnDefs = {
       "title": "rid"
     },
     {
-      "data": "Constituent_ID",
-      "title": "Constituent ID"
-    },
-    {
       "data": "Object_ID",
       "title": "Object ID"
+    },
+    {
+      "data": "Constituent_ID",
+      "title": "Constituent ID"
     },
     {
       "data": "Role",
@@ -207,12 +207,20 @@ export const protoColumnDefs = {
       "title": "Object Count"
     },
     {
+      "data": "Dimensions",
+      "title": "Dimensions"
+    },
+    {
       "data": "BeginDate",
       "title": "BeginDate"
     },
     {
       "data": "EndDate",
       "title": "EndDate"
+    },
+    {
+      "data": "GeoSearchValue",
+      "title": "GeoSearchValue"
     },
     {
       "data": "Collection",
@@ -243,12 +251,28 @@ export const protoColumnDefs = {
       "title": "Non Display Title"
     },
     {
+      "data": "Link",
+      "title": "Link"
+    },
+    {
       "data": "Display_Name",
       "title": "Display Name"
     },
     {
       "data": "Institution",
       "title": "Institution"
+    },
+    {
+      "data": "After",
+      "title": "After"
+    },
+    {
+      "data": "Explicit_Artist",
+      "title": "Explicit Artist"
+    },
+    {
+      "data": "Compiler",
+      "title": "Compiler"
     },
     {
       "data": "Editor",
@@ -279,6 +303,26 @@ export const protoColumnDefs = {
       "title": "Subject"
     },
     {
+      "data": "Country",
+      "title": "Country"
+    },
+    {
+      "data": "State",
+      "title": "State"
+    },
+    {
+      "data": "County",
+      "title": "County"
+    },
+    {
+      "data": "City",
+      "title": "City"
+    },
+    {
+      "data": "Locus",
+      "title": "Locus"
+    },
+    {
       "data": "Signed",
       "title": "Signed"
     },
@@ -295,6 +339,10 @@ export const protoColumnDefs = {
       "title": "CreditLine"
     },
     {
+      "data": "Chat",
+      "title": "Chat"
+    },
+    {
       "data": "Description",
       "title": "Description"
     },
@@ -307,6 +355,10 @@ export const protoColumnDefs = {
       "title": "Provenance"
     },
     {
+      "data": "PubReferences",
+      "title": "PubReferences"
+    },
+    {
       "data": "CuratorialRemarks",
       "title": "CuratorialRemarks"
     },
@@ -315,12 +367,44 @@ export const protoColumnDefs = {
       "title": "RelatedWorks"
     },
     {
+      "data": "PublicAccess",
+      "title": "PublicAccess"
+    },
+    {
+      "data": "PaperFileRef",
+      "title": "PaperFileRef"
+    },
+    {
+      "data": "UserNumber1",
+      "title": "UserNumber1"
+    },
+    {
+      "data": "ObjectState",
+      "title": "ObjectState"
+    },
+    {
+      "data": "HistAttributions",
+      "title": "HistAttributions"
+    },
+    {
       "data": "Bibliography",
       "title": "Bibliography"
     },
     {
       "data": "Edition",
       "title": "Edition"
+    },
+    {
+      "data": "PaperSupport",
+      "title": "PaperSupport"
+    },
+    {
+      "data": "IsTemplate",
+      "title": "IsTemplate"
+    },
+    {
+      "data": "DateRemarks",
+      "title": "DateRemarks"
     }
   ]
 };

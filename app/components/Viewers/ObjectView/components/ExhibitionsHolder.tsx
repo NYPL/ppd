@@ -5,7 +5,7 @@ import styles from './ExhibitionsHolder.module.scss';
 //  TODO  there's a color in the CSS than needs to be parameterized
 
 interface CardProps {
-  exhibition: ExhibitionsRecord;
+  exhibition: ExhibitionRecord;
 }
 
 export const ExhibitionCard = ({ exhibition }: CardProps) => {
@@ -42,7 +42,7 @@ export const ExhibitionCard = ({ exhibition }: CardProps) => {
 
 
 interface Props {
-  payload: Array<ExhibitionsRecord>;
+  payload: Array<ExhibitionRecord>;
 }
 
 

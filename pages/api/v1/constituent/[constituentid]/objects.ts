@@ -22,18 +22,18 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     then(attemptToParseInt).
 
-    then(_ => getRecordByID<ConstituentsRecord>('constituents', 'Constituent_ID', _)).
+    then(_ => getRecordByID<ConstituentRecord>('constituents', 'Constituent_ID', _)).
     then(_ => {
       if (_==null || !_ )
         return res.status(500).json({ error: "no records found" });
       return _;
     }).
     then(_ => {
-      const objects = getRecordsByID<ConstituentsxobjectsRecord>('constituentsxobjects',
+      const objects = getRecordsByID<ConstituentsXObjectsRecord>('constituentsxobjects',
                                                                  'Constituent_ID',
                                                                   _!['Constituent_ID'],
                                                                   API_ASSOC_ARRAY_LIMIT);
-      const oids = objects.map(({ Object_ID, Role }: ConstituentsxobjectsRecord) => {
+      const oids = objects.map(({ Object_ID, Role }: ConstituentsXObjectsRecord) => {
         return { Object_ID, Role };
       });
 

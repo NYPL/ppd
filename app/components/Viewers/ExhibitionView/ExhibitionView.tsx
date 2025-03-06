@@ -4,11 +4,11 @@ import styles from './ExhibitionView.module.scss';
 
 
 interface Props {
-  exhPayload: ExhibitionsRecord;
+  exhPayload: ExhibitionRecord;
   exhxobjPayload: Array<MainRecord>;
 }
 
-export const ExhibitionCard = ({ exhPayload }: { exhPayload: ExhibitionsRecord }) => {
+export const ExhibitionCard = ({ exhPayload }: { exhPayload: ExhibitionRecord }) => {
   return (
     <div className={ styles['exhibition-card'] }>
       <span className={ styles['title'] }>{ exhPayload.Title }</span>

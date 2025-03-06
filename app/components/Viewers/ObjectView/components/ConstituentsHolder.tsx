@@ -5,7 +5,7 @@ import styles from './ConstituentsHolder.module.scss';
 //  TODO  there's a color in the CSS than needs to be parameterized
 
 interface CardProps {
-  constituent: ConstituentsRecord & { role: string }
+  constituent: ConstituentRecord & { role: string }
 }
 
 export const ConstituentCard = ({ constituent }: CardProps) => {
@@ -31,7 +31,7 @@ export const ConstituentCard = ({ constituent }: CardProps) => {
 };
 
 interface Props {
-  payload: Array<ConstituentsRecord & { role: string }>;
+  payload: Array<ConstituentRecord & { role: string }>;
 }
 
 export const ConstituentsHolder = ({ payload }: Props) => {

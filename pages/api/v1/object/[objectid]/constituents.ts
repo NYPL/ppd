@@ -19,7 +19,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     then(attemptToParseInt).
 
     // first, get all constituents related to object
-    then(_ => getRecordsByID<ConstituentsxobjectsRecord>('constituentsxobjects',
+    then(_ => getRecordsByID<ConstituentsXObjectsRecord>('constituentsxobjects',
                                                          'Object_ID', _,
                                                          API_ASSOC_ARRAY_LIMIT)).
     then(_ => {
@@ -31,7 +31,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // next, get more info on each constituent
     then(_ => {
       return _.map(({ role, Constituent_ID }) => {
-        const constRecord = getRecordByID<ConstituentsRecord>('constituents', 'Constituent_ID', Constituent_ID);
+        const constRecord = getRecordByID<ConstituentRecord>('constituents', 'Constituent_ID', Constituent_ID);
         return { ...constRecord, role };
       });
     }).

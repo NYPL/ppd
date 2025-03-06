@@ -4,12 +4,12 @@ import styles from './ConstituentView.module.scss';
 
 
 interface Props {
-  conPayload: ConstituentsRecord;
+  conPayload: ConstituentRecord;
   conxobjPayload: Array<{ record: MainRecord, role: string }>;
 }
 
 
-export const ConstituentCard = ({ conPayload }: { conPayload: ConstituentsRecord }) => {
+export const ConstituentCard = ({ conPayload }: { conPayload: ConstituentRecord }) => {
   return (
     <div className={ styles['constituent-card'] }>
       <span className={ styles['display-conid'] }>#{ conPayload.Constituent_ID }</span>

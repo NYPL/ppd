@@ -22,7 +22,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     then(attemptToParseInt).
 
-    then(_ => getRecordByID<ExhibitionsRecord>('exhibitions', 'Exhibition_ID', _)).
+    then(_ => getRecordByID<ExhibitionRecord>('exhibitions', 'Exhibition_ID', _)).
     then(_ => {
       if (_==null)
         return res.status(500).json({ error: "no records found" });
@@ -30,7 +30,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }).
 
     then(_ => {
-      const objects = getRecordsByID<ExhibitionsxobjectsRecord>('exhibitionsxobjects',
+      const objects = getRecordsByID<ExhibitionsXObjectsRecord>('exhibitionsxobjects',
                                                                 'Exhibition_ID',
                                                                  _!['Exhibition_ID'],
                                                                  API_ASSOC_ARRAY_LIMIT);

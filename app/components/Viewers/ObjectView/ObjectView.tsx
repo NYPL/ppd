@@ -23,8 +23,8 @@ export const Content = ({ className, children }: ContentProps) => {
 
 interface Props {
   mainAPIPayload:       MainRecord;
-  exhibitionsPayload:   Array<ExhibitionsRecord>;
-  constituentsPayload:  Array<ConstituentsRecord & { role: string }>;
+  exhibitionsPayload:   Array<ExhibitionRecord>;
+  constituentsPayload:  Array<ConstituentRecord & { role: string }>;
 }
 
 export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPayload }: Props) => {

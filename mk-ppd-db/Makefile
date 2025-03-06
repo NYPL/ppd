@@ -3,8 +3,6 @@
 
 #  TODO  YOU _HAVE_ TO MAKE VERBOSE MODE!!!
 
-#  TODO  compress *.data.json
-
 TMS_TABLES_LOCATION 	:= ~/data/tms-mssql-tables
 STEP01_SCRIPT_DIR 		:= 01_make-each-table/
 
@@ -13,11 +11,6 @@ JSCHEMAS 					:= $(wildcard ./json-schemas/*.schema.json)
 STEP01_OUT_DATAFILES_TSVS 	:= $(addsuffix .tsv.gz, 	$(addprefix target/datafiles/tsv/, $(TABLES)))
 STEP01_OUT_DATAFILES_JSON 	:= $(addsuffix .data.json, 	$(addprefix target/datafiles/json/, $(TABLES)))
 STEP02_OUT_TYPEDEFS		 	:= $(addsuffix .d.ts,   	$(addprefix target/typedefs/, $(TABLES)))
-# OH1_OUT2 := $(addsuffix .tsv,    $(addprefix target/datatypes/,   $(TABLES)))
-# OH2_OUT1 := $(addsuffix .json,   $(addprefix target/json/, 	      $(TABLES)))
-# OH2_OUT2 := $(addsuffix .sql,    $(addprefix target/schemas/,     $(TABLES)))
-
-# FINAL_ARTIFACTS := target/ppddb/proto-column-definitions.ts target/ppddb/record-types.d.ts target/ppddb/db-constants.ts
 
 AUTOGEN_WARNING := "// THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT."
 
@@ -122,53 +115,50 @@ target/ppddb/db-constants.ts target/ppddb/proto-column-definitions.ts: 06_create
 
 
 
+# ----------------------------------------------------------------- #
+#' # install
+#'   copy artifacts into project root
+#'
+RECORD_TYPES_SOURCE_LOC  := target/ppddb/record-types.d.ts
+RECORD_TYPES_INSTALL_LOC := ../types/record-types.d.ts
+COLDEFS_SOURCE_LOC       := target/ppddb/proto-column-definitions.ts
+COLDEFS_INSTALL_LOC 	 := ../lib/proto-column-definitions.ts
+DB_SOURCE_LOC  			 := target/ppddb/ppd.db
+DB_INSTALL_LOC 			 := ../ppd.db
+DB_CONSTANTS_SOURCE_LOC  := target/ppddb/db-constants.ts
+DB_CONSTANTS_INSTALL_LOC := ../lib/db-constants.ts
 
-
-#
-# # ----------------------------------------------------------------- #
-# # --- install, misc ----------------------------------------------- #
-# RECORD_TYPES_SOURCE_LOC  := target/ppddb/record-types.d.ts
-# RECORD_TYPES_INSTALL_LOC := ../types/record-types.d.ts
-# COLDEFS_SOURCE_LOC       := target/ppddb/proto-column-definitions.ts
-# COLDEFS_INSTALL_LOC 	 := ../lib/proto-column-definitions.ts
-# DB_SOURCE_LOC  			 := target/ppddb/ppd.db
-# DB_INSTALL_LOC 			 := ../ppd.db
-# DB_CONSTANTS_SOURCE_LOC  := target/ppddb/db-constants.ts
-# DB_CONSTANTS_INSTALL_LOC := ../lib/db-constants.ts
-#
-# .PHONY: install
-# install:
-# 	@ echo [*] Installing record-types.d.ts
-# 	@ echo $(AUTOGEN_WARNING) > $(RECORD_TYPES_INSTALL_LOC)
-# 	@ cat $(RECORD_TYPES_SOURCE_LOC) >> $(RECORD_TYPES_INSTALL_LOC)
-# 	@ echo [*] Installing proto-column-definitions.ts
-# 	@ echo $(AUTOGEN_WARNING) > $(COLDEFS_INSTALL_LOC)
-# 	@ echo "" >> $(COLDEFS_INSTALL_LOC)
-# 	@ cat $(COLDEFS_SOURCE_LOC) >> $(COLDEFS_INSTALL_LOC)
-# 	@ echo [*] Installing db-constants.ts
-# 	@ echo $(AUTOGEN_WARNING) > $(DB_CONSTANTS_INSTALL_LOC)
-# 	@ echo "" >> $(DB_CONSTANTS_INSTALL_LOC)
-# 	@ cat $(DB_CONSTANTS_SOURCE_LOC) >> $(DB_CONSTANTS_INSTALL_LOC)
-# 	@ echo [*] Installing new db
-# 	@ cp $(DB_SOURCE_LOC) $(DB_INSTALL_LOC)
-# # ----------------------------------------------------------------- #
-#
-#
-# # ----------------------------------------------------------------- #
-# # --- pushdb ------------------------------------------------------ #
-# S3_DEV_LOC 				 := s3://ppd-dev-db/
-# S3_PROD_LOC 			 := s3://ppd-production-db/
-#
-# .PHONY: pushdb
-# pushdb:
-# 	@ echo [*] Pushing DB to dev
-# 	@ aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC)
-# 	@ echo [*]  TODO  STILL NEED ACCESS TO DEV
-# # ----------------------------------------------------------------- #
+.PHONY: install
+install:
+	@ echo [*] Installing record-types.d.ts
+	@ echo $(AUTOGEN_WARNING) > $(RECORD_TYPES_INSTALL_LOC)
+	@ cat $(RECORD_TYPES_SOURCE_LOC) >> $(RECORD_TYPES_INSTALL_LOC)
+	@ echo [*] Installing proto-column-definitions.ts
+	@ echo $(AUTOGEN_WARNING) > $(COLDEFS_INSTALL_LOC)
+	@ echo "" >> $(COLDEFS_INSTALL_LOC)
+	@ cat $(COLDEFS_SOURCE_LOC) >> $(COLDEFS_INSTALL_LOC)
+	@ echo [*] Installing db-constants.ts
+	@ echo $(AUTOGEN_WARNING) > $(DB_CONSTANTS_INSTALL_LOC)
+	@ echo "" >> $(DB_CONSTANTS_INSTALL_LOC)
+	@ cat $(DB_CONSTANTS_SOURCE_LOC) >> $(DB_CONSTANTS_INSTALL_LOC)
+	@ echo [*] Installing new db
+	@ cp $(DB_SOURCE_LOC) $(DB_INSTALL_LOC)
+# ----------------------------------------------------------------- #
 
 
 # ----------------------------------------------------------------- #
-# --- misc ------------------------------------------------------ #
+#' # pushdb
+#'   pushes DB to dev bucket
+#'
+S3_DEV_LOC 				 := s3://ppd-dev-db/
+
+.PHONY: pushdb
+pushdb:
+	@ echo [*] Pushing DB to dev
+	@ aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC)
+	@ echo [*]  TODO  STILL NEED ACCESS TO DEV
+# ----------------------------------------------------------------- #
+
 
 # ----------------------------------------------------------------- #
 #' # debug

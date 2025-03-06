@@ -19,7 +19,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     then(attemptToParseInt).
 
     // first, get all exhibitions related to object
-    then(_ => getRecordsByID<ExhibitionsxobjectsRecord>('exhibitionsxobjects',
+    then(_ => getRecordsByID<ExhibitionsXObjectsRecord>('exhibitionsxobjects',
                                                         'Object_ID', _,
                                                         API_ASSOC_ARRAY_LIMIT)).
     then(_ => {
@@ -31,7 +31,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // next, get more info on each exhibition
     then(_ => {
       return _.map(i => {
-        const exhRecord = getRecordByID<ExhibitionsRecord>('exhibitions', 'Exhibition_ID', i);
+        const exhRecord = getRecordByID<ExhibitionRecord>('exhibitions', 'Exhibition_ID', i);
         return exhRecord;
       });
     }).
