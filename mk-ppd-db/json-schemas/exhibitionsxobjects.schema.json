@@ -32,18 +32,16 @@
           "type": "integer",
           "minimum": 1,
           "$metadata": {
-            "foreignKeyTo": {
-              "table": "exhibitions"
-            }
+            "foreignKeyTo": "exhibitions",
+            "index": "idx_exhb_exhibition_id"
           }
         },
         "Object_ID": {
           "type": "integer",
           "minimum": 0,
           "$metadata": {
-            "foreignKeyTo": {
-              "table": "main"
-            }
+            "foreignKeyTo": "main",
+            "index": "idx_exhb_object_id"
           }
         }
       }

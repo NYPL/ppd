@@ -4,72 +4,47 @@ import fs   from 'node:fs/promises';
 import path from 'node:path';
 import os   from 'node:os';
 
-const JSON_FOLDER               = "target/json/";
+const JSCHEMA_FOLDER            = "json-schemas/";
 const INPUT_DB_CONSTANTS_FILE   = "target/limits/primary-key-limits.tsv";
-const OUTPUT_INTERFACE_FILE     = "target/ppddb/record-types.d.ts";
 const OUTPUT_COLDEFS_FILE       = "target/ppddb/proto-column-definitions.ts";
 const OUTPUT_DB_CONSTANTS_FILE  = "target/ppddb/db-constants.ts";
 
 
-const addContentsToObj = async (obj) => {
+const addFieldsToObj = async (obj) => {
   return Promise.resolve(obj).
     then(obj => obj.map(async (i) => {
       return fs.readFile(i.filename, 'utf-8').
         then(_ => JSON.parse(_)).
-        then(_ => { return { contents: _, ...i }; });
+        then(_ => {
+          const defs = _['$defs'];
+          const onlyKey = Object.keys(defs)[0];
+          const fields = Object.keys(_['$defs'][onlyKey].properties); //.map(_ => Object.keys(_)[0]);
+          return {
+            fields: fields.map(_ => {
+              return {
+                data: _,
+                title: _.replaceAll(/_/g, " ")
+              }}),
+            ...i
+          };
+        });
     }));
 };
 
 
-const outputInterfaceFile = async (listOFiles) => {
-
-  const convertToInterface = (obj) => {
-    const { tableName, contents } = obj;
-    const stampOutInterface = (json) => {
-      const interfaceName = `${tableName.slice(0, 1).toUpperCase()}${tableName.slice(1)}Record`;
-      const tmp = json.map(({ data, jsDatatype }) => `  ${data}: ${jsDatatype};`);
-      return [
-        '',
-        `declare interface ${interfaceName} {`,
-        ...tmp,
-        '}',
-        ''].join('\n');
-    };
-    // return "pp";
-    return stampOutInterface(contents);
-  };
-
-  const tableNames = listOFiles.map(i => `'${i.tableName}'`);
-
-  return Promise.resolve(listOFiles).
-    then(_ => _.map(convertToInterface)).
-    then(_ => _.join('')).
-    then(_ => `\ntype TableName = ${tableNames.join(' | ')};\n${_}`).
-    then(_ => fs.writeFile(OUTPUT_INTERFACE_FILE, _)).
-    then(_ => listOFiles);
-};
-
-
 const outputColDefFile = async (listOFiles) => {
-
-  const combineIntoOne = (listOfPartials) => {
-    const ret = {};
-    //  HACK  
-    listOfPartials.forEach(partial => {
-      const theKey = Object.keys(partial)[0];
-      ret[theKey] = partial[theKey];
-    });
-    return ret;
+  const convertToColDefObj = (i) => {
+    return {
+      [i.tableName]: [...i.fields]
+    };
   };
 
-  const convertToColDefObj = (obj) => {
-    const { tableName, contents } = obj;
-    const tmp = contents.map(i => {
-      const { data, title } = i;
-      return { data, title };
-    });
+  const combineIntoOne = (p) => {
     const ret = {};
-    ret[tableName] = tmp;
+    for (const i of p) {
+      const onlyKey = Object.keys(i)[0];
+      ret[onlyKey] = i[onlyKey];
+    };
     return ret;
   };
 
@@ -103,16 +78,16 @@ const outputDBConstantsFile = async () => {
                            `export const dbConstants = ${JSON.stringify(retObj, null, 2)};`));
 };
 
-fs.readdir(JSON_FOLDER, { recursive: true, withFileTypes: true }).
+
+fs.readdir(JSCHEMA_FOLDER, { recursive: true, withFileTypes: true }).
   then(res => res.filter(i => i.isFile())).
   then(res => res.map(i => {
     return {
       filename: path.join(i.path, i.name),
-      tableName: i.name.replace(/.json$/, '')
+      tableName: i.name.replace(/.schema.json$/, '')
     };
   })).
-  then(addContentsToObj).
+  then(addFieldsToObj).
   then(_ => Promise.all(_)).
-  then(outputInterfaceFile).
   then(outputColDefFile).
   then(outputDBConstantsFile);

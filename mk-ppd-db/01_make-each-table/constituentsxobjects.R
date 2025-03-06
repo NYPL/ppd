@@ -42,7 +42,7 @@ cxrd <- cxrd[!duplicated(ConXrefID) & UnMasked==1,
 
 cons %<>% merge(cxrd, all=FALSE, by="ConXrefID")
 
-cons <-  cons[, .(rid=1:.N, ConstituentID, ObjectID, Role)]
+cons <-  cons[, .(rid=1:.N, ConstituentID, Object_ID=ObjectID, Role)]
 
 setnames(cons, separate_words_with_hyphens(names(cons)))
 

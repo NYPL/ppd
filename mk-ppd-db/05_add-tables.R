@@ -30,7 +30,7 @@ library(RSQLite)
 library(DBI)
 
 
-INPUT_TABLES_LOCATION  <- "target/datafiles"
+INPUT_TABLES_LOCATION  <- "target/datafiles/tsv"
 INPUT_TABLES_EXT       <- ".tsv.gz"
 LIMITS_OUTPUT_LOCATION <- "target/limits"
 DB_LOCATION            <- "target/ppddb/ppd.db"

@@ -9,6 +9,7 @@ TMS_TABLES_LOCATION 	:= ~/data/tms-mssql-tables
 STEP01_SCRIPT_DIR 		:= 01_make-each-table/
 
 TABLES   					:= $(basename $(notdir  	$(wildcard $(STEP01_SCRIPT_DIR)/*.R)))
+JSCHEMAS 					:= $(wildcard ./json-schemas/*.schema.json)
 STEP01_OUT_DATAFILES_TSVS 	:= $(addsuffix .tsv.gz, 	$(addprefix target/datafiles/tsv/, $(TABLES)))
 STEP01_OUT_DATAFILES_JSON 	:= $(addsuffix .data.json, 	$(addprefix target/datafiles/json/, $(TABLES)))
 STEP02_OUT_TYPEDEFS		 	:= $(addsuffix .d.ts,   	$(addprefix target/typedefs/, $(TABLES)))
@@ -25,66 +26,100 @@ vpath %.R   			$(STEP01_SCRIPT_DIR)
 vpath %.schema.json 	json-schemas
 vpath %.tsv.gz  		target/datafiles/tsv
 vpath %.data.json  		target/datafiles/json
-# vpath %.tsv 			target/datatypes
-# vpath %.json 			target/json
-# vpath %.sql 			target/schema
 
 
 .PHONY: all
-all: begin step01 step02 step03
+all: begin step01 step02 step03 step04 step05 step06 done
 
 
 # ----------------------------------------------------------------- #
-# --- step 01
-# ---   making the datafiles from the raw data
-# ---   (both tsvs and json)
-# ----------------------------------------------------------------- #
-
+#' # step 01
+#'   making the datafiles from the raw data (both tsvs and json)
+#'
 .PHONY: step01
 step01: $(STEP01_OUT_DATAFILES_TSVS) $(STEP01_OUT_DATAFILES_JSON)
 
 target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R
 	@ echo [*] building data table: `basename $@ .tsv.gz`
 	@ TMS_TABLES_LOCATION=$(TMS_TABLES_LOCATION) ./$< > /dev/null
-
 # ----------------------------------------------------------------- #
 
 
-# ----------------------------------------------------------------- #
-# --- step 02
-# ---   validating that the data against the json schemas
-# ----------------------------------------------------------------- #
 
+# ----------------------------------------------------------------- #
+#' # step 02
+#'   - validate the data against the json schemas
+#'   - write out the type definitions
+#'
 .PHONY: step02
 step02: $(STEP02_OUT_TYPEDEFS)
 
-target/typedefs/%.d.ts: %.schema.json %.data.json
+target/typedefs/%.d.ts: %.schema.json %.data.json scripts/validate-in.ts
 	@ echo [*] Validating data: $*
-	@ ./scripts/validate-in.ts $^ > /dev/null
+	@ bun ./scripts/validate-in.ts $^ > /dev/null
 	@ echo [*] Writing type definitions
 	@ npx json2ts $< | tail -n +6 | perl -pe 's@^(  /..)$$@\n$$1@g' | perl -pe 's/^export/declare/' | tail -n +2 > $@
-
 # ----------------------------------------------------------------- #
 
 
 # ----------------------------------------------------------------- #
-# --- step 03
-# ---   a) combining type defs into `record-types.d.ts`
-# ----------------------------------------------------------------- #
-
+#' # step 03
+#'   writing sqlite schema
+#'
 .PHONY: step03
-step03: target/ppddb/record-types.d.ts
+step03: target/sqlschema/schema.sql target/sqlschema/indexes.sql
+
+target/sqlschema/schema.sql target/sqlschema/indexes.sql: $(JSCHEMAS) scripts/make-sqlite-schema.ts
+	@ echo [*] Writing sqlite schema
+	@ bun ./scripts/make-sqlite-schema.ts json-schemas/ > $@
+# ----------------------------------------------------------------- #
+
+# ----------------------------------------------------------------- #
+#' # step 04
+#'   combining type defs into `record-types.d.ts`
+#'
+.PHONY: step04
+step04: target/ppddb/record-types.d.ts
 
 target/ppddb/record-types.d.ts: $(STEP02_OUT_TYPEDEFS)
 	@ echo [*] Creating final/concatenated typedef file
 	@ echo '' > $@
 	@ ls 01_make-each-table/* | perl -pe 's@.+/(\w+).R@"$$1"@' | tr '\n' ' ' | perl -pe 's/ / | /g' | perl -pe 's/\s+.\s+$$/;\n/g' | perl -pe 's/^/type TableName= /' >> $@
 	@ cat $^ >> $@
-
-# @ ls 01_make-each-table/* | perl -pe 's@.+/(\w+).R@"$$1"@' | tr '\n' ' ' | perl -pe 's/ / | /g' | perl -pe 's/\s+.\s+$/\n/' | perl -pe 's/^/type TableName= /' > $@
+# ----------------------------------------------------------------- #
 
 
 # ----------------------------------------------------------------- #
+#' # step 05
+#'   creates ppd.db and the limits file
+#'
+.PHONY: step05
+step05: target/ppddb/ppd.db target/limits/primary-key-limits.tsv
+
+target/ppddb/ppd.db target/limits/primary-key-limits.tsv: target/sqlschema/schema.sql $(STEP01_OUT_DATAFILES_TSVS) target/sqlschema/indexes.sql 05_add-tables.R
+	@ echo [*] creating ppd.db with concated schema
+	@ rm -f target/ppddb/ppd.db
+	@ sqlite3 target/ppddb/ppd.db < target/sqlschema/schema.sql
+	@ echo [*] adding all datafiles as tables in ppd.db
+	@ ./05_add-tables.R > /dev/null
+	@ echo [*] adding indexes
+	@ sqlite3 target/ppddb/ppd.db < target/sqlschema/indexes.sql
+# ----------------------------------------------------------------- #
+
+
+# ----------------------------------------------------------------- #
+#' # step 06
+#'   outputs final artifacts (proto-column-definitions.ts and db-constants.ts)
+#'
+.PHONY: step06
+step06: target/ppddb/db-constants.ts target/ppddb/proto-column-definitions.ts
+
+target/ppddb/db-constants.ts target/ppddb/proto-column-definitions.ts: 06_create-final-artifacts.mjs
+	@ echo [*] creating final artifacts
+	@ ./06_create-final-artifacts.mjs
+
+# ----------------------------------------------------------------- #
+
 
 
 
@@ -134,20 +169,40 @@ target/ppddb/record-types.d.ts: $(STEP02_OUT_TYPEDEFS)
 
 # ----------------------------------------------------------------- #
 # --- misc ------------------------------------------------------ #
+
+# ----------------------------------------------------------------- #
+#' # debug
+#'   show chosen internal variables
+#'
 .PHONY: debug
 debug:
-	@ echo tables  $(TABLES)
+	@ echo $(JSCHEMAS)
+# ----------------------------------------------------------------- #
 
+# ----------------------------------------------------------------- #
+#' # clean
+#'   clear target directory
+#'
 .PHONY: clean
 clean:
 	@ rm -rf target
+# ----------------------------------------------------------------- #
 
+# ----------------------------------------------------------------- #
+#' # begin
+#'   create necessary folders in the target directory
+#'
 .PHONY: begin
 begin:
 	@ echo "$$(tput bold)$$(tput setaf 3)Building PPD data substrate$$(tput sgr0)"
 	@ printf '\n'
-	@ mkdir -p target/datafiles/tsv target/datafiles/json target/typedefs target/ppddb
+	@ mkdir -p target/datafiles/tsv target/datafiles/json target/typedefs target/ppddb target/sqlschema target/limits
+# ----------------------------------------------------------------- #
 
+# ----------------------------------------------------------------- #
+#' # done
+#'   alerts the user that all steps have been completed
+#'
 .PHONY: done
 done:
 	@ printf '\n'

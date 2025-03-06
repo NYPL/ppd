@@ -117,16 +117,10 @@
           ]
         },
         "Is_In_House": {
-          "enum": [
-            0,
-            1
-          ]
+          "type": "integer"
         },
         "Is_Virtual": {
-          "enum": [
-            0,
-            1
-          ]
+          "type": "integer"
         }
       }
     }

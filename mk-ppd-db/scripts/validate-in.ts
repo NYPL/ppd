@@ -1,5 +1,5 @@
+#!/usr/bin/env -S ts-node
 // @ts-nocheck
-// #!/usr/bin/env bun
 
 import { readFileSync } from 'node:fs';
 import Ajv2020 from 'ajv/dist/2020.js';
@@ -56,6 +56,5 @@ Promise.resolve(fileToValidate).
   then(_ => JSON.parse(_)).
   then(_ => validateObject(ajv, schemaFileName ?? "NO SCHEMA", _)).
   then(_ => { console.log("success"); return _; }).
-  catch(e => console.log(e.message));
-  // catch(_ => console.log("validation error"));
+  catch(e => { console.log(e.message); process.exit(1) });
 

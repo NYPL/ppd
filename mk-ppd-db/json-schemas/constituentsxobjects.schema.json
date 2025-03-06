@@ -28,20 +28,18 @@
             "primaryKey": true
           }
         },
-        "ObjectID": {
+        "Object_ID": {
           "type": "integer",
           "$metadata": {
-            "foreignKeyTo": {
-              "table": "main"
-            }
+            "foreignKeyTo": "main",
+            "index": "idx_cons_object_id"
           }
         },
         "Constituent_ID": {
           "type": "integer",
           "$metadata": {
-            "foreignKeyTo": {
-              "table": "constituents"
-            }
+            "foreignKeyTo": "constituents",
+            "index": "idx_cons_cons_id"
           }
         },
         "Role": {
