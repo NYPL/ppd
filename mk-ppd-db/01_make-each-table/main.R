@@ -256,7 +256,7 @@ obj <- mstobjs[, .(ObjectID, ObjectNumber, ObjectCount, Medium, Dimensions,
                    CuratorialRemarks, RelatedWorks, PublicAccess,
                    PaperFileRef, UserNumber1, ObjectState=State, CatRais,
                    HistAttributions, Bibliography, Edition, PaperSupport,
-                   IsTemplate, DateRemarks, SortNumber2)]
+                   IsTemplate, DateRemarks, ObjectNumber2)]
 
 
 
@@ -279,7 +279,7 @@ final <- main[, .(Object_ID=ObjectID,
                  Display_Date=DisplayDate,
                  Nationality,
                  Catalogue_Raisonne=CatRais, # NEW
-                 Call_Number=SortNumber2, # NEW
+                 Call_Number=ObjectNumber2, # NEW
                  Home_Location=HomeLocation,
                  StatusFlag,   # NEW
                  Object_Count=ObjectCount,
