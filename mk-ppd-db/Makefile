@@ -32,7 +32,7 @@ all: begin step01 step02 step03 step04 step05 step06 done
 .PHONY: step01
 step01: $(STEP01_OUT_DATAFILES_TSVS) $(STEP01_OUT_DATAFILES_JSON)
 
-target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R
+target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R 01_prelude.R
 	@ echo [*] building data table: `basename $@ .tsv.gz`
 	@ TMS_TABLES_LOCATION=$(TMS_TABLES_LOCATION) ./$< > /dev/null
 # ----------------------------------------------------------------- #
@@ -156,7 +156,7 @@ S3_DEV_LOC 				 := s3://ppd-dev-db/
 pushdb:
 	@ echo [*] Pushing DB to dev
 	@ aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC)
-	@ echo [*]  TODO  STILL NEED ACCESS TO DEV
+	@ echo [*] NOW SYNC PROD
 # ----------------------------------------------------------------- #
 
 
@@ -199,3 +199,8 @@ done:
 	@ echo "$$(tput bold)$$(tput setaf 2)[•] Build done!$$(tput sgr0)"
 # ----------------------------------------------------------------- #
 
+# ----------------------------------------------------------------- #
+.PHONY: help
+help:
+	@ cat Makefile | egrep "#' " | perl -pe 's/^...//' | perl -pe 's/#/\n/g'
+# ----------------------------------------------------------------- #

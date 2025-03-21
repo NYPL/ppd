@@ -18,7 +18,7 @@ const ARGS = process.argv.slice(2, 4);
 
 if (ARGS.length!=2) {
   console.error("wrong number of arguments");
-  console.log("Usage: ./validate-in.ts JSON_FILE_TO_VALIDATE SCHEMA");
+  console.log("Usage: ./validate-in.ts SCHEMA JSON_FILE_TO_VALIDATE");
   process.exit(1);
 }
 

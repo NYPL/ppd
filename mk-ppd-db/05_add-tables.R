@@ -63,7 +63,7 @@ addLimitsToList <- function(dat, tableName) {
 
 addFileToDB <- function(fn) {
   tableName <- getTableName(fn)
-  dat <- fread(fn)
+  dat <- fread(fn, sep="\t", quote="")
   #  TODO  fix
   # the culprit is Object_ID=414609
   dat <- dat[!duplicated(dat[,1])]

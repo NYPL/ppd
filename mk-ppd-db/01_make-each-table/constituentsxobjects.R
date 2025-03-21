@@ -44,9 +44,8 @@ cons %<>% merge(cxrd, all=FALSE, by="ConXrefID")
 
 cons <-  cons[, .(rid=1:.N, ConstituentID, Object_ID=ObjectID, Role)]
 
-setnames(cons, separate_words_with_hyphens(names(cons)))
 
-cons %>%
-  write.derived.tsv(sprintf("./target/datafiles/tsv/%s.tsv.gz", OUTPUT_NAME))
+cons %<>% normalize.character.columns
+setnames(cons, separate_words_with_hyphens(names(cons)))
 
 cons %>% write.derived.files(OUTPUT_NAME)

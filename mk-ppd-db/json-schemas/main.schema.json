@@ -20,18 +20,18 @@
           "Object_ID", "Department", "Object_Number", "Classification",
           "Title", "Role", "First_Name", "Last_Name", "Medium", "Dated",
           "Display_Date", "Nationality", "Catalogue_Raisonne", "Call_Number",
-          "Home_Location", "StatusFlag", "Object_Count", "Dimensions",
-          "BeginDate", "EndDate", "GeoSearchValue", "Collection", "Series",
+          "Home_Location", "Status_Flag", "Object_Count", "Dimensions",
+          "Begin_Date", "End_Date", "Geo_Search_Value", "Collection", "Series",
           "Portfolio", "Descriptive_Title", "Folder", "Depicted_Location",
-          "Non_Display_Title", "Link", "Display_Name", "Institution", "After",
+          "Non_Display_Title", "Book_or_Album_Title", "Link", "Display_Name", "Institution", "After",
           "Explicit_Artist", "Compiler", "Editor", "Photographer", "Printer",
           "Printmaker", "Publisher", "Sponsor", "Subject", "Country", "State",
           "County", "City", "Locus", "Signed", "Inscribed", "Markings",
-          "CreditLine", "Chat", "Description", "Notes", "Provenance",
-          "PubReferences", "CuratorialRemarks", "RelatedWorks",
-          "PublicAccess", "PaperFileRef", "UserNumber1", "ObjectState",
-          "HistAttributions", "Bibliography", "Edition", "PaperSupport",
-          "IsTemplate", "DateRemarks"
+          "Credit_Line", "Chat", "Description", "Notes", "Provenance",
+          "Pub_References", "Curatorial_Remarks", "Related_Works",
+          "Public_Access", "Paper_File_Ref", "User_Number1", "Object_State",
+          "Hist_Attributions", "Bibliography", "Edition", "Paper_Support",
+          "Is_Template", "Date_Remarks"
       ],
       "additionalProperties": false,
       "examples": [
@@ -87,7 +87,7 @@
         "Home_Location": {
           "type": ["string", "null"]
         },
-        "StatusFlag": {
+        "Status_Flag": {
           "type": ["string", "null"]
         },
         "Object_Count": {
@@ -96,13 +96,13 @@
         "Dimensions": {
           "type": ["string", "null"]
         },
-        "BeginDate": {
+        "Begin_Date": {
           "type": ["integer", "null"]
         },
-        "EndDate": {
+        "End_Date": {
           "type": ["integer", "null"]
         },
-        "GeoSearchValue": {
+        "Geo_Search_Value": {
           "type": ["string", "null"]
         },
         "Collection": {
@@ -124,6 +124,9 @@
           "type": ["string", "null"]
         },
         "Non_Display_Title": {
+          "type": ["string", "null"]
+        },
+        "Book_or_Album_Title": {
           "type": ["string", "null"]
         },
         "Link": {
@@ -189,7 +192,7 @@
         "Markings": {
           "type": ["string", "null"]
         },
-        "CreditLine": {
+        "Credit_Line": {
           "type": ["string", "null"]
         },
         "Chat": {
@@ -204,28 +207,28 @@
         "Provenance": {
           "type": ["string", "null"]
         },
-        "PubReferences": {
+        "Pub_References": {
           "type": ["string", "null"]
         },
-        "CuratorialRemarks": {
+        "Curatorial_Remarks": {
           "type": ["string", "null"]
         },
-        "RelatedWorks": {
+        "Related_Works": {
           "type": ["string", "null"]
         },
-        "PublicAccess": {
+        "Public_Access": {
           "type": ["integer", "null"]
         },
-        "PaperFileRef": {
+        "Paper_File_Ref": {
           "type": ["string", "null"]
         },
-        "UserNumber1": {
+        "User_Number1": {
           "type": ["string", "null"]
         },
-        "ObjectState": {
+        "Object_State": {
           "type": ["string", "null"]
         },
-        "HistAttributions": {
+        "Hist_Attributions": {
           "type": ["string", "null"]
         },
         "Bibliography": {
@@ -234,13 +237,13 @@
         "Edition": {
           "type": ["string", "null"]
         },
-        "PaperSupport": {
+        "Paper_Support": {
           "type": ["string", "null"]
         },
-        "IsTemplate": {
+        "Is_Template": {
           "type": "integer"
         },
-        "DateRemarks": {
+        "Date_Remarks": {
           "type": ["string", "null"]
         }
       }

@@ -21,6 +21,8 @@ exhibitions <- exhibitions[, .(ExhibitionID, Department, Title=ExhTitle,
                                SponsorCreditLine, SubTitle, IsInHouse,
                                IsVirtual)]
 
+
+exhibitions %<>% normalize.character.columns
 setnames(exhibitions, separate_words_with_hyphens(names(exhibitions)))
 
 exhibitions %>% write.derived.files(OUTPUT_NAME)

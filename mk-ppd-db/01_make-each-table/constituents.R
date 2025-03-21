@@ -12,6 +12,7 @@ constituents <- constituents[, .(ConstituentID, FirstName, LastName,
                                  Institution, DisplayName, BeginDate,
                                  EndDate, DisplayDate, Nationality)]
 
+constituents %<>% normalize.character.columns
 setnames(constituents, separate_words_with_hyphens(names(constituents)))
 
 constituents %>% write.derived.files(OUTPUT_NAME)

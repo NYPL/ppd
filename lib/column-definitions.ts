@@ -44,7 +44,7 @@ const mainFieldsToClip = [
   "Description",
   "Provenance",
   "Description",
-  "CreditLine",
+  "Credit_Line",
   "Inscribed",
   "Markings",
   "Portfolio",
@@ -54,9 +54,10 @@ const mainFieldsToClip = [
   "Descriptive_Title",
   "Folder",
   "Non_Display_Title",
+  "Book_or_Album_Title",
   "Depicted_Location",
   "Institution",
-  "CuratorialRemarks"
+  "Curatorial_Remarks"
 ];
 mainFieldsToClip.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', fieldClip);

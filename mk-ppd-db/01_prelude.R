@@ -49,7 +49,7 @@ separate_words_with_hyphens <- function(string) {
 }
 
 write.derived.tsv <- function(DT, file.name) {
-  fwrite(DT, file.name, sep="\t")
+  fwrite(DT, file.name, sep="\t", quote=FALSE)
 }
 
 write.derived.json <- function(DT, file.name) {
@@ -60,6 +60,18 @@ write.derived.json <- function(DT, file.name) {
 write.derived.files <- function(DT, table.name) {
   DT %>% write.derived.tsv(sprintf("%s/%s.tsv.gz",      LOC_OUT_TSV,  table.name))
   DT %>% write.derived.json(sprintf("%s/%s.data.json",  LOC_OUT_JSON, table.name))
+}
+
+normalize.character.columns <- function(DT) {
+  nfn <- function(column) {
+    column %>%
+      stringr::str_replace_all('\t', ' ') %>%
+      stringr::str_replace_all('"""', '"') %>%
+      stringr::str_replace_all('""', '"') %>%
+      stringi::stri_trans_nfd()
+  }
+  tmp <- DT %>% dplyr::mutate_if(is.character, nfn)
+  tmp[]
 }
 
 

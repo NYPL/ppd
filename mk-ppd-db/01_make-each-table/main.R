@@ -32,7 +32,6 @@ rm(departments)
 objs <- mstobjs[, .(ObjectID, ClassificationID)]
 classifications <- read.table.dump("Classifications")
 classifications <- classifications[, .(ClassificationID, Classification)]
-classifications
 objs %>% merge(classifications, all.x=TRUE) -> withclassifications
 withclassifications <- withclassifications[, .(ObjectID, Classification)]
 
@@ -52,7 +51,6 @@ flaglabels <- read.table.dump("FlagLabels")
 flaglabels <- flaglabels[, .(FlagID, StatusFlag=FlagLabel)]
 statusflags %<>% merge(flaglabels)
 statusflags[, FlagID:=NULL]
-statusflags
 
 main %<>% merge(statusflags, all.x=TRUE)
 
@@ -229,7 +227,6 @@ otherconstituents %<>% dcast(ObjectID~Role, value.var="DisplayName", fun.aggrega
 constituents <- mainconstituents %>% merge(otherconstituents, all.x=TRUE)
 constituents[, Title:=NULL]
 
-constituents # !!!
 main %<>% merge(constituents, all.x=TRUE)
 
 # --------------------------------------------------------------- #
@@ -297,6 +294,7 @@ final <- main[, .(Object_ID=ObjectID,
                  Folder,
                  Depicted_Location=Location_Depicted,
                  Non_Display_Title,
+                 Book_or_Album_Title,
                  # Title_From_Objects,   NEW
                  Link,
                  Display_Name=DisplayName,
@@ -339,7 +337,8 @@ final <- main[, .(Object_ID=ObjectID,
                  IsTemplate,
                  DateRemarks )]
 
-setnames(cons, separate_words_with_hyphens(names(cons)))
+final %<>% normalize.character.columns
+setnames(final, separate_words_with_hyphens(names(final)))
 
 final %>% write.derived.files(OUTPUT_NAME)
 

@@ -32,6 +32,7 @@ final <- copy(tmp)
 
 # --------------------------------------------------------------- #
 
+final %<>% normalize.character.columns
 setnames(final, separate_words_with_hyphens(names(final)))
 
 final %>% write.derived.files(OUTPUT_NAME)

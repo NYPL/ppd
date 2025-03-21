@@ -199,8 +199,8 @@ export const protoColumnDefs = {
       "title": "Home Location"
     },
     {
-      "data": "StatusFlag",
-      "title": "StatusFlag"
+      "data": "Status_Flag",
+      "title": "Status Flag"
     },
     {
       "data": "Object_Count",
@@ -211,16 +211,16 @@ export const protoColumnDefs = {
       "title": "Dimensions"
     },
     {
-      "data": "BeginDate",
-      "title": "BeginDate"
+      "data": "Begin_Date",
+      "title": "Begin Date"
     },
     {
-      "data": "EndDate",
-      "title": "EndDate"
+      "data": "End_Date",
+      "title": "End Date"
     },
     {
-      "data": "GeoSearchValue",
-      "title": "GeoSearchValue"
+      "data": "Geo_Search_Value",
+      "title": "Geo Search Value"
     },
     {
       "data": "Collection",
@@ -249,6 +249,10 @@ export const protoColumnDefs = {
     {
       "data": "Non_Display_Title",
       "title": "Non Display Title"
+    },
+    {
+      "data": "Book_or_Album_Title",
+      "title": "Book or Album Title"
     },
     {
       "data": "Link",
@@ -335,8 +339,8 @@ export const protoColumnDefs = {
       "title": "Markings"
     },
     {
-      "data": "CreditLine",
-      "title": "CreditLine"
+      "data": "Credit_Line",
+      "title": "Credit Line"
     },
     {
       "data": "Chat",
@@ -355,36 +359,36 @@ export const protoColumnDefs = {
       "title": "Provenance"
     },
     {
-      "data": "PubReferences",
-      "title": "PubReferences"
+      "data": "Pub_References",
+      "title": "Pub References"
     },
     {
-      "data": "CuratorialRemarks",
-      "title": "CuratorialRemarks"
+      "data": "Curatorial_Remarks",
+      "title": "Curatorial Remarks"
     },
     {
-      "data": "RelatedWorks",
-      "title": "RelatedWorks"
+      "data": "Related_Works",
+      "title": "Related Works"
     },
     {
-      "data": "PublicAccess",
-      "title": "PublicAccess"
+      "data": "Public_Access",
+      "title": "Public Access"
     },
     {
-      "data": "PaperFileRef",
-      "title": "PaperFileRef"
+      "data": "Paper_File_Ref",
+      "title": "Paper File Ref"
     },
     {
-      "data": "UserNumber1",
-      "title": "UserNumber1"
+      "data": "User_Number1",
+      "title": "User Number1"
     },
     {
-      "data": "ObjectState",
-      "title": "ObjectState"
+      "data": "Object_State",
+      "title": "Object State"
     },
     {
-      "data": "HistAttributions",
-      "title": "HistAttributions"
+      "data": "Hist_Attributions",
+      "title": "Hist Attributions"
     },
     {
       "data": "Bibliography",
@@ -395,16 +399,16 @@ export const protoColumnDefs = {
       "title": "Edition"
     },
     {
-      "data": "PaperSupport",
-      "title": "PaperSupport"
+      "data": "Paper_Support",
+      "title": "Paper Support"
     },
     {
-      "data": "IsTemplate",
-      "title": "IsTemplate"
+      "data": "Is_Template",
+      "title": "Is Template"
     },
     {
-      "data": "DateRemarks",
-      "title": "DateRemarks"
+      "data": "Date_Remarks",
+      "title": "Date Remarks"
     }
   ]
 };
