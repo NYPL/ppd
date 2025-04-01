@@ -39,7 +39,7 @@ if (TMS_TABLES_LOCATION == "")
 # ------------------------------ #
 
 read.table.dump <- function(table.name) {
-  path <- sprintf("%s/%s.txt", TMS_TABLES_LOCATION, table.name)
+  path <- sprintf("%s/%s.txt.gz", TMS_TABLES_LOCATION, table.name)
   return(fread(path, quote="", na.strings=c("NULL", "", "NA", NA))[])
 }
 

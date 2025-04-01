@@ -42,7 +42,8 @@
           "description": "this is a description",
           "type": "integer",
           "$metadata": {
-            "primaryKey": true
+            "primaryKey": true,
+            "content_rowid": true
           }
         },
         "Department": {
@@ -55,34 +56,55 @@
           "type": "string"
         },
         "Title": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Role": {
           "type": ["string", "null"]
         },
         "First_Name": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Last_Name": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Medium": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal"]
+          }
         },
         "Dated": {
           "type": ["string", "null"]
         },
         "Display_Date": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal"]
+          }
         },
         "Nationality": {
           "type": ["string", "null"]
         },
         "Catalogue_Raisonne": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Call_Number": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal"]
+          }
         },
         "Home_Location": {
           "type": ["string", "null"]
@@ -103,70 +125,133 @@
           "type": ["integer", "null"]
         },
         "Geo_Search_Value": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal"]
+          }
         },
         "Collection": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Series": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Portfolio": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Descriptive_Title": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Folder": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Depicted_Location": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal"]
+          }
         },
         "Non_Display_Title": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Book_or_Album_Title": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "fttitles"]
+          }
         },
         "Link": {
           "type": ["string", "null"]
         },
         "Display_Name": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Institution": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "After": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Explicit_Artist": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Compiler": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Editor": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Photographer": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Printer": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Printmaker": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Publisher": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Sponsor": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
         },
         "Subject": {
-          "type": ["string", "null"]
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal"]
+          }
         },
         "Country": {
           "type": ["string", "null"]
