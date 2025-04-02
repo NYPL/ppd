@@ -1,6 +1,6 @@
 import { protoColumnDefs } from './proto-column-definitions';
 import { FIELD_CHARACTER_LIMIT, TITLE_CHARACTER_LIMIT } from './config';
-import { addNewKeyValToColumnDefs, clipStringAtLengthN } from './utils';
+import { addNewKeyValToColumnDefs, clipOnlyForDisplay, redactOnlyForExport } from './utils';
 
 /**
  * this module imports the auto-generated `protoColumnDefs`, mutates
@@ -30,11 +30,12 @@ let columnDefs = protoColumnDefs;
  ************************************************************/
 
 
-const titleClip = (s: string) => clipStringAtLengthN(s, TITLE_CHARACTER_LIMIT);
-const fieldClip = (s: string) => clipStringAtLengthN(s, FIELD_CHARACTER_LIMIT);
+const titleClip = clipOnlyForDisplay(TITLE_CHARACTER_LIMIT);
+const fieldClip = clipOnlyForDisplay(FIELD_CHARACTER_LIMIT);
 
 /* Title must be clipped */
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Title', 'render', titleClip);
+
 
 /* other fields that have to be tamed */
 const mainFieldsToClip = [
@@ -63,6 +64,13 @@ mainFieldsToClip.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', fieldClip);
 });
 
+const mainFieldsToRedact = [
+  "Home_Location"
+];
+mainFieldsToRedact.forEach(field => {
+  columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', redactOnlyForExport());
+});
+
 /* Object Number should be a hyperlink */
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'render',
                              (data: string, _: never, row: MainRecord) => {
@@ -77,7 +85,8 @@ mainNonSearchableFields.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'searchable', 'false');
 });
 
-
+// render Object_ID as a link in exports
+// columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_ID', 'render', oidLinkOnlyForExport);
 
 // shorten some column names
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_ID', 'title', 'OID');

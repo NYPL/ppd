@@ -1,6 +1,6 @@
 {
   "name": "Prints and Photographs Discovery tool",
-  "version": "2.3.5",
+  "version": "2.4",
   "private": true,
   "scripts": {
     "dev": "next dev",

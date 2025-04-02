@@ -55,7 +55,19 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
           top2Start: 'searchBuilder',
           topEnd: ['search'],
           top1Start: {
-            buttons: [ 'colvis', 'copy', 'csv', 'excel' ]
+            buttons: [ 'colvis',
+              {
+                extend: 'copy',
+                exportOptions: { orthogonal: 'export' }
+              },
+              {
+                extend: 'csv',
+                exportOptions: { orthogonal: 'export' }
+              },
+              {
+                extend: 'excel',
+                exportOptions: { orthogonal: 'export' }
+              }]
           }
         }
       }}></DataTable>

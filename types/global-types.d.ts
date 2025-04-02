@@ -11,3 +11,7 @@ declare interface ContainsObjectId {
 declare interface ContainsClassName {
   className: string;
 }
+
+declare type DTOrthogonalType = 'display' | 'export' | 'filter' | 'sort' | 'type';
+
+declare type DTRenderFunction = (data: string, type: DTOrthogonalType) => string;

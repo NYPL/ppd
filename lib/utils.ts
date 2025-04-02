@@ -1,4 +1,3 @@
-// @ts-nocheck
 
 export const attemptToParseInt = (s: string): number => {
   const ret = parseInt(s)
@@ -9,14 +8,39 @@ export const attemptToParseInt = (s: string): number => {
 export const clipStringAtLengthN = (s: string, n: number): string => {
   try {
     if (s.length > n)
-      return `${s.slice(0, n-3)}...`;
+      return `<span title="${s}">${s.slice(0, n-3)}...</span>`;
     return s;
   } catch(_) {
     return "";
   }
 };
 
+export const clipOnlyForDisplay = (n: number): DTRenderFunction => {
+  return (data: string, type: DTOrthogonalType) => {
+    if (type !== 'display')
+      return data;
+    return clipStringAtLengthN(data, n);
+  }
+};
+
+export const redactOnlyForExport = (): DTRenderFunction => {
+  return (data: string, type: DTOrthogonalType) => {
+    if (type === 'display')
+      return data;
+    return 'REDACTED';
+  }
+};
+
+export const oidLinkOnlyForExport = (data: number, type: DTOrthogonalType) => {
+  console.log({ type });
+  if (type !== 'export')
+    return data;
+  return `https://ppd.nypl.org/object/${data}`;
+};
+
+
 export const addNewKeyValToColumnDefs = (colDefs: any, table: string, dataValue: string, key: string, val: any) => {
+  // @ts-ignore
   const ind = colDefs[table].findIndex(i => i.data===dataValue);
   if (ind < 0) throw new Error(`no such field "${dataValue}"`);
   const old = colDefs[table][ind];
@@ -43,6 +67,7 @@ export const getParamsAsObject = (url: Url) => {
   const params: any = {};
   let e;
   while (e = re.exec(query)) {
+    // @ts-ignore
     let k = decode(e[1]), v = decode(e[2]);
     if (k.substring(k.length - 2) === '[]') {
       k = k.substring(0, k.length - 2);
