@@ -103,3 +103,24 @@ main {
   }
 }
 
+/*
+ * I need to but the fixes for the fixed column
+ * styling here
+ */
+td.dtfc-fixed-left,
+th.dtfc-fixed-left,
+thead.dtfc-fixed-left {
+  opacity: 1;
+  background-color: white;
+  z-index: 10;
+}
+
+.dtfc-scrolling-start td.dtfc-fixed-left,
+.dtfc-scrolling-start th.dtfc-fixed-left,
+.dtfc-scrolling-start thead.dtfc-fixed-left {
+  border-right: 1px solid #ddd !important;
+}
+
+.dataTables_wrapper {
+  overscroll-behavior-x: contain;
+}

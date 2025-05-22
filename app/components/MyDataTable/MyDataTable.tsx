@@ -11,6 +11,7 @@ import 'datatables.net-buttons/js/buttons.colVis.mjs';
 import 'datatables.net-buttons/js/buttons.html5.mjs';
 import 'datatables.net-buttons/js/buttons.print.mjs';
 import 'datatables.net-fixedheader-dt';
+import 'datatables.net-fixedcolumns-dt';
 import 'datatables.net-searchbuilder-dt';
 import 'datatables.net-responsive-dt';
 import 'datatables.net-select-dt';
@@ -46,6 +47,9 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
         scrollX: true,
         select: true,
         fixedHeader: true,
+        fixedColumns: {
+            start: 3
+        },
         search: {
           // @ts-ignore
           return: true
