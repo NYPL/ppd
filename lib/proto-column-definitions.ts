@@ -187,6 +187,10 @@ export const protoColumnDefs = {
       "title": "Nationality"
     },
     {
+      "data": "Dimensions",
+      "title": "Dimensions"
+    },
+    {
       "data": "Catalogue_Raisonne",
       "title": "Catalogue Raisonne"
     },
@@ -205,10 +209,6 @@ export const protoColumnDefs = {
     {
       "data": "Object_Count",
       "title": "Object Count"
-    },
-    {
-      "data": "Dimensions",
-      "title": "Dimensions"
     },
     {
       "data": "Begin_Date",

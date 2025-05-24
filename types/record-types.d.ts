@@ -155,12 +155,12 @@ declare interface MainRecord {
   Dated: string | null;
   Display_Date: string | null;
   Nationality: string | null;
+  Dimensions: string | null;
   Catalogue_Raisonne: string | null;
   Call_Number: string | null;
   Home_Location: string | null;
   Status_Flag: string | null;
   Object_Count: number;
-  Dimensions: string | null;
   Begin_Date: number | null;
   End_Date: number | null;
   Geo_Search_Value: string | null;

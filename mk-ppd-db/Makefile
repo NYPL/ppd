@@ -42,7 +42,7 @@ target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R 01_prelude.R
 # ----------------------------------------------------------------- #
 #' # step 02
 #'   - validate the data against the json schemas
-#'   - write out the type definitions
+#'   - write out the typescript type definitions
 #'
 .PHONY: step02
 step02: $(STEP02_OUT_TYPEDEFS)
@@ -200,6 +200,10 @@ done:
 # ----------------------------------------------------------------- #
 
 # ----------------------------------------------------------------- #
+# ----------------------------------------------------------------- #
+#' # help
+#'   print this help message
+#'
 .PHONY: help
 help:
 	@ cat Makefile | egrep "#' " | perl -pe 's/^...//' | perl -pe 's/#/\n/g'
