@@ -151,12 +151,16 @@ export const protoColumnDefs = {
       "title": "Object Number"
     },
     {
-      "data": "Classification",
-      "title": "Classification"
-    },
-    {
       "data": "Title",
       "title": "Title"
+    },
+    {
+      "data": "Display_Name",
+      "title": "Display Name"
+    },
+    {
+      "data": "Classification",
+      "title": "Classification"
     },
     {
       "data": "Role",
@@ -257,10 +261,6 @@ export const protoColumnDefs = {
     {
       "data": "Link",
       "title": "Link"
-    },
-    {
-      "data": "Display_Name",
-      "title": "Display Name"
     },
     {
       "data": "Institution",

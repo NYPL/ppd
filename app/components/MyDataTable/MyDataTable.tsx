@@ -48,10 +48,10 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
         select: true,
         fixedHeader: true,
         fixedColumns: {
-            start: 3
+            start: 5
         },
         search: {
-          // @ts-ignore
+          // @ts-ignore: idk
           return: true
         },
         searchBuilder: { enterSearch: true },

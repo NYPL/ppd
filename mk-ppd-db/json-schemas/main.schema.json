@@ -17,21 +17,22 @@
       "description": "FILL ME OUT!!!",
       "type": "object",
       "required": [
-          "Object_ID", "Department", "Object_Number", "Classification",
-          "Title", "Role", "First_Name", "Last_Name", "Medium", "Dated",
-          "Display_Date", "Nationality", "Dimensions", "Catalogue_Raisonne",
-          "Call_Number", "Home_Location", "Status_Flag", "Object_Count",
-          "Begin_Date", "End_Date", "Geo_Search_Value", "Collection", "Series",
-          "Portfolio", "Descriptive_Title", "Folder", "Depicted_Location",
-          "Non_Display_Title", "Book_or_Album_Title", "Link", "Display_Name",
-          "Institution", "After", "Explicit_Artist", "Compiler", "Editor",
-          "Photographer", "Printer", "Printmaker", "Publisher", "Sponsor",
-          "Subject", "Country", "State", "County", "City", "Locus", "Signed",
-          "Inscribed", "Markings", "Credit_Line", "Chat", "Description",
-          "Notes", "Provenance", "Pub_References", "Curatorial_Remarks",
-          "Related_Works", "Public_Access", "Paper_File_Ref", "User_Number1",
-          "Object_State", "Hist_Attributions", "Bibliography", "Edition",
-          "Paper_Support", "Is_Template", "Date_Remarks"
+          "Object_ID", "Department", "Object_Number", "Title", "Display_Name",
+          "Classification", "Role", "First_Name", "Last_Name", "Medium",
+          "Dated", "Display_Date", "Nationality", "Dimensions",
+          "Catalogue_Raisonne", "Call_Number", "Home_Location", "Status_Flag",
+          "Object_Count", "Begin_Date", "End_Date", "Geo_Search_Value",
+          "Collection", "Series", "Portfolio", "Descriptive_Title", "Folder",
+          "Depicted_Location", "Non_Display_Title", "Book_or_Album_Title",
+          "Link", "Institution", "After", "Explicit_Artist", "Compiler",
+          "Editor", "Photographer", "Printer", "Printmaker", "Publisher",
+          "Sponsor", "Subject", "Country", "State", "County", "City", "Locus",
+          "Signed", "Inscribed", "Markings", "Credit_Line", "Chat",
+          "Description", "Notes", "Provenance", "Pub_References",
+          "Curatorial_Remarks", "Related_Works", "Public_Access",
+          "Paper_File_Ref", "User_Number1", "Object_State",
+          "Hist_Attributions", "Bibliography", "Edition", "Paper_Support",
+          "Is_Template", "Date_Remarks"
       ],
       "additionalProperties": false,
       "examples": [
@@ -52,14 +53,20 @@
         "Object_Number": {
           "type": "string"
         },
-        "Classification": {
-          "type": "string"
-        },
         "Title": {
           "type": ["string", "null"],
           "$metadata": {
             "ftTables": ["ftglobal", "fttitles"]
           }
+        },
+        "Display_Name": {
+          "type": ["string", "null"],
+          "$metadata": {
+            "ftTables": ["ftglobal", "ftconstituents"]
+          }
+        },
+        "Classification": {
+          "type": "string"
         },
         "Role": {
           "type": ["string", "null"]
@@ -180,12 +187,6 @@
         },
         "Link": {
           "type": ["string", "null"]
-        },
-        "Display_Name": {
-          "type": ["string", "null"],
-          "$metadata": {
-            "ftTables": ["ftglobal", "ftconstituents"]
-          }
         },
         "Institution": {
           "type": ["string", "null"],

@@ -146,8 +146,9 @@ declare interface MainRecord {
   Object_ID: number;
   Department: string;
   Object_Number: string;
-  Classification: string;
   Title: string | null;
+  Display_Name: string | null;
+  Classification: string;
   Role: string | null;
   First_Name: string | null;
   Last_Name: string | null;
@@ -173,7 +174,6 @@ declare interface MainRecord {
   Non_Display_Title: string | null;
   Book_or_Album_Title: string | null;
   Link: string | null;
-  Display_Name: string | null;
   Institution: string | null;
   After: string | null;
   Explicit_Artist: string | null;
