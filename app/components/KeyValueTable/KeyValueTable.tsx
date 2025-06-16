@@ -1,5 +1,7 @@
 
 import styles from './KeyValueTable.module.scss';
+import { formatCurrency } from '../../../lib/utils';
+
 
 interface Props {
   payload: any;
@@ -9,6 +11,10 @@ export const KeyValueTable = ({ payload }: Props) => {
   
   //  TODO  no `any`
   const makeRow = (k: any, v: any) => {
+    //  TODO  I feel like this is super-kludgey
+    //        put in a different place
+    if (k === "Value")
+      v = formatCurrency(v);
     return (
       <tr className={ styles['tr'] }>
         <td className={ styles['td'] }>{ k }</td>

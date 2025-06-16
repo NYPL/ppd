@@ -7,7 +7,10 @@ OUTPUT_NAME <- "main"
 # --------------------------------------------------------------- #
 
 mstobjs <- read.table.dump("Objects")
-main <- mstobjs[, .(ObjectID)]
+main <- mstobjs[ObjectID>=0, .(ObjectID)]
+
+
+
 
 # --------------------------------------------------------------- #
 # DEPARTMENTS --------------------------------------------------- #
@@ -247,6 +250,21 @@ main <- main %>% merge(objgeo, all.x=TRUE)
 
 
 # --------------------------------------------------------------- #
+# VALUES -------------------------------------------------------- #
+
+
+# acc <- read.table.dump("ObjAccession")
+# # ?percent ownership?
+
+ins <- read.table.dump("ObjInsurance")
+ins <- ins[, .(ObjectID, Value)][, .(Value=max(Value)), ObjectID]
+
+main %<>% merge(ins, all.x=TRUE)
+
+# --------------------------------------------------------------- #
+
+
+# --------------------------------------------------------------- #
 # OBJECT VARS PREVIOUSLY LEFT OUT ------------------------------- #
 
 mstobjs <- read.table.dump("Objects")
@@ -286,6 +304,7 @@ final <- main[, .(Object_ID=ObjectID,
                  Dimensions,
                  BeginDate,
                  EndDate,
+                 Value,
                  GeoSearchValue,
                  Collection,
                  Series,

@@ -5,6 +5,16 @@ export const attemptToParseInt = (s: string): number => {
   return ret;
 };
 
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+});
+
+export const formatCurrency = (n: number | null): string => {
+  return n ? formatter.format(n) : "";
+}
+
 export const clipStringAtLengthN = (s: string, n: number): string => {
   try {
     if (s.length > n)

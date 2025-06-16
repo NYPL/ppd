@@ -223,6 +223,10 @@ export const protoColumnDefs = {
       "title": "End Date"
     },
     {
+      "data": "Value",
+      "title": "Value"
+    },
+    {
       "data": "Geo_Search_Value",
       "title": "Geo Search Value"
     },

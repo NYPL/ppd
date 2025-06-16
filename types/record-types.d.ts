@@ -164,6 +164,7 @@ declare interface MainRecord {
   Object_Count: number;
   Begin_Date: number | null;
   End_Date: number | null;
+  Value: number | null;
   Geo_Search_Value: string | null;
   Collection: string | null;
   Series: string | null;

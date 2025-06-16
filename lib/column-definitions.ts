@@ -1,6 +1,6 @@
 import { protoColumnDefs } from './proto-column-definitions';
 import { FIELD_CHARACTER_LIMIT, TITLE_CHARACTER_LIMIT } from './config';
-import { addNewKeyValToColumnDefs, clipOnlyForDisplay, redactOnlyForExport } from './utils';
+import { addNewKeyValToColumnDefs, clipOnlyForDisplay, redactOnlyForExport, formatCurrency } from './utils';
 
 /**
  * this module imports the auto-generated `protoColumnDefs`, mutates
@@ -65,7 +65,7 @@ mainFieldsToClip.forEach(field => {
 });
 
 const mainFieldsToRedact = [
-  "Home_Location"
+  "Home_Location", "Value"
 ];
 mainFieldsToRedact.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', redactOnlyForExport());
@@ -77,9 +77,16 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'rend
   return `<a href="/object/${row['Object_ID']}" target="_blank">${data}</a>`;
 });
 
+/* Value should look like a monetary value */
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Value', 'render',
+                             (data: number, _: never) => {
+  return formatCurrency(data);
+});
+
+
 /* I have just discovered: some fields are more searchable than others */
 const mainNonSearchableFields = [
-  "Object_ID", "Home_Location"
+  "Object_ID", "Home_Location", "Value"
 ];
 mainNonSearchableFields.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'searchable', 'false');

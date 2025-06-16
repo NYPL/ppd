@@ -21,7 +21,7 @@
           "Classification", "Role", "First_Name", "Last_Name", "Medium",
           "Dated", "Display_Date", "Nationality", "Dimensions",
           "Catalogue_Raisonne", "Call_Number", "Home_Location", "Status_Flag",
-          "Object_Count", "Begin_Date", "End_Date", "Geo_Search_Value",
+          "Object_Count", "Begin_Date", "End_Date", "Value", "Geo_Search_Value",
           "Collection", "Series", "Portfolio", "Descriptive_Title", "Folder",
           "Depicted_Location", "Non_Display_Title", "Book_or_Album_Title",
           "Link", "Institution", "After", "Explicit_Artist", "Compiler",
@@ -130,6 +130,9 @@
         },
         "End_Date": {
           "type": ["integer", "null"]
+        },
+        "Value": {
+          "type": ["number", "null"]
         },
         "Geo_Search_Value": {
           "type": ["string", "null"],
