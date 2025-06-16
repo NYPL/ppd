@@ -26,3 +26,4 @@ start:
 .PHONY: pushdb
 pushdb:
 	aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC)
+
