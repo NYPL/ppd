@@ -1,12 +1,13 @@
 
-import { ThumbnailHolder } from "../../ThumbnailHolder/ThumbnailHolder";
-import { ConstituentsHolder } from "./components/ConstituentsHolder";
-import { ExhibitionsHolder } from "./components/ExhibitionsHolder";
-import { KeyValueTable } from "@/app/components/KeyValueTable/KeyValueTable";
-import { Tombstone } from '../../Tombstone/Tombstone';
+import { ThumbnailHolder }           from "../../ThumbnailHolder/ThumbnailHolder";
+import { ConstituentsHolder }        from "./components/ConstituentsHolder";
+import { ExhibitionsHolder }         from "./components/ExhibitionsHolder";
+import { LocationsHolder }           from "./components/LocationsHolder";
+import { KeyValueTable }             from "@/app/components/KeyValueTable/KeyValueTable";
+import { Tombstone }                 from '../../Tombstone/Tombstone';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
-import { dbConstants } from "@/lib/db-constants";
-import styles from './ObjectView.module.scss';
+import { dbConstants }               from "@/lib/db-constants";
+import styles                        from './ObjectView.module.scss';
 
 
 type HeaderProps  = Readonly<ContainsChildren & ContainsClassName>;
@@ -25,9 +26,13 @@ interface Props {
   mainAPIPayload:       MainRecord;
   exhibitionsPayload:   Array<ExhibitionRecord>;
   constituentsPayload:  Array<ConstituentRecord & { role: string }>;
+  locationsPayload:     Array<ObjectsXLocationsRecord>;
 }
 
-export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPayload }: Props) => {
+export const ObjectView = ({
+    mainAPIPayload, exhibitionsPayload,
+    constituentsPayload, locationsPayload
+  }: Props) => {
   const {
     Object_ID,
     Object_Number,
@@ -47,6 +52,10 @@ export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPay
 
   const exhs = exhibitionsPayload.length > 0 ?
     <ExhibitionsHolder payload={ exhibitionsPayload } /> :
+    <></>;
+
+  const locs = locationsPayload.length > 0 ?
+    <LocationsHolder payload={ locationsPayload } /> :
     <></>;
 
   return (
@@ -80,6 +89,7 @@ export const ObjectView = ({ mainAPIPayload, exhibitionsPayload, constituentsPay
             Medium={ Medium ?? "(no medium)" } />
           { cons }
           { exhs }
+          { locs }
         </div>
         <div className={ styles['right'] }>
           { Link ?

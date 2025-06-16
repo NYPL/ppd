@@ -36,6 +36,7 @@ interface Props {
 
 export const ConstituentsHolder = ({ payload }: Props) => {
 
+  //  TODO  have to add a key (in Exhibitions, too)
   const conCards = payload.map(i => <ConstituentCard constituent={ i } />);
 
   return (

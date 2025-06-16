@@ -19,16 +19,18 @@ export default async function Page({ params }: Props) {
     return Promise.all([
       fetch(`http://localhost:${ PORT }/${ API_PATH }/main/${objectid}`),
       fetch(`http://localhost:${ PORT }/${ API_PATH }/object/${objectid}/exhibitions`),
-      fetch(`http://localhost:${ PORT }/${ API_PATH }/object/${objectid}/constituents`)
+      fetch(`http://localhost:${ PORT }/${ API_PATH }/object/${objectid}/constituents`),
+      fetch(`http://localhost:${ PORT }/${ API_PATH }/object/${objectid}/locations`)
       ])
     }).
     then(_ => Promise.all(_.map(i => i.json()))).
-    then(([mainAPIPayload, exhibitionsPayload, constituentsPayload]) => {
+    then(([mainAPIPayload, exhibitionsPayload, constituentsPayload, locationsPayload]) => {
       return (
         <ObjectView
           mainAPIPayload={ mainAPIPayload }
           exhibitionsPayload={ exhibitionsPayload }
           constituentsPayload={ constituentsPayload }
+          locationsPayload={ locationsPayload }
         />
       );
     });

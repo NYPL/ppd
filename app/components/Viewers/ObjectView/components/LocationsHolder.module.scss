@@ -1,0 +1,69 @@
+@use '../../../../styles/globals';
+
+.header-and-holder {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f6f6f8;
+  border-radius: 10px;
+  
+  @media (max-width: globals.$mobile) {
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    width: 100%;
+  }
+}
+
+.holder {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  font-size: 2em;
+  padding-bottom: 20px;
+}
+
+.left {
+  width: 30%;
+  margin: 0px 10px 0px 0px;
+
+  @media (max-width: globals.$mobile) {
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  width: 50%;
+  border-width: 0px 0px 0px 1px;
+  padding: 0px 0px 0px 10px;
+
+  @media (max-width: globals.$mobile) {
+    width: 100%;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+.location-label {
+  font-style: italic;
+}
+
+// .con-name-link {
+//   font-weight: bold;
+//   text-decoration: none;
+// }
+
+
+
