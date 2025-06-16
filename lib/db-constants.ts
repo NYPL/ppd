@@ -30,5 +30,11 @@ export const dbConstants = {
     "min": 0,
     "max": 538905,
     "numRows": 446612
+  },
+  "objectsxlocations": {
+    "primaryKey": "rid",
+    "min": 1,
+    "max": 688528,
+    "numRows": 688528
   }
 };

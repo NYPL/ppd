@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "org.nypl.ppd.ObjectLocations",
+  "title": "ObjectsXLocations",
+  "description": "FILL ME OUT!!!",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/ObjectsXLocationsRecord"
+  },
+  "minItems": 1,
+
+  "$defs": {
+
+    "ObjectsXLocationsRecord": {
+      "$id": "org.nypl.ppd.ObjectsXLocationsRecord",
+      "title": "ObjectsXLocationsRecord",
+      "description": "FILL ME OUT!!!",
+      "type": "object",
+      "required": [
+        "rid", "Object_ID", "Location_Type", "Location_Active",
+        "Location_String"
+      ],
+      "additionalProperties": false,
+      "examples": [
+        "PUT EXAMPLE HERE"
+      ],
+      "properties": {
+
+        "rid": {
+          "description": "this is a description",
+          "type": "integer",
+          "minimum": 1,
+          "$metadata": {
+            "primaryKey": true
+          }
+        },
+
+        "Object_ID": {
+          "type": "integer",
+          "minimum": 0,
+          "$metadata": {
+            "foreignKeyTo": "main",
+            "index": "idx_loc_object_id"
+          }
+        },
+
+        "Location_Type": {
+          "type": "string"
+        },
+
+        "Location_Active": {
+          "type": "integer"
+        },
+
+        "Location_String": {
+          "type": "string"
+        }
+
+      }
+    }
+
+  }
+
+}
+

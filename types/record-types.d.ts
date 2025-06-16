@@ -1,6 +1,6 @@
 // THIS IS AUTOMATICALLY GENERATED. DO NOT EDIT.
 
-type TableName= "constituents" | "constituentsxobjects" | "exhibitions" | "exhibitionsxobjects" | "main";
+type TableName= "constituents" | "constituentsxobjects" | "exhibitions" | "exhibitionsxobjects" | "main" | "objectsxlocations";
 
 /**
  * FILL ME OUT!!!
@@ -211,4 +211,26 @@ declare interface MainRecord {
   Paper_Support: string | null;
   Is_Template: number;
   Date_Remarks: string | null;
+}
+
+/**
+ * FILL ME OUT!!!
+ *
+ * @minItems 1
+ */
+declare type ObjectsXLocations = [ObjectsXLocationsRecord, ...ObjectsXLocationsRecord[]];
+
+/**
+ * FILL ME OUT!!!
+ */
+declare interface ObjectsXLocationsRecord {
+
+  /**
+   * this is a description
+   */
+  rid: number;
+  Object_ID: number;
+  Location_Type: string;
+  Location_Active: number;
+  Location_String: string;
 }

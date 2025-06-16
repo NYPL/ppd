@@ -410,5 +410,27 @@ export const protoColumnDefs = {
       "data": "Date_Remarks",
       "title": "Date Remarks"
     }
+  ],
+  "objectsxlocations": [
+    {
+      "data": "rid",
+      "title": "rid"
+    },
+    {
+      "data": "Object_ID",
+      "title": "Object ID"
+    },
+    {
+      "data": "Location_Type",
+      "title": "Location Type"
+    },
+    {
+      "data": "Location_Active",
+      "title": "Location Active"
+    },
+    {
+      "data": "Location_String",
+      "title": "Location String"
+    }
   ]
 };
