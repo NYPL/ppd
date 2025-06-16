@@ -25,9 +25,10 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     then(_ => {
       if (_==null)
         res.status(500).json({ error: "no records found" });
-      return _.map(i => { return { Location_Type:i.Location_Type,
-                                   Location_Active: i.Location_Active,
-                                   Locations_String: i.Location_String } });
+      // return _.map(i => { return { Location_Type:i.Location_Type,
+      //                              Location_Active: i.Location_Active,
+      //                              Locations_String: i.Location_String } });
+      return _;
     }).
     then(data => res.status(200).json(data)).
     catch(e => res.status(500).json({ error: e.message }));
