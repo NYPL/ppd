@@ -33,10 +33,13 @@ export const clipOnlyForDisplay = (n: number): DTRenderFunction => {
   }
 };
 
-export const redactOnlyForExport = (): DTRenderFunction => {
-  return (data: string, type: DTOrthogonalType) => {
-    if (type === 'display')
+export const redactOnlyForExport = (currency=false): DTRenderFunction => {
+  return (data: any, type: DTOrthogonalType) => {
+    if (type === 'display') {
+      if (currency)
+        return formatCurrency(data);
       return data;
+    }
     return 'REDACTED';
   }
 };

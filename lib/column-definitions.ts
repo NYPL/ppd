@@ -1,6 +1,6 @@
 import { protoColumnDefs } from './proto-column-definitions';
 import { FIELD_CHARACTER_LIMIT, TITLE_CHARACTER_LIMIT } from './config';
-import { addNewKeyValToColumnDefs, clipOnlyForDisplay, redactOnlyForExport, formatCurrency } from './utils';
+import { addNewKeyValToColumnDefs, clipOnlyForDisplay, redactOnlyForExport } from './utils';
 
 /**
  * this module imports the auto-generated `protoColumnDefs`, mutates
@@ -64,25 +64,16 @@ mainFieldsToClip.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', fieldClip);
 });
 
-const mainFieldsToRedact = [
-  "Home_Location", "Value"
-];
-mainFieldsToRedact.forEach(field => {
-  columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', field, 'render', redactOnlyForExport());
-});
+/*** Fields to redact ***/
+/* Value should look like a monetary value */
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Value', 'render', redactOnlyForExport(true));
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Home_Location', 'render', redactOnlyForExport());
 
 /* Object Number should be a hyperlink */
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_Number', 'render',
                              (data: string, _: never, row: MainRecord) => {
   return `<a href="/object/${row['Object_ID']}" target="_blank">${data}</a>`;
 });
-
-/* Value should look like a monetary value */
-columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Value', 'render',
-                             (data: number, _: never) => {
-  return formatCurrency(data);
-});
-
 
 /* I have just discovered: some fields are more searchable than others */
 const mainNonSearchableFields = [
