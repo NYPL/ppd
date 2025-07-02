@@ -40,7 +40,10 @@ export const ObjectView = ({
     Link,
     Display_Name,
     Display_Date,
-    Medium
+    Medium,
+    Dated,
+    Credit_Line,
+    Dimensions
   } = mainAPIPayload;
 
   const prevOutOfBoundsP = (Object_ID-1) < dbConstants.main.min;
@@ -86,7 +89,12 @@ export const ObjectView = ({
             Title={ Title ?? "(no title)" }
             Display_Name={ Display_Name ?? "(no display name)" }
             Display_Date={ Display_Date ?? "(no display date)" }
-            Medium={ Medium ?? "(no medium)" } />
+            Medium={ Medium ?? "(no medium)" }
+            Dated={ Dated ?? ""}
+            Credit_Line={ Credit_Line ?? "" }
+            Object_Number={ Object_Number ?? "" }
+            Dimensions={ Dimensions ?? "" }
+          />
           { cons }
           { exhs }
           { locs }
