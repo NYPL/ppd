@@ -425,16 +425,16 @@ export const protoColumnDefs = {
       "title": "Object ID"
     },
     {
-      "data": "Location_Type",
-      "title": "Location Type"
-    },
-    {
       "data": "Location_Active",
       "title": "Location Active"
     },
     {
       "data": "Location_String",
       "title": "Location String"
+    },
+    {
+      "data": "Location_ISODate",
+      "title": "Location ISODate"
     }
   ]
 };

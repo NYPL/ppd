@@ -10,7 +10,7 @@ interface CardProps {
 
 export const LocationsCard = ({ location }: CardProps) => {
   const {
-    Location_Type,
+    Location_ISODate,
     Location_Active,
     Location_String
   } = location;
@@ -18,15 +18,16 @@ export const LocationsCard = ({ location }: CardProps) => {
   return (
     <div className={ styles['card'] }>
       <div className={ styles['left'] }>
-        <div className={ styles['location-label'] }>{
-          Location_Active === 0
-            ? `${Location_Type} (inactive)`
-            : Location_Type
+        <div className={ styles['location-date-label'] }>{
+          Location_ISODate
         }</div>
       </div>
       <div className={ styles['right'] }>
-        <div className="title">
-          { Location_String }
+        <div className="title">{
+          Location_Active === 0
+            ? <span className={ styles['inactive-loc'] }>{ Location_String }</span>
+            : Location_String
+          }
         </div>
       </div>
     </div>
@@ -46,7 +47,7 @@ export const LocationsHolder = ({ payload }: Props) => {
 
   return (
     <div className={ styles['header-and-holder'] }>
-      <div className={ styles['header'] }>Locations</div>
+      <div className={ styles['header'] }>Location history</div>
       <div className={ styles['holder'] }>
         { locCards }
       </div>

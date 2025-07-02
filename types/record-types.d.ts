@@ -231,7 +231,7 @@ declare interface ObjectsXLocationsRecord {
    */
   rid: number;
   Object_ID: number;
-  Location_Type: string;
   Location_Active: number;
   Location_String: string;
+  Location_ISODate: string;
 }
