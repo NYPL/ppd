@@ -17,8 +17,8 @@
       "description": "FILL ME OUT!!!",
       "type": "object",
       "required": [
-        "rid", "Object_ID", "Location_Type", "Location_Active",
-        "Location_String"
+        "rid", "Object_ID", "Location_Active", "Location_String",
+        "Location_ISODate"
       ],
       "additionalProperties": false,
       "examples": [
@@ -44,15 +44,15 @@
           }
         },
 
-        "Location_Type": {
-          "type": "string"
-        },
-
         "Location_Active": {
           "type": "integer"
         },
 
         "Location_String": {
+          "type": "string"
+        },
+
+        "Location_ISODate": {
           "type": "string"
         }
 
