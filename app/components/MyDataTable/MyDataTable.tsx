@@ -31,7 +31,21 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
       className="display nowrap"
       columns={ columnDefs[tableName] }
       options={{
-        ajax: `${API_PATH}/${tableName}/dtajax`,
+
+        ajax: (data, callback) => {
+          fetch(`${API_PATH}/${tableName}/dtajax`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).
+          then(r => r.json()).
+          then(callback).
+          catch(err => {
+            console.error('Ajax error', err);
+            callback({ data: [], recordsTotal: 0, recordsFiltered: 0 });
+          });
+        },
+
         deferRender: true,
         paging: true,
         pageLength: 10,

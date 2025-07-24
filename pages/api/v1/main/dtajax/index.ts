@@ -1,7 +1,6 @@
 
 import { DB } from '@/lib/api/attach-db';
 import { dbConstants } from '@/lib/db-constants';
-import { getParamsAsObject } from '@/lib/utils';
 import { Dtajax2sql, DTAJAXParams } from 'dtajax2sql';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -34,15 +33,19 @@ export const performAJAX = (params: DTAJAXParams) => {
 };
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const impossibleErrorMessage = "couldn't read NextRequest.URL string";
 
-  return Promise.resolve(req.url ?? impossibleErrorMessage).
-    then(_ => { if (req.url !== undefined) return req.url; throw new Error(impossibleErrorMessage) }).
-    then(getParamsAsObject).
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', ['POST']);
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  const impossibleErrorMessage = "couldn't read POST body string";
+
+  return Promise.resolve(req.body ?? impossibleErrorMessage).
     then(performAJAX).
-    // then(_ => { console.log("AJAX"); console.log(_); console.log("END"); return _ }).
     then(result => res.status(200).json(result)).
     catch(e => res.status(500).json({ error: e.message }));
-}
+};
 
-export default handler
+
+export default handler;
