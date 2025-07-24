@@ -66,14 +66,14 @@ addFileToDB <- function(fn) {
   dat <- fread(fn, sep="\t", quote="")
   # ISO 8601 dates need to be converted to characters
   cols_to_convert <- dat %>% names %>% str_subset("_ISODate$")
-  dat[, (cols_to_convert) := lapply(.SD, as.character), .SDcols = cols_to_convert]
+  if (length(cols_to_convert) > 0)
+    dat[, (cols_to_convert) := lapply(.SD, as.character), .SDcols = cols_to_convert]
   #  TODO  fix
   # the culprit is Object_ID=414609
   dat <- dat[!duplicated(dat[,1])]
   addLimitsToList(dat, tableName)
   dbAppendTable(CON, tableName, dat)
 }
-
 
 sprintf("%s/*.tsv.gz", INPUT_TABLES_LOCATION) %>%
   Sys.glob %>%

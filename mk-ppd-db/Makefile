@@ -60,11 +60,13 @@ target/typedefs/%.d.ts: %.schema.json %.data.json scripts/validate-in.ts
 #'   writing sqlite schema
 #'
 .PHONY: step03
-step03: target/sqlschema/schema.sql target/sqlschema/indexes.sql
+step03: target/sqlschema/schema.sql target/sqlschema/indexes.sql target/sqlschema/full-text.sql
 
-target/sqlschema/schema.sql target/sqlschema/indexes.sql: $(JSCHEMAS) scripts/make-sqlite-schema.ts
+target/sqlschema/schema.sql target/sqlschema/indexes.sql target/sqlschema/full-text.sql: $(JSCHEMAS) scripts/make-sqlite-schema.ts scripts/make-fttables-sql.ts
 	@ echo [*] Writing sqlite schema
-	@ bun ./scripts/make-sqlite-schema.ts json-schemas/ > $@
+	@ bun ./scripts/make-sqlite-schema.ts json-schemas/
+	@ echo [*] Writing full-text sql file
+	@ bun ./scripts/make-fttables-sql.ts json-schemas/main.schema.json
 # ----------------------------------------------------------------- #
 
 # ----------------------------------------------------------------- #
@@ -97,6 +99,8 @@ target/ppddb/ppd.db target/limits/primary-key-limits.tsv: target/sqlschema/schem
 	@ ./05_add-tables.R > /dev/null
 	@ echo [*] adding indexes
 	@ sqlite3 target/ppddb/ppd.db < target/sqlschema/indexes.sql
+	@ echo [*] adding ft tables
+	@ sqlite3 target/ppddb/ppd.db < target/sqlschema/full-text.sql
 # ----------------------------------------------------------------- #
 
 
