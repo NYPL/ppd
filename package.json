@@ -21,7 +21,7 @@
     "datatables.net-responsive-dt": "^3.0.3",
     "datatables.net-searchbuilder-dt": "^1.8.1",
     "datatables.net-select-dt": "^2.1.0",
-    "dtajax2sql": "^0.3.6",
+    "dtajax2sql": "^0.3.7",
     "jquery": "^3.7.1",
     "jszip": "^3.10.1",
     "next": "15.3.3",
