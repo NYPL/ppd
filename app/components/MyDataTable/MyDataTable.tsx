@@ -51,7 +51,7 @@ export const MyDataTable = ({ tableName }: { tableName: TableName }) => {
       <div className={ style['non-dt-search-options'] }>
         <label>
           Global search option:&nbsp;
-          <select id="global-search-option" defaultValue="ftglobal">
+          <select id="global-search-option">
             <option value="classic">Classic</option>
             <option value="ftglobal">*Enhanced* global</option>
             <option value="fttitles">*Enhanced* title</option>
