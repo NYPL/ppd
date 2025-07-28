@@ -11,7 +11,15 @@ const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
 
 
 export const performAJAX = (params: DTAJAXParams) => {
-  const { query, countQuery } = dtajax2sql.toSQL(params);
+  let answer = { query: "", countQuery: "" };
+
+  if ("globalSearchMode" in params && params.globalSearchMode && params.globalSearchMode!=="classic")
+    answer = dtajax2sql.toSQLThroughFtTable(params.globalSearchMode, "Object_ID", params);
+  else
+    answer = dtajax2sql.toSQL(params);
+
+  const { query, countQuery } = answer;
+
   //  TODO  added logging based on ENVVARS
   console.log("-------------------");
   console.log(params);
@@ -41,10 +49,20 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const impossibleErrorMessage = "couldn't read POST body string";
 
+  const makeFtErrorMessage = (msg: string) => {
+    return (`\n\nThere's a syntax error in your enhanced search!\n` +
+            `You can fix the error or switch back to "Classic" search\n\n` +
+            `${msg}`);
+  }
+
   return Promise.resolve(req.body ?? impossibleErrorMessage).
     then(performAJAX).
     then(result => res.status(200).json(result)).
-    catch(e => res.status(500).json({ error: e.message }));
+    catch(e => {
+      if (e.message.match('fts5. syntax error near'))
+        return res.status(500).json({ error: makeFtErrorMessage(e.message) });
+      return res.status(500).json({ error: e.message });
+    });
 };
 
 
