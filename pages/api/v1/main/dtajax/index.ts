@@ -58,7 +58,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const makeNoRoleErrorMessage = (_: string) => {
-    return (`\n\nIt looks like you're trying to search for a column that's` +
+    return (`\n\nIt looks like you're trying to search for a column that's ` +
             `not included in the enhanced search modes.\n\n` +
             `In this case, it's best to use the custom search builder`);
   }
