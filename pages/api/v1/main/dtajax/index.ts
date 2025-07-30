@@ -57,12 +57,20 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             `${msg}`);
   }
 
+  const makeNoRoleErrorMessage = (_: string) => {
+    return (`\n\nIt looks like you're trying to search for a column that's` +
+            `not included in the enhanced search modes.\n\n` +
+            `In this case, it's best to use the custom search builder`);
+  }
+
   return Promise.resolve(req.body ?? impossibleErrorMessage).
     then(performAJAX).
     then(result => res.status(200).json(result)).
     catch(e => {
       if (e.message.match('fts5. syntax error near'))
         return res.status(500).json({ error: makeFtErrorMessage(e.message) });
+      if (e.message.match('no such column'))
+        return res.status(500).json({ error: makeNoRoleErrorMessage(e.message) });
       return res.status(500).json({ error: e.message });
     });
 };
