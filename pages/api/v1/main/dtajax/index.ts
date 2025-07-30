@@ -18,8 +18,8 @@ export const performAJAX = (params: DTAJAXParams) => {
   else
     answer = dtajax2sql.toSQL(params);
 
-  answer.query = answer.query.normalize("NFD");
-  answer.countQuery = answer.query.normalize("NFD");
+  answer.query      = answer.query.normalize("NFD");
+  answer.countQuery = answer.countQuery.normalize("NFD");
   const { query, countQuery } = answer;
 
   //  TODO  added logging based on ENVVARS
