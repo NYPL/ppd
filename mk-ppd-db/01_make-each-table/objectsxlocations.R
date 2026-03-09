@@ -6,57 +6,46 @@ OUTPUT_NAME <- "objectsxlocations"
 
 # --------------------------------------------------------------- #
 
-mstobjs <- read.table.dump("Objects")
-objs <- mstobjs[, .(ObjectID, Title)]
+mstobjs <- read.table.dump("objects")
+objs <- mstobjs[, .(Object_ID, Title)]
 
 
 # --------------------------------------------------------------- #
 # Objects <-> Locations xwalk ----------------------------------- #
 
-locs <- read.table.dump("Locations")
-locs <- locs[, .(LocationID, Site, Room, LocActive=Active, LocationString)]
+locs <- read.table.dump("locations")
+locs <- locs[, .(Location_ID, Site, Room,
+                 Loc_Active=Is_Active, Location_String)]
 locs
 
-components <- read.table.dump("ObjComponents")
-components <- components[, .(ObjectID, ComponentID)]
+components <- read.table.dump("object_components_and_home_locations")
+components <- components[, .(Object_ID, Component_ID)]
 components
 
 objs %<>% merge(components, all.x=TRUE)
 objs
 
-olocs <- read.table.dump("ObjLocations")
-olocs <- olocs[, .(ComponentID, LocationID, DateEntered=EnteredDate)]
-objs %<>% merge(olocs, all.x=TRUE, by="ComponentID") %>% unique
-objs[, DateEntered:=str_sub(as.character(DateEntered), 1, 10)]
+olocs <- read.table.dump("components_x_moved_locations_history")
+olocs <- olocs[, .(Component_ID, Location_ID, Date_Entered)]
+objs %<>% merge(olocs, all.x=TRUE, by="Component_ID") %>% unique
+objs[, Date_Entered:=str_sub(as.character(Date_Entered), 1, 10)]
 
-# tmp <- objs %>% melt(id.vars=c("ComponentID", "ObjectID", "Title", "DateEntered"),
-#                variable.name="LocationType",
-#                value.name="LocationID")
-# # good
-#
-# objs %<>% melt(id.vars=c("ComponentID", "ObjectID", "Title", "DateEntered"),
-#                variable.name="LocationType",
-#                value.name="LocationID")
-# objs[LocationType=="HomeLocationID", LocationType:="Home"]
-# objs[LocationType=="LocationID", LocationType:="Other"]
-# setorder(objs, "LocationType")
-# objs <- objs[!duplicated(objs[, .(ComponentID, ObjectID, LocationID)])]
-objs <- objs[LocationID!=-1]
-setorder(objs, "ObjectID", -"DateEntered")
-objs[, ComponentID:=NULL]
-objs <- objs[!duplicated(objs[, .(ObjectID, LocationID, DateEntered)])]
+objs <- objs[Location_ID!=-1]
+setorder(objs, "Object_ID", -"Date_Entered")
+objs[, Component_ID:=NULL]
+objs <- objs[!duplicated(objs[, .(Object_ID, Location_ID, Date_Entered)])]
 objs
 
-objs %<>% merge(locs, all=FALSE, by="LocationID")
-objs <- objs[, .(ObjectID, LocActive, LocationString,
-                 LocationISODate=DateEntered)]
-setkey(objs, ObjectID)
+objs %<>% merge(locs, all=FALSE, by="Location_ID")
+objs <- objs[, .(Object_ID, Loc_Active, Location_String,
+                 Location_ISO_Date=Date_Entered)]
+setkey(objs, Object_ID)
 objs %<>% unique
-objs[ObjectID==5]
+objs[Object_ID==5]
 
-setorder(objs, "ObjectID", -"LocationISODate")
+setorder(objs, "Object_ID", -"Location_ISO_Date")
 objs[, rid:=1:.N]
-setnames(objs, "LocActive", "LocationActive")
+setnames(objs, "Loc_Active", "Location_Active")
 setcolorder(objs, "rid")
 
 final <- copy(objs)
