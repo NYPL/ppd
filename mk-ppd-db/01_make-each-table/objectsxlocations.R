@@ -1,4 +1,4 @@
-#!/usr/local/bin/Rscript --vanilla
+#!/usr/bin/Rscript --vanilla
 
 source("./01_prelude.R")
 
@@ -38,12 +38,12 @@ objs
 
 objs %<>% merge(locs, all=FALSE, by="Location_ID")
 objs <- objs[, .(Object_ID, Loc_Active, Location_String,
-                 Location_ISO_Date=Date_Entered)]
+                 Location_ISODate=Date_Entered)]
 setkey(objs, Object_ID)
 objs %<>% unique
 objs[Object_ID==5]
 
-setorder(objs, "Object_ID", -"Location_ISO_Date")
+setorder(objs, "Object_ID", -"Location_ISODate")
 objs[, rid:=1:.N]
 setnames(objs, "Loc_Active", "Location_Active")
 setcolorder(objs, "rid")

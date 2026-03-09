@@ -1,4 +1,4 @@
-#!/usr/local/bin/Rscript --vanilla
+#!/usr/bin/Rscript --vanilla
 
 source("./01_prelude.R")
 
