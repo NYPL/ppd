@@ -4,6 +4,7 @@
 #  TODO  YOU _HAVE_ TO MAKE VERBOSE MODE!!!
 
 TMS_TABLES_LOCATION 	:= ~/data/tms-mssql-tables
+TINT_DB_LOCATION        := ~/data/tint/tint.db
 STEP01_SCRIPT_DIR 		:= 01_make-each-table/
 
 TABLES   					:= $(basename $(notdir  	$(wildcard $(STEP01_SCRIPT_DIR)/*.R)))
@@ -34,7 +35,7 @@ step01: $(STEP01_OUT_DATAFILES_TSVS) $(STEP01_OUT_DATAFILES_JSON)
 
 target/datafiles/tsv/%.tsv.gz target/datafiles/json/%.json: %.R 01_prelude.R
 	@ echo [*] building data table: `basename $@ .tsv.gz`
-	@ TMS_TABLES_LOCATION=$(TMS_TABLES_LOCATION) ./$< > /dev/null
+	@ TINT_DB_LOCATION=$(TINT_DB_LOCATION) ./$< > /dev/null
 # ----------------------------------------------------------------- #
 
 

@@ -24,6 +24,9 @@ library(magrittr)
 library(stringr)
 library(libbib)
 
+library(DBI)
+library(RSQLite)
+
 # ------------------------------ #
 
 LOC_OUT_TSV  = "./target/datafiles/tsv"
@@ -31,16 +34,19 @@ LOC_OUT_JSON = "./target/datafiles/json"
 
 # ------------------------------ #
 
-TMS_TABLES_LOCATION <- Sys.getenv("TMS_TABLES_LOCATION")
+TINT_DB_LOCATION <- Sys.getenv("TINT_DB_LOCATION")
 
-if (TMS_TABLES_LOCATION == "")
-  stop("Location of TMS MSSQL table dumps must be provided by environment variable TMS_TABLES_LOCATION")
+if (TINT_DB_LOCATION == "")
+  stop("Location of TINT_DB_LOCATION must be provided by environment variable TINT_DB_LOCATION")
 
 # ------------------------------ #
 
 read.table.dump <- function(table.name) {
-  path <- sprintf("%s/%s.txt.gz", TMS_TABLES_LOCATION, table.name)
-  return(fread(path, quote="", na.strings=c("NULL", "", "NA", NA))[])
+  tintdbloc <- sprintf("%s/tint.db", TINT_DB_LOCATION)
+  con <- dbConnect(SQLite(), tintdbloc)
+  dat <- as.data.table(dbReadTable(con, table.name))
+  dbDisconnect(con)
+  dat[]
 }
 
 separate_words_with_hyphens <- function(string) {
