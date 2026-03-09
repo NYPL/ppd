@@ -105,7 +105,7 @@ declare interface ExhibitionRecord {
   Sponsor_Credit_Line: string | null;
   Sub_Title: string | null;
   Is_In_House: number;
-  Is_Virtual: number;
+  Is_Virtual: number | null;
 }
 
 /**
