@@ -7,26 +7,16 @@ OUTPUT_NAME <- "exhibitionsxobjects"
 # --------------------------------------------------------------- #
 
 mstobjs <- read.table.dump("Objects")
-objs <- mstobjs[, .(ObjectID, Title)]
+objs <- mstobjs[, .(Object_ID, Title)]
 
 
 # --------------------------------------------------------------- #
 # EXHIBITIONS <-> Objects xwalk --------------------------------- #
 
-exhibitions <- read.table.dump("Exhibitions")
+exo <- read.table.dump("exhibitions_x_objects")
+exo
 
-ExhVenObjXrefs <- read.table.dump("ExhVenObjXrefs")
-ExhVenObjXrefs <- ExhVenObjXrefs[, .(ExhVenueXrefID, ObjectID)]
-
-ExhVenuesXrefs <- read.table.dump("ExhVenuesXrefs")
-ExhVenuesXrefs <- ExhVenuesXrefs[, .(ExhVenueXrefID, ExhibitionID, ExhVenuesXrefsMneumonic=Mnemonic)]
-
-tmp <- ExhVenuesXrefs %>% merge(ExhVenObjXrefs)
-tmp %<>% merge(objs, by="ObjectID")
-
-tmp <- exhibitions %>% merge(tmp, by="ExhibitionID")
-
-tmp <- tmp[, .(rid=1:.N, ExhibitionID, ObjectID)]
+tmp <- exo[, .(rid=1:.N, Exhibition_ID, Object_ID)]
 
 final <- copy(tmp)
 
