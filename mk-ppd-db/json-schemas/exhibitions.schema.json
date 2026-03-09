@@ -120,7 +120,7 @@
           "type": "integer"
         },
         "Is_Virtual": {
-          "type": "integer"
+          "type": ["integer", "null"]
         }
       }
     }

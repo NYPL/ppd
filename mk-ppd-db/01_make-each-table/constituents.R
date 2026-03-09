@@ -1,4 +1,4 @@
-#!/usr/local/bin/Rscript --vanilla
+#!/usr/bin/Rscript --vanilla
 
 source("./01_prelude.R")
 
@@ -7,10 +7,10 @@ source("./01_prelude.R")
 
 OUTPUT_NAME <- "constituents"
 
-constituents <- read.table.dump("Constituents")
-constituents <- constituents[, .(ConstituentID, FirstName, LastName,
-                                 Institution, DisplayName, BeginDate,
-                                 EndDate, DisplayDate, Nationality)]
+constituents <- read.table.dump("constituents")
+constituents <- constituents[, .(Constituent_ID, First_Name, Last_Name,
+                                 Institution, Display_Name, Begin_Date,
+                                 End_Date, Display_Date, Nationality)]
 
 constituents %<>% normalize.character.columns
 setnames(constituents, separate_words_with_hyphens(names(constituents)))

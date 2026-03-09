@@ -1,4 +1,4 @@
-#!/usr/local/bin/Rscript --vanilla
+#!/usr/bin/Rscript --vanilla
 
 source("./01_prelude.R")
 
@@ -6,23 +6,22 @@ OUTPUT_NAME <- "main"
 
 # --------------------------------------------------------------- #
 
-mstobjs <- read.table.dump("Objects")
-main <- mstobjs[ObjectID>=0, .(ObjectID)]
-
+mstobjs <- read.table.dump("objects")
+main <- mstobjs[Object_ID>=0, .(Object_ID)]
 
 
 
 # --------------------------------------------------------------- #
 # DEPARTMENTS --------------------------------------------------- #
 
-objs <- mstobjs[, .(ObjectID, DepartmentID)]
+objs <- mstobjs[, .(Object_ID, Department_ID)]
 
-departments <- read.table.dump("Departments")
-departments <- departments[, .(DepartmentID, Department=Mnemonic)]
+departments <- read.table.dump("departments")
+departments <- departments[, .(Department_ID, Department=Mnemonic)]
 departments <- objs %>% merge(departments)
 
 main %<>% merge(departments, all.x=TRUE)
-main[, DepartmentID:=NULL]
+main[, Department_ID:=NULL]
 rm(departments)
 
 # --------------------------------------------------------------- #
@@ -32,11 +31,7 @@ rm(departments)
 # --------------------------------------------------------------- #
 # CLASSIFICATION ------------------------------------------------- #
 
-objs <- mstobjs[, .(ObjectID, ClassificationID)]
-classifications <- read.table.dump("Classifications")
-classifications <- classifications[, .(ClassificationID, Classification)]
-objs %>% merge(classifications, all.x=TRUE) -> withclassifications
-withclassifications <- withclassifications[, .(ObjectID, Classification)]
+withclassifications <- mstobjs[, .(Object_ID, Classification)]
 
 main %<>% merge(withclassifications, all.x=TRUE)
 
@@ -47,13 +42,9 @@ main %<>% merge(withclassifications, all.x=TRUE)
 # --------------------------------------------------------------- #
 # STATUS FLAGS -------------------------------------------------- #
 
-objs <- mstobjs[, .(ObjectID)]
-statusflags <- read.table.dump("StatusFlags")
-statusflags <- statusflags[, .(ObjectID, FlagID)]
-flaglabels <- read.table.dump("FlagLabels")
-flaglabels <- flaglabels[, .(FlagID, StatusFlag=FlagLabel)]
-statusflags %<>% merge(flaglabels)
-statusflags[, FlagID:=NULL]
+objs <- mstobjs[, .(Object_ID)]
+statusflags <- read.table.dump("object_status_flags")
+statusflags <- statusflags[, .(Object_ID, Status_Flag)]
 
 main %<>% merge(statusflags, all.x=TRUE)
 
@@ -64,24 +55,18 @@ main %<>% merge(statusflags, all.x=TRUE)
 # --------------------------------------------------------------- #
 # OBJECT TITLES ------------------------------------------------- #
 
-objs <- mstobjs[, .(ObjectID, Title_From_Objects=Title, Portfolio)]
+objs <- mstobjs[, .(Object_ID, Title_From_Objects=Title, Portfolio)]
 
-obj.titles <- read.table.dump("ObjTitles")
-obj.titles <- obj.titles[, .(ObjectID, TitleTypeID, OT.Title=Title, DisplayOrder)]
+obj.titles <- read.table.dump("object_titles")
+obj.titles <- obj.titles[, .(Object_ID, Title_Type, OT.Title=Title, Display_Order)]
 
-objs %<>% merge(obj.titles, all=FALSE, by="ObjectID")
+objs %<>% merge(obj.titles, all=FALSE, by="Object_ID")
 
-title.types <- read.table.dump("TitleTypes")
-title.types <- title.types[, .(TitleTypeID, TitleType)]
-objs %<>% merge(title.types, all=FALSE, by="TitleTypeID")
+main.titles <- objs[Display_Order==1, .(Object_ID, Main_Title=OT.Title, Portfolio, Title_From_Objects)]
 
-objs[order(ObjectID, DisplayOrder), TitleType:=str_replace_all(TitleType, "\\W", "")]
+tmp <- objs[Display_Order!=1, .(Object_ID, text=OT.Title, TitleType=sprintf("Title.%s", Title_Type))]
 
-main.titles <- objs[DisplayOrder==1, .(ObjectID, MainTitle=OT.Title, Portfolio, Title_From_Objects)]
-
-tmp <- objs[DisplayOrder!=1, .(ObjectID, text=OT.Title, TitleType=sprintf("Title.%s", TitleType))]
-
-other.titles <- tmp %>% dcast(ObjectID~TitleType, value.var="text", fun.aggregate=function(i)i[1])
+other.titles <- tmp %>% dcast(Object_ID~TitleType, value.var="text", fun.aggregate=function(i)i[1])
 
 alltitles <- main.titles %>% merge(other.titles, all.x=TRUE)
 
@@ -89,18 +74,18 @@ alltitles <- main.titles %>% merge(other.titles, all.x=TRUE)
 titles <- copy(alltitles)
 
 
-titles <- titles[, .(ObjectID, Title=MainTitle, Collection=Title.Collection,
+titles <- titles[, .(Object_ID, Title=Main_Title, Collection=Title.Collection,
            Series=Title.Series, Portfolio, 
-           Descriptive_Title=Title.DescriptiveTitle,
-           Folder=Title.FolderorSubseries,
-           Location_Depicted=Title.LocationDepicted,
+           Descriptive_Title=`Title.Descriptive Title`,
+           Folder=`Title.Folder or Subseries`,
+           Location_Depicted=`Title.Location Depicted`,
            Non_Display_Title=Title.Title,
            Title_From_Objects,
-           Alternate_Title=Title.AlternateTitle,
-           Book_or_Album_Title=Title.BookorAlbumTitle,
-           Additional_Authors=Title.AdditionalAuthors,
-           Caption=Title.Caption, Title_Continued=Title.TitleContinued,
-           Subtitle=Title.SubtitleorTitleTranslation)]
+           Alternate_Title=`Title.Alternate Title`,
+           Book_or_Album_Title=`Title.Book or Album Title`,
+           Additional_Authors=`Title.Additional Authors`,
+           Caption=Title.Caption, Title_Continued=`Title.Title (Continued)`,
+           Subtitle=`Title.Subtitle or Title Translation`)]
 
 main %<>% merge(titles)
 main %<>% unique  #  TODO  revisit this decision
@@ -111,25 +96,22 @@ main %<>% unique  #  TODO  revisit this decision
 # --------------------------------------------------------------- #
 # OBJECT LOCATIONS ---------------------------------------------- #
 
-objs <- mstobjs[, .(ObjectID, Title)]
+objs <- mstobjs[, .(Object_ID, Title)]
 
-locs <- read.table.dump("Locations")
-locs <- locs[, .(LocationID, Site, Room, LocActive=Active, LocationString)]
+locs <- read.table.dump("locations")
+locs <- locs[, .(Location_ID, Site, Room, LocActive=Is_Active, Location_String)]
 
-components <- read.table.dump("ObjComponents")
-components <- components[, .(ObjectID, ComponentID, HomeLocationID, CurrentObjLocID, SortNumber)]
+components <- read.table.dump("object_components_and_home_locations")
+components <- components[, .(Object_ID, Component_ID, Home_Location_ID)]
 
 objs %<>% merge(components, all.x=TRUE)
 
-olocs <- read.table.dump("ObjLocations")
-olocs <- olocs[, .(ObjLocationID, ComponentID, LocationID)]
+objhomes <- objs[, .(Object_ID, Location_ID=Home_Location_ID)]
+objhomes %<>% merge(locs, all=FALSE, by="Location_ID")
+objhomes <- objhomes[, .(Object_ID, Home_Location=Location_String)]
 
-objhomes <- objs[, .(ObjectID, LocationID=HomeLocationID)]
-objhomes %<>% merge(locs, all=FALSE, by="LocationID")
-objhomes <- objhomes[, .(ObjectID, HomeLocation=LocationString)]
-
-setorder(objhomes, ObjectID)
-objhomes <- objhomes[!duplicated(ObjectID)]
+setorder(objhomes, Object_ID)
+objhomes <- objhomes[!duplicated(Object_ID)]
 
 main %<>% merge(objhomes, all.x=TRUE)
 
@@ -139,31 +121,16 @@ main %<>% merge(objhomes, all.x=TRUE)
 # --------------------------------------------------------------- #
 # FILE LINKS ---------------------------------------------------- #
 
-objs <- mstobjs[, .(ObjectID, ObjectNumber, Title)]
+ovf <- read.table.dump("objects_x_files")
+ovf <- ovf[, .(Object_ID, File_ID)]
 
-media.xrefs <- read.table.dump("MediaXrefs")
-media.xrefs <- media.xrefs[TableID==108 & PrimaryDisplay==1, .(MediaMasterID, ObjectID=ID)]
-objs %<>% merge(media.xrefs, all=FALSE, by="ObjectID")
-
-media.master <- read.table.dump("MediaMaster")
-media.master <- media.master[, .(MediaMasterID, RenditionID=DisplayRendID, PublicCaption)]
-objs %<>% merge(media.master, all=FALSE, by="MediaMasterID")
-
-media.paths <- read.table.dump("MediaPaths")
-media.paths <- media.paths[PathID %in% c(12,22,24,25,26), .(PathID, Path)]
-
-media.files <- read.table.dump("MediaFiles")
-media.files <- media.files[, .(FileID, RenditionID, PathID, FileName)]
-
-thumbs <- media.files %>% merge(media.paths, all=FALSE)
-# thumbs[FileID==43426]
-thumbs <- thumbs[, .(FileID, RenditionID, Link=sprintf("%s/%s", Path, FileName))]
-
-thumbs <- objs %>% merge(thumbs, all=FALSE, by="RenditionID")
-
-# thumbs[ObjectID==153812]
-
-thumbs <- thumbs[, .(ObjectID, Link)]
+mf <- read.table.dump("media_files")
+mf <- mf[, .(File_ID, Media_Type, Link=sprintf("%s/%s", Path, File_Name))]
+mf <- mf[Media_Type=="Image"]
+mf <- mf[!str_detect(Link, "^S:")]
+mf <- mf[, .(File_ID, Link)]
+ovf <- ovf %>% merge(mf, all.x=TRUE, by="File_ID")
+thumbs <- ovf[, .(Object_ID, Link)]
 
 main %<>% merge(thumbs, all.x=TRUE)
 
@@ -175,62 +142,51 @@ main %<>% merge(thumbs, all.x=TRUE)
 # --------------------------------------------------------------- #
 # CONSTITUENTS -------------------------------------------------- #
 
-objs <- mstobjs[, .(ObjectID, Title)]
+objs <- mstobjs[, .(Object_ID, Title)]
 
-roletypes <- read.table.dump("RoleTypes")
-roletypes <- roletypes[RoleTypeID>0, .(RoleTypeID, RoleType)]
+cxo <- read.table.dump("constituents_x_objects")
+cxo <- cxo[, .(Constituent_ID, Object_ID, Role_Type,
+               Role, Display_Order)]
+cxo <- cxo[Role_Type=="Object Related", .(Constituent_ID, Object_ID,
+                                          Role, Display_Order)]
+cxo <- cxo[order(Object_ID, Display_Order)]
+cxo <- cxo[!duplicated(Object_ID), .(Constituent_ID, Object_ID, Role)]
 
-roles <- read.table.dump("Roles")
-roles %<>% merge(roletypes)
-roles <- roles[, .(RoleID, RoleType, Role)]
-roles <- roles[, .(RoleID, Role=str_replace_all(sprintf("%s.%s", str_replace(RoleType, " Related$", ""), Role), "[^.\\w]", ""))]
+cons <- read.table.dump("constituents")
+cons <- cons[, .(Constituent_ID, First_Name, Last_Name, Institution,
+                 Display_Name, Begin_Date, End_Date, Display_Date,
+                 Nationality)]
+cxo <- cxo %>% merge(cons, all.x=TRUE)
 
-conxrefs <- read.table.dump("ConXrefs")
-cons <- conxrefs[TableID==108, .(ConXrefID, ObjectID=ID, RoleID,
-                                 CXR.DisplayOrder=DisplayOrder,
-                                 CXR.Displayed=Displayed)] %>%
-  merge(roles, all=FALSE, by="RoleID")
+# the above is for main constituent
+maincons <- copy(cxo)
 
-cxrd <- read.table.dump("ConXrefDetails")
-setorder(cxrd, ConXrefID)
-cxrd <- cxrd[!duplicated(ConXrefID) & UnMasked==1,
-             .(ConXrefID, NameID, ConstituentID, DateBegin, DateEnd,
-               Prefix, Suffix, DisplayBioID)]
+# ---
 
-cons %<>% merge(cxrd, all=FALSE, by="ConXrefID")
+cxo <- read.table.dump("constituents_x_objects")
+cxo <- cxo[, .(Constituent_ID, Object_ID, Role_Type,
+               Role, Display_Order)]
+cxo <- cxo[Role_Type=="Object Related", .(Constituent_ID, Object_ID,
+                                          Role, Display_Order)]
+otherconstituents <- cxo %>% merge(cons[, .(Constituent_ID, Display_Name)], all.x=TRUE)
+otherconstituents
+setorder(otherconstituents, Object_ID, Role, Display_Order)
+otherconstituents
+otherconstituents %<>% dcast(Object_ID~Role, value.var="Display_Name", fun.aggregate=function(i) i[1])
+otherconstituents
 
-constituents <- read.table.dump("Constituents")
-constituents <- constituents[, .(ConstituentID, FirstName, LastName,
-                                 Institution, DisplayName, BeginDate,
-                                 EndDate, DisplayDate, Nationality)]
+withmain <-objs[, .(Object_ID)] %>% merge(maincons, all.x=TRUE)
+withmain
 
-cons %<>% merge(constituents, all=FALSE, by="ConstituentID")
+tmp <- otherconstituents[, .(Object_ID, After, Explicit_Artist=Artist,
+                             Compiler, Editor, Photographer,
+                             Printer, Printmaker, Publisher,
+                             Sponsor, Subject)]
 
-objs %<>% merge(cons, all.x=TRUE)
+allcons <- withmain %>% merge(tmp, all.x=TRUE)
+allcons[, Constituent_ID:=NULL]
 
-
-mainconstituents <- objs[order(ObjectID, CXR.DisplayOrder)]
-#  TODO  re-visit this decision
-mainconstituents <- mainconstituents[str_detect(Role, "^Object\\.")]
-mainconstituents <- mainconstituents[!duplicated(ObjectID)]
-
-mainconstituents <- mainconstituents[, .(ObjectID, Title,
-                     Role=str_replace(Role, "^Object\\.", ""),
-                     FirstName, LastName, DisplayName, Nationality,
-                     Institution, BeginDate, EndDate,
-                     DisplayDate)]
-
-otherconstituents <- objs[order(ObjectID, CXR.DisplayOrder)][duplicated(ObjectID)]
-otherconstituents <- otherconstituents[, .(ObjectID, Role=sprintf("Role.%s", Role),
-                                           DisplayName)]
-otherconstituents[, Role:=str_replace(Role, "^Role.Object.", "")]
-
-otherconstituents %<>% dcast(ObjectID~Role, value.var="DisplayName", fun.aggregate=function(i) i[1])
-
-constituents <- mainconstituents %>% merge(otherconstituents, all.x=TRUE)
-constituents[, Title:=NULL]
-
-main %<>% merge(constituents, all.x=TRUE)
+main %<>% merge(allcons, all.x=TRUE)
 
 # --------------------------------------------------------------- #
 
@@ -238,11 +194,11 @@ main %<>% merge(constituents, all.x=TRUE)
 # --------------------------------------------------------------- #
 # GEOGRAPHY ----------------------------------------------------- #
 
-objgeo <- read.table.dump("ObjGeography")
+objgeo <- read.table.dump("object_geography")
 # objgeo
-objgeo <- objgeo[PrimaryDisplay==1, .(ObjectID, Country, State,
-                                      County, City, Locus,
-                                      GeoSearchValue=KeyFieldsSearchValue)]
+objgeo <- objgeo[Is_Primary_Display==1, .(Object_ID, Country, State,
+                                          County, City, Locus,
+                                          Geo_Search_Value)]
 # objgeo # !!!
 main <- main %>% merge(objgeo, all.x=TRUE)
 
@@ -256,8 +212,9 @@ main <- main %>% merge(objgeo, all.x=TRUE)
 # acc <- read.table.dump("ObjAccession")
 # # ?percent ownership?
 
-ins <- read.table.dump("ObjInsurance")
-ins <- ins[, .(ObjectID, Value)][, .(Value=max(Value)), ObjectID]
+ins <- read.table.dump("object_insurance")
+ins <- ins[, .(Object_ID, Value=Value_USD)][, .(Value=max(Value)), Object_ID]
+ins
 
 main %<>% merge(ins, all.x=TRUE)
 
@@ -267,14 +224,17 @@ main %<>% merge(ins, all.x=TRUE)
 # --------------------------------------------------------------- #
 # OBJECT VARS PREVIOUSLY LEFT OUT ------------------------------- #
 
-mstobjs <- read.table.dump("Objects")
-obj <- mstobjs[, .(ObjectID, ObjectNumber, ObjectCount, Medium, Dimensions,
-                   Dated, Signed, Inscribed, Markings, CreditLine, Chat,
-                   Description, Provenance, PubReferences, Notes,
-                   CuratorialRemarks, RelatedWorks, PublicAccess,
-                   PaperFileRef, UserNumber1, ObjectState=State, CatRais,
-                   HistAttributions, Bibliography, Edition, PaperSupport,
-                   IsTemplate, DateRemarks, ObjectNumber2)]
+mstobjs <- read.table.dump("objects")
+obj <- mstobjs[, .(Object_ID, Object_Number, Object_Count, Medium,
+                   Dimensions, Dated, Signed, Inscribed, Markings,
+                   Credit_Line, Chat, Description, Provenance,
+                   Pub_References, Notes, Curatorial_Remarks,
+                   Related_Works, Public_Access,
+                   Paper_File_Ref, User_Number1,
+                   Object_State=State, Catalogue_Raisonne,
+                   Hist_Attributions, Bibliography, Edition,
+                   Paper_Support,
+                   Is_Template, Date_Remarks, Object_Number2)]
 
 
 
@@ -283,29 +243,30 @@ main %>% nrow
 obj %>% nrow
 main <- main %>% merge(obj)
 
+main <- main[!duplicated(Object_ID)]
 
-final <- main[, .(Object_ID=ObjectID,
+final <- main[, .(Object_ID,
                  Department,
-                 Object_Number=ObjectNumber,
-                 Classification,    # NEW
+                 Object_Number,
+                 Classification,
                  Title,
                  Role,
-                 First_Name=FirstName,
-                 Last_Name=LastName,
+                 First_Name,
+                 Last_Name,
                  Medium,
                  Dated,
-                 Display_Date=DisplayDate,
+                 Display_Date,
                  Nationality,
-                 Catalogue_Raisonne=CatRais, # NEW
-                 Call_Number=ObjectNumber2, # NEW
-                 Home_Location=HomeLocation,
-                 StatusFlag,   # NEW
-                 Object_Count=ObjectCount,
+                 Catalogue_Raisonne,
+                 Call_Number=Object_Number2,
+                 Home_Location,
+                 Status_Flag,
+                 Object_Count,
                  Dimensions,
-                 BeginDate,
-                 EndDate,
+                 Begin_Date,
+                 End_Date,
                  Value,
-                 GeoSearchValue,
+                 Geo_Search_Value,
                  Collection,
                  Series,
                  Portfolio,
@@ -314,12 +275,11 @@ final <- main[, .(Object_ID=ObjectID,
                  Depicted_Location=Location_Depicted,
                  Non_Display_Title,
                  Book_or_Album_Title,
-                 # Title_From_Objects,   NEW
                  Link,
-                 Display_Name=DisplayName,
+                 Display_Name,
                  Institution,
                  After,
-                 Explicit_Artist=Artist,
+                 Explicit_Artist,
                  Compiler,
                  Editor,
                  Photographer,
@@ -333,28 +293,27 @@ final <- main[, .(Object_ID=ObjectID,
                  County,
                  City,
                  Locus,
-                 # NEW
                  Signed,
                  Inscribed,
                  Markings,
-                 CreditLine,
+                 Credit_Line,
                  Chat,
                  Description,
                  Notes,
                  Provenance,
-                 PubReferences,
-                 CuratorialRemarks,
-                 RelatedWorks,
-                 PublicAccess,
-                 PaperFileRef,
-                 UserNumber1,
-                 ObjectState,
-                 HistAttributions,
+                 Pub_References,
+                 Curatorial_Remarks,
+                 Related_Works,
+                 Public_Access,
+                 Paper_File_Ref,
+                 User_Number1,
+                 Object_State,
+                 Hist_Attributions,
                  Bibliography,
                  Edition,
-                 PaperSupport,
-                 IsTemplate,
-                 DateRemarks )]
+                 Paper_Support,
+                 Is_Template,
+                 Date_Remarks)]
 
 final %<>% normalize.character.columns
 setnames(final, separate_words_with_hyphens(names(final)))
