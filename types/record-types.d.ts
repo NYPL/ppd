@@ -148,7 +148,7 @@ declare interface MainRecord {
   Object_Number: string;
   Title: string | null;
   Display_Name: string | null;
-  Classification: string;
+  Classification: string | null;
   Role: string | null;
   First_Name: string | null;
   Last_Name: string | null;
