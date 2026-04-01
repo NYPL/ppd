@@ -160,7 +160,7 @@ S3_DEV_LOC 				 := s3://ppd-dev-db/
 .PHONY: pushdb
 pushdb:
 	@ echo [*] Pushing DB to dev
-	@ aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC) --profile nypl-dev
+	aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC) --profile nypl-dev
 	@ echo [*] NOW SYNC PROD
 # ----------------------------------------------------------------- #
 
