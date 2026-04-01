@@ -71,6 +71,7 @@ write.derived.files <- function(DT, table.name) {
 normalize.character.columns <- function(DT) {
   nfn <- function(column) {
     column %>%
+      stringr::str_replace_all('\r\n|\r|\n', ' ') %>%
       stringr::str_replace_all('\t', ' ') %>%
       stringr::str_replace_all('"""', '"') %>%
       stringr::str_replace_all('""', '"') %>%
