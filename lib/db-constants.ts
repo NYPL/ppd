@@ -36,6 +36,5 @@ export const dbConstants = {
     "min": 1,
     "max": 742766,
     "numRows": 742766
-
   }
 };
