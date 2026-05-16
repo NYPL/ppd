@@ -5,7 +5,7 @@ FROM node:26-trixie-slim AS base
 RUN <<EOF
     apt-get update -qq &&
     apt-get upgrade -qq &&
-    apt-get install -qq -y --no-install-recommends sqlite3 make
+    apt-get install -qq -y --no-install-recommends sqlite3 make python3 g++
 EOF
 
 
