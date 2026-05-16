@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.3-labs
 
-FROM node:23-bookworm-slim AS base
+FROM node:22-trixie-slim AS base
 
 RUN <<EOF
     apt-get update -qq &&
