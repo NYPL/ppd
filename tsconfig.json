@@ -1,8 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "typeRoots": ["./node_modules/@types", "./types"],
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
@@ -11,35 +18,49 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
-
     /* the following are implied by "strict" */
-    "strict":                             true,
-    "alwaysStrict":                       true,
-    "noImplicitAny":                      true,
-    "noImplicitThis":                     true,
-    "strictBindCallApply":                true,
-    "strictFunctionTypes":                true,
-    "strictNullChecks":                   true,
-    "strictPropertyInitialization":       true,
-    "useUnknownInCatchVariables":         true,
-    "allowUnreachableCode":               false,
-    "allowUnusedLabels":                  false,
+    "strict": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     //  TODO  let's fix this
     // "exactOptionalPropertyTypes":         true,
-    "noFallthroughCasesInSwitch":         true,
-    "noImplicitOverride":                 true,
-    "noImplicitReturns":                  true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess":           true,
-    "noUnusedLocals":                     true,
-    "noUnusedParameters":                 true,
-
-    "plugins": [ { "name": "next" } ],
-    "paths": { "@/*": ["./*"] }
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx",
-              ".next/types/**/*.ts", "./types/**/*.d.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "./types/**/*.d.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
