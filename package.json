@@ -1,11 +1,11 @@
 {
   "name": "Prints and Photographs Discovery tool",
-  "version": "2.9.5",
+  "version": "2.9.6",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npx next dev",
+    "build": "npx next build",
+    "start": "npx next start",
     "startstandalone": "node .next/standalone/server.js"
   },
   "dependencies": {
