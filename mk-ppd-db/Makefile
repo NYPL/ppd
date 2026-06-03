@@ -156,6 +156,8 @@ install:
 #'   pushes DB to dev bucket
 #'
 S3_DEV_LOC 				 := s3://ppd-dev-db/
+#
+# aws sso login --profile nypl-dev
 
 .PHONY: pushdb
 pushdb:

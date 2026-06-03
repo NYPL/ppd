@@ -23,9 +23,3 @@ dev:
 start:
 	npm run startstandalone
 
-# aws sso login --profile nypl-dev
-# AWS_PROFILE=nypl-dev make pushdb
-.PHONY: pushdb
-pushdb:
-	aws s3 cp $(DB_SOURCE_LOC) $(S3_DEV_LOC)
-
