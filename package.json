@@ -1,6 +1,6 @@
 {
   "name": "Prints and Photographs Discovery tool",
-  "version": "2.9.8",
+  "version": "2.9.9",
   "private": true,
   "scripts": {
     "dev": "npx next dev",
