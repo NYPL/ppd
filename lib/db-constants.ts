@@ -4,8 +4,8 @@ export const dbConstants = {
   "constituents": {
     "primaryKey": "Constituent_ID",
     "min": 2,
-    "max": 422806,
-    "numRows": 186596
+    "max": 422807,
+    "numRows": 186597
   },
   "constituentsxobjects": {
     "primaryKey": "rid",
