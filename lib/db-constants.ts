@@ -4,14 +4,14 @@ export const dbConstants = {
   "constituents": {
     "primaryKey": "Constituent_ID",
     "min": 2,
-    "max": 422807,
-    "numRows": 186597
+    "max": 422817,
+    "numRows": 186607
   },
   "constituentsxobjects": {
     "primaryKey": "rid",
     "min": 1,
-    "max": 1014698,
-    "numRows": 1014698
+    "max": 1014710,
+    "numRows": 1014710
   },
   "exhibitions": {
     "primaryKey": "Exhibition_ID",
@@ -28,13 +28,13 @@ export const dbConstants = {
   "main": {
     "primaryKey": "Object_ID",
     "min": 0,
-    "max": 540375,
-    "numRows": 448077
+    "max": 540377,
+    "numRows": 448079
   },
   "objectsxlocations": {
     "primaryKey": "rid",
     "min": 1,
-    "max": 743145,
-    "numRows": 743145
+    "max": 743147,
+    "numRows": 743147
   }
 };
