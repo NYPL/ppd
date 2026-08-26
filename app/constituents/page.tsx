@@ -4,7 +4,7 @@ import styles from '../page.module.scss';
 import dynamic from 'next/dynamic'
 
 const DynamicComponentWithNoSSR = dynamic(
-  () => import('../components/ObjectsDataTable/ObjectsDataTable'),
+  () => import('../components/PpdDataTable/PpdDataTable'),
   { ssr: false }
 );
 

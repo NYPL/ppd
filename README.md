@@ -4,6 +4,8 @@
 An internal tool for NYPL's Prints and Photographs division that lets
 librarians search, browse, and export the metadata of the collection.
 
+[![forthebadge](https://forthebadge.com/images/badges/no-ragrets.svg)](http://forthebadge.com)
+
 The main page is a [DataTables](https://datatables.net/)-powered table over
 the full objects catalog (~450k records), with server-side searching,
 sorting, a custom filter builder, and optional SQLite FTS5-backed
