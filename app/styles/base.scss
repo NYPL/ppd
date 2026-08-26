@@ -47,6 +47,10 @@ main {
   min-width: 250px;
 }
 
+.rs-navbar {
+  --rs-navbar-padding-y: 0.0em;
+}
+
 .hidden {
   visibility: hidden;
 }
