@@ -34,7 +34,15 @@ const perTableConfig: Partial<Record<TableName, PerTableConfig>> = {
     id: 'constituents-table',
     // no FTS5 tables (yet), so no searchModes
     options: {
-      fixedColumns: { start: 1 }
+      fixedColumns: { start: 2 }
+    }
+  },
+
+  exhibitions: {
+    id: 'exhibitions-table',
+    // no FTS5 tables (yet), so no searchModes
+    options: {
+      fixedColumns: { start: 3 }
     }
   }
 

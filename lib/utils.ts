@@ -52,6 +52,27 @@ export const oidLinkOnlyForExport = (data: number, type: DTOrthogonalType) => {
 };
 
 
+export const removeColumn = (colDefs: any, table: string, dataValue: string) => {
+  // @ts-ignore
+  const ind = colDefs[table].findIndex(i => i.data===dataValue);
+  if (ind < 0) throw new Error(`no such field "${dataValue}"`);
+  colDefs[table].splice(ind, 1);
+  return colDefs;
+};
+
+export const moveColumnBefore = (colDefs: any, table: string, moveMe: string, beforeMe: string) => {
+  const cols = colDefs[table];
+  // @ts-ignore
+  const from = cols.findIndex(i => i.data===moveMe);
+  if (from < 0) throw new Error(`no such field "${moveMe}"`);
+  const [moved] = cols.splice(from, 1);
+  // @ts-ignore
+  const to = cols.findIndex(i => i.data===beforeMe);
+  if (to < 0) throw new Error(`no such field "${beforeMe}"`);
+  cols.splice(to, 0, moved);
+  return colDefs;
+};
+
 export const addNewKeyValToColumnDefs = (colDefs: any, table: string, dataValue: string, key: string, val: any) => {
   // @ts-ignore
   const ind = colDefs[table].findIndex(i => i.data===dataValue);

@@ -1,6 +1,6 @@
 import { protoColumnDefs } from './proto-column-definitions';
 import { FIELD_CHARACTER_LIMIT, TITLE_CHARACTER_LIMIT } from './config';
-import { addNewKeyValToColumnDefs, clipOnlyForDisplay, redactOnlyForExport } from './utils';
+import { addNewKeyValToColumnDefs, clipOnlyForDisplay, clipStringAtLengthN, moveColumnBefore, removeColumn, redactOnlyForExport } from './utils';
 
 /**
  * this module imports the auto-generated `protoColumnDefs`, mutates
@@ -89,6 +89,69 @@ mainNonSearchableFields.forEach(field => {
 // shorten some column names
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Object_ID', 'title', 'OID');
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Department', 'title', 'Dept.');
+
+
+/************************************************************
+ ** table: CONSTITUENTS                                    **
+ ************************************************************/
+
+/* Display_Name is the most useful column, so it goes first
+   (well, right after Constituent_ID) */
+columnDefs = moveColumnBefore(columnDefs, 'constituents', 'Display_Name', 'First_Name');
+
+/* Display_Name is a hyperlink to the constituent page
+   (but only for display; exports get the plain name) */
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Display_Name', 'render',
+                             (data: string, type: DTOrthogonalType, row: ConstituentRecord) => {
+  if (type !== 'display')
+    return data;
+  return `<a href="/constituent/${row['Constituent_ID']}" target="_blank">${data}</a>`;
+});
+
+/* other fields that have to be tamed */
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Institution', 'render', fieldClip);
+
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Constituent_ID', 'searchable', 'false');
+
+// shorten some column names
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Constituent_ID', 'title', 'CID');
+
+
+/************************************************************
+ ** table: EXHIBITIONS                                     **
+ ************************************************************/
+
+/* Title must be clipped, and is a hyperlink to the exhibition page
+   (but only for display; exports get the full, un-linked title) */
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', 'Title', 'render',
+                             (data: string, type: DTOrthogonalType, row: ExhibitionRecord) => {
+  if (type !== 'display')
+    return data;
+  const clipped = clipStringAtLengthN(data, TITLE_CHARACTER_LIMIT);
+  return `<a href="/exhibition/${row['Exhibition_ID']}" target="_blank">${clipped}</a>`;
+});
+
+/* other fields that have to be tamed */
+const exhibitionsFieldsToClip = [
+  "Boiler_Text",
+  "Remarks",
+  "Citation",
+  "Organization_Credit_Line",
+  "Sponsor_Credit_Line",
+  "Sub_Title"
+];
+exhibitionsFieldsToClip.forEach(field => {
+  columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', field, 'render', fieldClip);
+});
+
+/* columns we don't want at all */
+columnDefs = removeColumn(columnDefs, 'exhibitions', 'Is_Virtual');
+
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', 'Exhibition_ID', 'searchable', 'false');
+
+// shorten some column names
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', 'Exhibition_ID', 'title', 'EID');
+columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', 'Department', 'title', 'Dept.');
 
 
 
