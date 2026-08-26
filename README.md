@@ -31,7 +31,7 @@ The repo contains two subsystems:
 ├── app/                    # Next.js App Router: pages and UI components
 │   ├── page.tsx            #   main page (the objects DataTable)
 │   ├── constituents/...    #   /constituents (the constituents DataTable)
-│   ├── exhibitions/...     #   /constituents (the constituents DataTable)
+│   ├── exhibitions/...     #   /exhibitions (the exhibitions DataTable)
 │   ├── object/...          #   /object/[objectid] detail page
 │   ├── constituent/...     #   /constituent/[constituentid] detail page
 │   ├── exhibition/..       #   /exhibition/[exhibitionid] detail page
