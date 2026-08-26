@@ -20,6 +20,8 @@ export const MyNavBar = ({ setSettingsOpen, setInfoOpen }: Props) => {
       <NavbarBrand className={ style['navBrandIconHolder'] } href="/"><img className={ style['navBrandIcon'] } src="/assets/images/nypl-viridian-circle-small.webp" /></NavbarBrand>
       <NavbarBrand href="/"><div className={ style['brandName'] }>Prints and Photographs Discovery</div></NavbarBrand>
       <Nav>
+        <NavItem href="/">Objects</NavItem>
+        <NavItem href="/constituents">Constituents</NavItem>
       </Nav>
       <Nav pullRight>
         <NavItem onClick={ () => setInfoOpen(true) } icon={ <FaCircleInfo /> }></NavItem>
