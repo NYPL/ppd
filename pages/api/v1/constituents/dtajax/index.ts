@@ -1,5 +1,5 @@
 
 import { makeDtajaxHandler } from '@/lib/api/make-dtajax-handler';
 
-export default makeDtajaxHandler('main');
+export default makeDtajaxHandler('constituents');
 

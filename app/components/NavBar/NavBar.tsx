@@ -22,6 +22,7 @@ export const MyNavBar = ({ setSettingsOpen, setInfoOpen }: Props) => {
       <Nav>
         <NavItem href="/">Objects</NavItem>
         <NavItem href="/constituents">Constituents</NavItem>
+        <NavItem href="/exhibitions">Exhibitions</NavItem>
       </Nav>
       <Nav pullRight>
         <NavItem onClick={ () => setInfoOpen(true) } icon={ <FaCircleInfo /> }></NavItem>

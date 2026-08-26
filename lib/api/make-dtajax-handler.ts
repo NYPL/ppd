@@ -1,0 +1,86 @@
+import { DB } from '@/lib/api/attach-db';
+import { dbConstants } from '@/lib/db-constants';
+import { Dtajax2sql, DTAJAXParams } from 'dtajax2sql';
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+
+/**
+ * makes a handler that answers DataTables server-side-processing
+ * requests for the given table (see GenericDataTable). Any
+ * `globalSearchMode` other than "classic" is interpreted as the name
+ * of an FTS5 table whose rowid is the table's primary key
+ **/
+
+export const makeDtajaxHandler = (tableName: TableName) => {
+
+  const dtajax2sql = new Dtajax2sql(tableName, 'sqlite', {
+  });
+
+  const { primaryKey, numRows } = dbConstants[tableName];
+
+  const performAJAX = (params: DTAJAXParams) => {
+    let answer = { query: "", countQuery: "" };
+
+    if ("globalSearchMode" in params && params.globalSearchMode && params.globalSearchMode!=="classic")
+      answer = dtajax2sql.toSQLThroughFtTable(params.globalSearchMode, primaryKey, params);
+    else
+      answer = dtajax2sql.toSQL(params);
+
+    answer.query      = answer.query.normalize("NFD");
+    answer.countQuery = answer.countQuery.normalize("NFD");
+    const { query, countQuery } = answer;
+
+    //  TODO  added logging based on ENVVARS
+    console.log("-------------------");
+    console.log(params);
+    console.log({ query, countQuery });
+    console.log("-------------------");
+    //  TODO  this strikes me as inefficient
+    //  HACK  this strikes me as inefficient
+    const r = DB.prepare(query).all();
+    const c = DB.prepare(countQuery).get() as {filteredCount: number};
+    if (r === undefined)
+      throw new Error (`API error. please contact ${process.env["EMAIL"] ?? "the police"}`);
+    const ret = {
+      "draw": params.draw,
+      "recordsTotal": numRows,
+      "recordsFiltered": c.filteredCount,
+      "data": r
+    };
+    return ret;
+  };
+
+  return async (req: NextApiRequest, res: NextApiResponse) => {
+
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', ['POST']);
+      return res.status(405).json({ error: 'Method Not Allowed' });
+    }
+
+    const impossibleErrorMessage = "couldn't read POST body string";
+
+    const makeFtErrorMessage = (msg: string) => {
+      return (`\n\nThere's a syntax error in your enhanced search!\n` +
+              `You can fix the error or switch back to "Classic" search\n\n` +
+              `${msg}`);
+    }
+
+    const makeNoRoleErrorMessage = (_: string) => {
+      return (`\n\nIt looks like you're trying to search for a column that's ` +
+              `not included in the enhanced search modes.\n\n` +
+              `In this case, it's best to use the custom search builder`);
+    }
+
+    return Promise.resolve(req.body ?? impossibleErrorMessage).
+      then(performAJAX).
+      then(result => res.status(200).json(result)).
+      catch(e => {
+        if (e.message.match('fts5. syntax error near'))
+          return res.status(500).json({ error: makeFtErrorMessage(e.message) });
+        if (e.message.match('no such column'))
+          return res.status(500).json({ error: makeNoRoleErrorMessage(e.message) });
+        return res.status(500).json({ error: e.message });
+      });
+  };
+};
+
