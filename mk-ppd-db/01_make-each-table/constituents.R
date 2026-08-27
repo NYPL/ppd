@@ -12,7 +12,8 @@ OUTPUT_NAME <- "constituents"
 constituents <- read.table.dump("constituents")
 constituents <- constituents[, .(Constituent_ID, First_Name, Last_Name,
                                  Institution, Display_Name, Begin_Date,
-                                 End_Date, Display_Date, Nationality)]
+                                 End_Date, Display_Date, Nationality,
+                                 Name_Title, Suffix)]
 
 
 # --------------------------------------------------------------- #
@@ -39,7 +40,7 @@ constituents <- constituents %>% merge(alts, all.x=TRUE, by="Constituent_ID")
 
 constituents[, .(Constituent_ID, Display_Name, Display_Date, Nationality,
                  First_Name, Last_Name, Institution, Begin_Date, End_Date,
-                 Alt_Names)] -> constituents
+                 Alt_Names, Name_Title, Suffix )] -> constituents
 
 
 

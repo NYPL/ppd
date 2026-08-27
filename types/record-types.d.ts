@@ -65,6 +65,16 @@ declare interface ConstituentRecord {
    * this is a description
    */
   Alt_Names: string | null;
+
+  /**
+   * this is a description
+   */
+  Name_Title?: string | null;
+
+  /**
+   * this is a description
+   */
+  Suffix?: string | null;
 }
 
 /**

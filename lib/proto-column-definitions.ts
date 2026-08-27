@@ -41,6 +41,14 @@ export const protoColumnDefs = {
     {
       "data": "Alt_Names",
       "title": "Alt Names"
+    },
+    {
+      "data": "Name_Title",
+      "title": "Name Title"
+    },
+    {
+      "data": "Suffix",
+      "title": "Suffix"
     }
   ],
   "constituentsxobjects": [

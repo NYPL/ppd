@@ -1,6 +1,7 @@
 
 import { ObjectCard } from "@/app/components/ObjectCard/ObjectCard";
 import styles from './ConstituentView.module.scss';
+import { KeyValueTable } from "@/app/components/KeyValueTable/KeyValueTable";
 
 
 interface Props {
@@ -29,10 +30,15 @@ export const ConstituentView = ({ conPayload, conxobjPayload }: Props) => {
       includeRoleP={ true } /> }) :
     <></>;
 
+  if (conPayload["Alt_Names"]) {
+    conPayload["Alt_Names"] = conPayload["Alt_Names"].replaceAll(";", "; ");
+  }
+
   return (
     <div className={ styles['constituent-view'] }>
       <div className={ styles['left'] }>
         <ConstituentCard conPayload={ conPayload } />
+        <KeyValueTable payload={ conPayload } />
       </div>
       <div className={ styles['right'] }>
         <div className={ styles['obj-cards'] }>

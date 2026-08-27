@@ -71,6 +71,14 @@
         "Alt_Names": {
           "description": "this is a description",
           "type": ["string", "null"]
+        },
+        "Name_Title": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        },
+        "Suffix": {
+          "description": "this is a description",
+          "type": ["string", "null"]
         }
       }
     }

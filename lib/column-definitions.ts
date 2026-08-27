@@ -107,10 +107,15 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Display_Name'
   return `<a href="/constituent/${row['Constituent_ID']}" target="_blank">${data}</a>`;
 });
 
+const conNonSearchableFields = [
+  "Constituent_ID", "Begin_Date", "End_Date"
+];
+conNonSearchableFields.forEach(field => {
+  columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', field, 'searchable', 'false');
+});
+
 /* other fields that have to be tamed */
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Institution', 'render', fieldClip);
-
-columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Constituent_ID', 'searchable', 'false');
 
 // shorten some column names
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'constituents', 'Constituent_ID', 'title', 'CID');
@@ -143,10 +148,15 @@ exhibitionsFieldsToClip.forEach(field => {
   columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', field, 'render', fieldClip);
 });
 
+const exhNonSearchableFields = [
+  "Exhibition_ID", "Begin_Year", "End_Year"
+];
+exhNonSearchableFields.forEach(field => {
+  columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', field, 'searchable', 'false');
+});
+
 /* columns we don't want at all */
 columnDefs = removeColumn(columnDefs, 'exhibitions', 'Is_Virtual');
-
-columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', 'Exhibition_ID', 'searchable', 'false');
 
 // shorten some column names
 columnDefs = addNewKeyValToColumnDefs(columnDefs, 'exhibitions', 'Exhibition_ID', 'title', 'EID');
