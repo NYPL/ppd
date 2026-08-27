@@ -24,6 +24,16 @@ declare interface ConstituentRecord {
   /**
    * this is a description
    */
+  Display_Name: string;
+
+  /**
+   * this is a description
+   */
+  Display_Date: string | null;
+
+  /**
+   * this is a description
+   */
   First_Name: string | null;
 
   /**
@@ -39,11 +49,6 @@ declare interface ConstituentRecord {
   /**
    * this is a description
    */
-  Display_Name: string;
-
-  /**
-   * this is a description
-   */
   Begin_Date: number;
 
   /**
@@ -54,12 +59,12 @@ declare interface ConstituentRecord {
   /**
    * this is a description
    */
-  Display_Date: string | null;
+  Nationality: string | null;
 
   /**
    * this is a description
    */
-  Nationality: string | null;
+  Alt_Names: string | null;
 }
 
 /**

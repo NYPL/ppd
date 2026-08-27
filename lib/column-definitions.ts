@@ -1,6 +1,7 @@
 import { protoColumnDefs } from './proto-column-definitions';
 import { FIELD_CHARACTER_LIMIT, TITLE_CHARACTER_LIMIT } from './config';
-import { addNewKeyValToColumnDefs, clipOnlyForDisplay, clipStringAtLengthN, moveColumnBefore, removeColumn, redactOnlyForExport } from './utils';
+import { addNewKeyValToColumnDefs, clipOnlyForDisplay, clipStringAtLengthN,
+  removeColumn, redactOnlyForExport } from './utils';
 
 /**
  * this module imports the auto-generated `protoColumnDefs`, mutates
@@ -95,9 +96,7 @@ columnDefs = addNewKeyValToColumnDefs(columnDefs, 'main', 'Department', 'title',
  ** table: CONSTITUENTS                                    **
  ************************************************************/
 
-/* Display_Name is the most useful column, so it goes first
-   (well, right after Constituent_ID) */
-columnDefs = moveColumnBefore(columnDefs, 'constituents', 'Display_Name', 'First_Name');
+// columnDefs = moveColumnBefore(columnDefs, 'constituents', 'Display_Name', 'First_Name');
 
 /* Display_Name is a hyperlink to the constituent page
    (but only for display; exports get the plain name) */

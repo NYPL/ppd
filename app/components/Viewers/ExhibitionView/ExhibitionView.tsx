@@ -1,6 +1,7 @@
 
 import { ObjectCard } from "@/app/components/ObjectCard/ObjectCard";
 import styles from './ExhibitionView.module.scss';
+import { KeyValueTable } from "@/app/components/KeyValueTable/KeyValueTable";
 
 
 interface Props {
@@ -31,6 +32,7 @@ export const ExhibitionView = ({ exhPayload, exhxobjPayload }: Props) => {
     <div className={ styles['exhibition-view'] }>
       <div className={ styles['left'] }>
         <ExhibitionCard exhPayload={ exhPayload } />
+        <KeyValueTable payload={ exhPayload } />
       </div>
       <div className={ styles['right'] }>
         <div className={ styles['obj-cards'] }>
