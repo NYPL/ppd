@@ -34,12 +34,22 @@ declare interface ConstituentRecord {
   /**
    * this is a description
    */
+  Name_Title?: string | null;
+
+  /**
+   * this is a description
+   */
   First_Name: string | null;
 
   /**
    * this is a description
    */
   Last_Name: string | null;
+
+  /**
+   * this is a description
+   */
+  Suffix?: string | null;
 
   /**
    * this is a description
@@ -65,16 +75,6 @@ declare interface ConstituentRecord {
    * this is a description
    */
   Alt_Names: string | null;
-
-  /**
-   * this is a description
-   */
-  Name_Title?: string | null;
-
-  /**
-   * this is a description
-   */
-  Suffix?: string | null;
 }
 
 /**

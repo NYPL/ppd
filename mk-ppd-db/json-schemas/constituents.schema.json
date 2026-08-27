@@ -42,11 +42,19 @@
           "description": "this is a description",
           "type": ["string", "null"]
         },
+        "Name_Title": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        },
         "First_Name": {
           "description": "this is a description",
           "type": ["string", "null"]
         },
         "Last_Name": {
+          "description": "this is a description",
+          "type": ["string", "null"]
+        },
+        "Suffix": {
           "description": "this is a description",
           "type": ["string", "null"]
         },
@@ -69,14 +77,6 @@
           "type": ["string", "null"]
         },
         "Alt_Names": {
-          "description": "this is a description",
-          "type": ["string", "null"]
-        },
-        "Name_Title": {
-          "description": "this is a description",
-          "type": ["string", "null"]
-        },
-        "Suffix": {
           "description": "this is a description",
           "type": ["string", "null"]
         }

@@ -15,12 +15,20 @@ export const protoColumnDefs = {
       "title": "Display Date"
     },
     {
+      "data": "Name_Title",
+      "title": "Name Title"
+    },
+    {
       "data": "First_Name",
       "title": "First Name"
     },
     {
       "data": "Last_Name",
       "title": "Last Name"
+    },
+    {
+      "data": "Suffix",
+      "title": "Suffix"
     },
     {
       "data": "Institution",
@@ -41,14 +49,6 @@ export const protoColumnDefs = {
     {
       "data": "Alt_Names",
       "title": "Alt Names"
-    },
-    {
-      "data": "Name_Title",
-      "title": "Name Title"
-    },
-    {
-      "data": "Suffix",
-      "title": "Suffix"
     }
   ],
   "constituentsxobjects": [

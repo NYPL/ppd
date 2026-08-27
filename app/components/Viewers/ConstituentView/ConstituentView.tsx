@@ -30,10 +30,6 @@ export const ConstituentView = ({ conPayload, conxobjPayload }: Props) => {
       includeRoleP={ true } /> }) :
     <></>;
 
-  if (conPayload["Alt_Names"]) {
-    conPayload["Alt_Names"] = conPayload["Alt_Names"].replaceAll(";", "; ");
-  }
-
   return (
     <div className={ styles['constituent-view'] }>
       <div className={ styles['left'] }>
