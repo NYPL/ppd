@@ -32,13 +32,15 @@ export const ConstituentView = ({ conPayload, conxobjPayload }: Props) => {
 
   return (
     <div className={ styles['constituent-view'] }>
-      <div className={ styles['left'] }>
-        <ConstituentCard conPayload={ conPayload } />
-        <KeyValueTable payload={ conPayload } />
-      </div>
-      <div className={ styles['right'] }>
-        <div className={ styles['obj-cards'] }>
-          { objCards }
+      <div className={ styles['content'] }>
+        <div className={ styles['left'] }>
+          <ConstituentCard conPayload={ conPayload } />
+          <KeyValueTable payload={ conPayload } />
+        </div>
+        <div className={ styles['right'] }>
+          <div className={ styles['obj-cards'] }>
+            { objCards }
+          </div>
         </div>
       </div>
     </div>

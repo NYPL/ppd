@@ -30,13 +30,15 @@ export const ExhibitionView = ({ exhPayload, exhxobjPayload }: Props) => {
 
   return (
     <div className={ styles['exhibition-view'] }>
-      <div className={ styles['left'] }>
-        <ExhibitionCard exhPayload={ exhPayload } />
-        <KeyValueTable payload={ exhPayload } />
-      </div>
-      <div className={ styles['right'] }>
-        <div className={ styles['obj-cards'] }>
-          { objCards }
+      <div className={ styles['content'] }>
+        <div className={ styles['left'] }>
+          <ExhibitionCard exhPayload={ exhPayload } />
+          <KeyValueTable payload={ exhPayload } />
+        </div>
+        <div className={ styles['right'] }>
+          <div className={ styles['obj-cards'] }>
+            { objCards }
+          </div>
         </div>
       </div>
     </div>
