@@ -70,14 +70,8 @@
 .right {
   display: flex;
   flex-direction: column;
-  gap: 50px;
   flex-grow: 1;
-  & a {
-    display: none;
-  }
-  & a[href] {
-    display: block;
-  }
+  gap: 50px;
 
   @media (max-width: globals.$mobile) {
     align-items: center;

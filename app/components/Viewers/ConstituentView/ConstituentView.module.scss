@@ -62,6 +62,12 @@
 .right {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  gap: 50px;
+
+  @media (max-width: globals.$mobile) {
+    align-items: center;
+  }
 }
 
 .obj-cards {
