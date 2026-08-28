@@ -34,7 +34,7 @@ comb[Name_Type=="Alternate Name", .(Display_Name, Alt_Name)]
 comb[Name_Type=="Formerly", .(Display_Name, Alt_Name)]
 comb[Name_Type=="Alternative Name", .(Display_Name, Alt_Name)]
 
-alts <- comb[, .(Alt_Names=paste0(Alt_Name, collapse="; ")), .(Constituent_ID)]
+alts <- comb[, .(Alt_Names=paste0(unique(Alt_Name), collapse="; ")), .(Constituent_ID)]
 
 constituents <- constituents %>% merge(alts, all.x=TRUE, by="Constituent_ID")
 
