@@ -34,7 +34,7 @@ declare interface ConstituentRecord {
   /**
    * this is a description
    */
-  Name_Title?: string | null;
+  Name_Title: string | null;
 
   /**
    * this is a description
@@ -49,7 +49,7 @@ declare interface ConstituentRecord {
   /**
    * this is a description
    */
-  Suffix?: string | null;
+  Suffix: string | null;
 
   /**
    * this is a description

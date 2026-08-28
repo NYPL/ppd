@@ -17,9 +17,9 @@
       "description": "ConstituentRecord\n\nthis is a description",
       "type": "object",
       "required": [
-        "Constituent_ID", "Display_Name", "Display_Date", "First_Name",
-        "Last_Name", "Institution", "Begin_Date", "End_Date",
-        "Nationality", "Alt_Names"
+        "Constituent_ID", "Display_Name", "Display_Date", "Name_Title",
+        "First_Name", "Last_Name", "Suffix", "Institution",
+        "Begin_Date", "End_Date", "Nationality", "Alt_Names"
       ],
       "additionalProperties": false,
       "examples": [
